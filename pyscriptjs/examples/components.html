@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>PyScript Components</title>
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="../build/pyscript.css" />
+    
+    <script defer src="../build/pyscript.js"></script>
+    <py-env>
+- rsa
+    </py-env>
+  </head>
+
+  <body>
+    <div class="m-4">
+        <p>At the time of writing, there are tags that can be used in an HTML document like any other html tag.</p>
+        <h2 class="pt-8 text-2xl">Scripting Tags</h2>
+        <h3 class="pt-8 text-xl">&lt;py-script&gt;</h3>
+        <div class="m-4">
+            <p class="italic">The core tag for running python within the browser. Any valid python code here will be run. See any of the <a href="/" class="text-blue-500 underline">examples</a>.</p>
+            <p class="mt-2 font-bold">Code:</p>
+            <pre class="w-auto bg-gray-100">
+&lt;py-script&gt;
+num = 4 + 4
+sentence = f"I see {num} components on this page"
+print(sentence)
+&lt;/py-script&gt;</pre>
+            <p class="mt-2 font-bold">Result:</p>
+            <div id="py-script-result" class="w-auto bg-green-50">
+            <span class="text-sm italic">Results from the above code will appear here when the code finishes running.</span>           
+            <py-script>
+num = 4 + 4
+sentence = f"I see {num} components on this page"
+PyScript.write("py-script-result", sentence, append=False)
+            </py-script>
+        </div>
+        </div>
+        <h3 class="pt-8 text-xl">&lt;py-repl&gt;</h3>
+        <div class="m-4">
+            <p class="italic">Adds a python REPL to the page, where users can enter and run code. See the <a href="/repl.html" class="text-blue-500 underline">REPL</a> and <a href="/repl2.html" class="text-blue-500 underline">REPL2</a> examples.</p>
+            <p class="mt-2 font-bold">Code:</p>
+            <pre class="w-auto bg-gray-100">
+&lt;py-repl auto-generate="true"&gt;
+first = "You can pre-enter code in a py-repl tag and it will be pre-populated."
+second = "This can include multiple lines of code."
+print(f"{first} {second}")
+&lt;/py-repl&gt;
+</pre>
+            <p class="mt-2 font-bold">Result:</p>
+            <div id="py-script-result" class="w-auto bg-green-50">
+            <span class="text-sm italic"></span>           
+            <py-repl auto-generate="true">
+first = "You can pre-enter code in a py-repl tag and it will be pre-populated."
+second = "This can include multiple lines of code."
+print(f"{first} {second}")
+            </py-repl>
+        </div>
+        </div>
+        <h3 class="pt-8 text-xl">&lt;py-env&gt;</h3>
+        <div class="m-4">
+            <p class="italic">Used to specify additional packages that should be available in the virtual environment for other PyScript tags to import. Note that packages from the Python standard library, the PyScript package itself, and Pyodide are already in the environment by default and do not need to be included via Py-Env and  See any of the <a href="/" class="text-blue-500 underline">Visualizations and Dashboards examples</a>.</p>
+            <p class="mt-2 font-bold">Code:</p>
+            <pre class="w-auto bg-gray-100">
+&lt;py-env&gt;
+- rsa
+&lt;/py-env&gt;
+...
+&lt;py-script&gt;
+
+
+&lt;/py-script&gt;</pre>
+            <p class="mt-2 font-bold">Result:</p>
+            <div id="py-env-result" class="w-auto bg-green-50">
+            <span class="text-sm italic">Results from the above code will appear here when the code finishes running.</span>           
+            <py-script>
+import rsa
+(pubkey, privkey) = rsa.newkeys(512)
+#PyScript.write("py-env-result", pubkey)
+PyScript.write("py-env-result", f"Your new keypair has been created: Public:{str(pubkey)['n'][:10]}...,{str(pubkey)[e]}     Private:{str(privkey)[n][:10]}..., {str(privkey)[e]} ")
+            </py-script>
+        </div>
+        </div>
+
+        <h3 class="pt-8 text-xl">&lt;py-register-widget&gt;</h3>
+        <h2 class="pt-8 text-2xl">Interactive Tags</h2>
+        <h3 class="pt-8 text-xl">&lt;py-box&gt;</h3>
+        <h3 class="pt-8 text-xl">&lt;py-button&gt;</h3>
+        <h3 class="pt-8 text-xl">&lt;py-title&gt;</h3>
+        <h3 class="pt-8 text-xl">&lt;py-inputbox&gt;</h3>
+        
+        <br>This is a repl:
+        <py-repl id="my-repl" auto-generate="true" std-out="output" std-err="err-div"> </py-repl>
+        <br>This is a PyBox:<br>
+        <py-box></py-box>
+    </div>
+  </body>
+</html>
