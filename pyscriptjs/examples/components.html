@@ -70,8 +70,9 @@ print(f"{first} {second}")
 &lt;/py-env&gt;
 ...
 &lt;py-script&gt;
-
-
+import rsa
+(pubkey, privkey) = rsa.newkeys(512)
+PyScript.write("py-env-result", f"{pubkey} {privkey}")
 &lt;/py-script&gt;</pre>
             <p class="mt-2 font-bold">Result:</p>
             <div id="py-env-result" class="w-auto bg-green-50">
@@ -79,8 +80,7 @@ print(f"{first} {second}")
             <py-script>
 import rsa
 (pubkey, privkey) = rsa.newkeys(512)
-#PyScript.write("py-env-result", pubkey)
-PyScript.write("py-env-result", f"Your new keypair has been created: Public:{str(pubkey)['n'][:10]}...,{str(pubkey)[e]}     Private:{str(privkey)[n][:10]}..., {str(privkey)[e]} ")
+PyScript.write("py-env-result", f"{pubkey} {privkey}")
             </py-script>
         </div>
         </div>
