@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>CSS Demo</title>
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+    
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css">
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    ->
+  </head>
+
+  <body class="container">
+  <py-script>
+from js import console
+target_1 = document.getElementById("target-1")
+target_2 = document.getElementById("target-2")
+
+target_2_classes = ["w-full", "text-4xl", "align-middle"]
+
+#Changing CSS with javascript + pyscript
+def blue_btn_click(*args, **kwargs):
+  console.log("blue-btn clicked")
+  target_1.style.color = "white"
+  target_1.style.backgroundColor = "#000088"
+
+def red_btn_click(*args, **kwargs):
+  console.log("red-btn clicked")
+  for c in target_2_classes:
+    target_2.classList.add(c)
+
+def clear_btn_click(*args, **kwargs):
+  console.log("clear-btn clicked")
+  target_1.style.removeProperty("color")
+  target_1.style.removeProperty("background-color")
+  for c in target_2_classes:
+    target_2.classList.remove(c)
+    
+  </py-script>
+    
+    <div class="w-full mb-8 text-center">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-800 uppercase">CSS Demo</h1>
+    </div>
+    <div id="target-1" class="w-1/2 m-auto text-center border-2">This is the text of target_1, a div</div>
+    <div id="target-2" class="w-1/2 m-auto text-center border-2">This is the text of target_2, a div</div>
+    <div class="flex justify-center pt-4">
+      <button id="blue-btn" class="p-2 mx-2 border-4 rounded" type="submit" pys-onClick="blue_btn_click">
+        Target 1 -> Blue
+      </button>
+      <button id="red-btn" class="p-2 mx-2 border-4 rounded" type="submit" pys-onClick="red_btn_click">
+        Target 2 -> Big
+      </button>
+      <button id="clear-btn" class="p-2 mx-2 border-4 rounded" type="submit" pys-onClick="clear_btn_click">
+        Clear Formatting
+      </button>
+    </div>
+
+</body>
+</html>
