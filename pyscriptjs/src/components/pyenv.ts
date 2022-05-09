@@ -2,6 +2,7 @@ import * as jsyaml from 'js-yaml';
 
 import { pyodideLoaded, addInitializer } from '../stores';
 import { loadPackage, loadFromFile } from '../interpreter';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 // Premise used to connect to the first available pyodide interpreter
 let pyodideReadyPromise;
@@ -54,9 +55,22 @@ export class PyEnv extends HTMLElement {
         }
 
         async function loadPaths() {
+            var self = this;
             for (const singleFile of paths) {
                 console.log(`loading ${singleFile}`);
-                await loadFromFile(singleFile, runtime);
+                try {
+                    await loadFromFile(singleFile, runtime);
+                }
+                catch (e) {
+                    console.warn("Caught an error in loadPaths\r\n" + e);
+
+                    let warning = document.createElement("p")
+                    warning.style.backgroundColor = "LightCoral";
+                    warning.style.alignContent = "center";
+                    warning.style.margin = "4px";
+                    warning.innerHTML = '<p>PyScript: Access to local files (using "Paths:" in &lt;py-env&gt;) is not available when directly opening a HTML file; you must use a webserver to serve the additional files. See <a style="text-decoration: underline;" href="https://github.com/pyscript/pyscript/issues/257#issuecomment-1119595062">this reference</a> on starting a simple webserver with Python.</p>';
+                    document.body.prepend(warning);
+                }
             }
             console.log('paths loaded');
         }

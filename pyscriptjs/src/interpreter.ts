@@ -69,9 +69,7 @@ const loadFromFile = async function (s: string, runtime: any): Promise<any> {
                 console.error("PyScript: an error occured when loading files:\r\n" + e)
             }
         }
-        else{
-            throw e;
-        }
+        throw e;
     }
 };
 
