@@ -185,10 +185,17 @@ export class PyConfig extends BaseEvalElement {
         for (const runtime of this.values.runtimes) {
             const script = document.createElement('script'); // create a script DOM node
             const runtimeSpec = new PyodideRuntime(runtime.src);
+<<<<<<< HEAD
             script.src = runtime.src; // set its src to the provided URL
             script.onload = () => {
                 runtimeSpec.initialize();
             };
+=======
+            script.src = runtime.src;  // set its src to the provided URL
+            script.addEventListener('load', () => {
+                void runtimeSpec.initialize();
+            });
+>>>>>>> 3b68e1b27d8f51109917c15995e1c169bab3bd1f
             document.head.appendChild(script);
         }
     }
