@@ -72,6 +72,12 @@ export class PyScript extends BaseEvalElement {
             } else {
                 this.errorElement = this.outputElement;
             }
+
+            if (this.hasAttribute('pys-namespace')) {
+                this.namespace = this.getAttribute('pys-namespace');
+            } else {
+                this.namespace = 'DEFAULT_NAMESPACE';
+            }
         }
 
         if (currentMode == 'edit') {
@@ -257,7 +263,6 @@ async function createElementsWithEventListeners(pyodide: PyodideInterface, pyAtt
         //   // pyodide.runPython(handlerCode);
         // }
     }
-
 }
 
 /** Mount all elements with attribute py-mount into the Python namespace */
@@ -273,5 +278,22 @@ async function mountElements() {
     }
     await pyodide.runPythonAsync(source);
 }
+
+async function initNamespaces() {
+    console.log('Copying global namespace to separate namespaces if necessary');
+    const pyodide = await pyodideReadyPromise;
+    const matches: NodeListOf<HTMLElement> = document.querySelectorAll('[pys-namespace]');
+
+    for (const el of matches) {
+        const namespace_title = el.getAttribute('pys-namespace');
+
+        const my_new_namespace = pyodide.globals.get('dict')(pyodide.globals);
+        my_new_namespace.pop('pyscript_namespaces'); //remove any previously created namespaces from this copy
+        pyodide.globals.get('pyscript_namespaces').set(namespace_title, my_new_namespace);
+        console.log('Created new namespace ' + namespace_title);
+    }
+}
+
 addInitializer(mountElements);
+addInitializer(initNamespaces);
 addPostInitializer(initHandlers);

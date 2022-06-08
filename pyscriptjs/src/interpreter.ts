@@ -25,12 +25,15 @@ const loadInterpreter = async function (indexUrl: string): Promise<PyodideInterf
     console.log('loading pyscript...');
     await pyodide.runPythonAsync(pyscript);
 
+    //create dict for non-default namespaces
+    pyodide.globals.set('pyscript_namespaces', pyodide.globals.get('dict')());
+
     console.log('done setting up environment');
     return pyodide;
 };
 
-const loadPackage = async function (package_name: string[] | string, runtime: PyodideInterface): Promise<void> {
-    if (package_name.length > 0){
+const loadPackage = async function (package_name: string[] | string, runtime: any): Promise<any> {
+    if (package_name.length > 0) {
         const micropip = pyodide.globals.get('micropip');
         await micropip.install(package_name);
         micropip.destroy();

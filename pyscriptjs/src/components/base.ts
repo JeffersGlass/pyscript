@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import { loadedEnvironments, mode, pyodideLoaded, type Environment } from '../stores';
 import { guidGenerator, addClasses, removeClasses } from '../utils';
 import type { PyodideInterface } from '../pyodide';
+=======
+import { loadedEnvironments, mode, pyodideLoaded } from '../stores';
+import { guidGenerator, addClasses, removeClasses, getNamespace } from '../utils';
+>>>>>>> 17fedfb... Custom namespaces for executable tags
 // Premise used to connect to the first available pyodide interpreter
 let runtime;
 let environments: Record<Environment['id'], Environment> = {};
@@ -23,6 +28,7 @@ export class BaseEvalElement extends HTMLElement {
     wrapper: HTMLElement;
     code: string;
     source: string;
+    namespace: string;
     btnConfig: HTMLElement;
     btnRun: HTMLElement;
     outputElement: HTMLElement;
@@ -37,7 +43,7 @@ export class BaseEvalElement extends HTMLElement {
         this.shadow = this.attachShadow({ mode: 'open' });
         this.wrapper = document.createElement('slot');
         this.shadow.appendChild(this.wrapper);
-        this.setOutputMode("append");
+        this.setOutputMode('append');
     }
 
     addToOutput(s: string) {
@@ -45,14 +51,14 @@ export class BaseEvalElement extends HTMLElement {
         this.outputElement.hidden = false;
     }
 
-    setOutputMode(defaultMode = "append") {
+    setOutputMode(defaultMode = 'append') {
         const mode = this.hasAttribute('output-mode') ? this.getAttribute('output-mode') : defaultMode;
 
         switch (mode) {
-            case "append":
+            case 'append':
                 this.appendOutput = true;
                 break;
-            case "replace":
+            case 'replace':
                 this.appendOutput = false;
                 break;
             default:
@@ -122,23 +128,50 @@ export class BaseEvalElement extends HTMLElement {
 
         const pyodide = runtime;
         let source: string;
+        let namespace;
         let output;
         try {
+<<<<<<< HEAD
             source = this.source ? await this.getSourceFromFile(this.source)
                                  : this.getSourceFromElement();
             const is_async = source.includes('asyncio')
 
             await this._register_esm(pyodide);
             if (is_async) {
+=======
+            source = this.source ? await this.getSourceFromFile(this.source) : this.getSourceFromElement();
+
+            await this._register_esm(pyodide);
+
+            namespace = getNamespace(this.namespace, runtime);
+
+            if (source.includes('asyncio')) {
+>>>>>>> 17fedfb... Custom namespaces for executable tags
                 await pyodide.runPythonAsync(
-                    `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
+                    `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
+                        this.appendOutput ? 'True' : 'False'
+                    })`,
+                    { globals: namespace },
                 );
+<<<<<<< HEAD
                 output = await pyodide.runPythonAsync(source);
+=======
+                output = await pyodide.runPythonAsync(source, { globals: namespace });
+                await pyodide.runPythonAsync(`output_manager.revert()`, { globals: namespace });
+>>>>>>> 17fedfb... Custom namespaces for executable tags
             } else {
                 output = pyodide.runPython(
-                    `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
+                    `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
+                        this.appendOutput ? 'True' : 'False'
+                    })`,
+                    { globals: namespace },
                 );
+<<<<<<< HEAD
                 output = pyodide.runPython(source);
+=======
+                output = pyodide.runPython(source, { globals: namespace });
+                pyodide.runPython(`output_manager.revert()`, { globals: namespace });
+>>>>>>> 17fedfb... Custom namespaces for executable tags
             }
 
             if (output !== undefined) {
@@ -170,6 +203,7 @@ export class BaseEvalElement extends HTMLElement {
 
             this.postEvaluate();
         } catch (err) {
+            console.warn(err);
             if (Element === undefined) {
                 Element = pyodide.globals.get('Element');
             }
@@ -187,9 +221,10 @@ export class BaseEvalElement extends HTMLElement {
 
     async eval(source: string): Promise<void> {
         const pyodide = runtime;
+        const eval_namespace = getNamespace(this.namespace, runtime);
 
         try {
-            const output = await pyodide.runPythonAsync(source);
+            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
             if (output !== undefined) {
                 console.log(output);
             }
@@ -198,7 +233,7 @@ export class BaseEvalElement extends HTMLElement {
         }
     } // end eval
 
-    runAfterRuntimeInitialized(callback: () => Promise<void>){
+    runAfterRuntimeInitialized(callback: () => Promise<void>) {
         pyodideLoaded.subscribe(value => {
             if ('runPythonAsync' in value) {
                 setTimeout(async () => {
@@ -217,6 +252,7 @@ function createWidget(name: string, code: string, klass: string) {
         name: string = name;
         klass: string = klass;
         code: string = code;
+        namespace: string;
         proxy: any;
         proxyClass: any;
 
@@ -228,6 +264,12 @@ function createWidget(name: string, code: string, klass: string) {
 
             this.wrapper = document.createElement('slot');
             this.shadow.appendChild(this.wrapper);
+
+            if (this.hasAttribute('pys-namespace')) {
+                this.namespace = this.getAttribute('pys-namespace');
+            } else {
+                this.namespace = 'DEFAULT_NAMESPACE';
+            }
         }
 
         connectedCallback() {
@@ -265,8 +307,14 @@ function createWidget(name: string, code: string, klass: string) {
 
         async eval(source: string): Promise<void> {
             const pyodide = runtime;
+            const eval_namespace = getNamespace(this.namespace, runtime);
+
             try {
+<<<<<<< HEAD
                 const output = await pyodide.runPythonAsync(source);
+=======
+                output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+>>>>>>> 17fedfb... Custom namespaces for executable tags
                 this.proxyClass = pyodide.globals.get(this.klass);
                 if (output !== undefined) {
                     console.log(output);
@@ -282,6 +330,7 @@ export class PyWidget extends HTMLElement {
     shadow: ShadowRoot;
     name: string;
     klass: string;
+    namespace: string;
     outputElement: HTMLElement;
     errorElement: HTMLElement;
     wrapper: HTMLElement;
@@ -308,6 +357,12 @@ export class PyWidget extends HTMLElement {
 
         if (this.hasAttribute('klass')) {
             this.klass = this.getAttribute('klass');
+        }
+
+        if (this.hasAttribute('pys-namespace')) {
+            this.namespace = this.getAttribute('pys-namespace');
+        } else {
+            this.namespace = 'DEFAULT_NAMESPACE';
         }
     }
 
@@ -361,8 +416,14 @@ export class PyWidget extends HTMLElement {
 
     async eval(source: string): Promise<void> {
         const pyodide = runtime;
+        const eval_namespace = getNamespace(this.namespace, runtime);
+
         try {
+<<<<<<< HEAD
             const output = await pyodide.runPythonAsync(source);
+=======
+            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+>>>>>>> 17fedfb... Custom namespaces for executable tags
             if (output !== undefined) {
                 console.log(output);
             }
