@@ -265,8 +265,8 @@ function createWidget(name: string, code: string, klass: string) {
             this.wrapper = document.createElement('slot');
             this.shadow.appendChild(this.wrapper);
 
-            if (this.hasAttribute('pys-namespace')) {
-                this.namespace = this.getAttribute('pys-namespace');
+            if (this.hasAttribute('namespace')) {
+                this.namespace = this.getAttribute('namespace');
             } else {
                 this.namespace = 'DEFAULT_NAMESPACE';
             }
@@ -359,8 +359,8 @@ export class PyWidget extends HTMLElement {
             this.klass = this.getAttribute('klass');
         }
 
-        if (this.hasAttribute('pys-namespace')) {
-            this.namespace = this.getAttribute('pys-namespace');
+        if (this.hasAttribute('namespace')) {
+            this.namespace = this.getAttribute('namespace');
         } else {
             this.namespace = 'DEFAULT_NAMESPACE';
         }
