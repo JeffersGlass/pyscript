@@ -136,19 +136,24 @@ export class BaseEvalElement extends HTMLElement {
             module_name = '__main__'
         }
 
-        let mod = pyodide.globals.get('sys')['modules'][module_name];
+        pyodide.runPython(`
+        import sys
+        import types
 
-        console.log("Module name found: " + module_name);
-        console.log("Module found: " + mod);
+        class PyScriptModule(types.ModuleType):
+            pass
 
-        /* mod = sys.modules.get(modname);
-        if mod:
-            if not isinstance(mod, PyScriptModule):
-                raise Exception(f'Cannot mix <py-script> with regular modules; {modname} already exists')
-        else:
-            mod = PyScriptModule(modname)
-            sys.modules[modname] = mod
-        exec(src, mod.__dict__) */
+        def eval_pyscript_block(src, modname):
+            mod = sys.modules.get(modname);
+            if mod:
+                if not isinstance(mod, PyScriptModule):
+                    raise Exception(f'Cannot mix module of type{type(mod)} with regular modules; {modname} already exists')
+            else:
+                mod = PyScriptModule(modname)
+                sys.modules[modname] = mod
+            return exec(src, mod.__dict__)
+        `
+        )
 
         try {
             source = this.source ? await this.getSourceFromFile(this.source)
@@ -161,12 +166,14 @@ export class BaseEvalElement extends HTMLElement {
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
                 );
                 output = await pyodide.runPythonAsync(source);
+                //output = await pyodide.runPythonAsync(`eval_pyscript_block(` + source + `, ` + module_name + `)`);
                 await pyodide.runPythonAsync(`output_manager.revert()`);
             } else {
                 output = pyodide.runPython(
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
                 );
                 output = pyodide.runPython(source);
+                //output = pyodide.runPython(`eval_pyscript_block(` + source + `, ` + module_name + `)`);
                 pyodide.runPython(`output_manager.revert()`);
             }
 

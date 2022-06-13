@@ -10,25 +10,17 @@
     <link rel="stylesheet" href="../../../pyscriptjs/examples/build/pyscript.css" />
 
     <script defer src="../../../pyscriptjs/examples/build/pyscript.js"></script>
-    <py-env>
-      - paths:
-        - module_a_external.py
-    </py-env>
   </head>
 
   <body>
-    Hello world! <br>
-    <!-- Try commenting out the following block and uncommenting the 'import' statement below;
-    the print statements have reversed order, b -->
+    This exampe demonstrates challenges in updated extant modules<br>
     <py-script module="module_a">
-      print("This is printing from module A")
-      x=42
+      x = 64
     </py-script>
     <py-script>
-        print("The answer you seek is:")
-        import module_a_external
-        print(module_a_external.x)
-        #import module_a_external
+y = 2
+#import module_a
+#print(module_a.x)
     </py-script>
   </body>
 </html>
