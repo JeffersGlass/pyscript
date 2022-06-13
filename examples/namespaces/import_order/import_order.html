@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>PyScript Hello World</title>
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="../../../pyscriptjs/examples/build/pyscript.css" />
+
+    <script defer src="../../../pyscriptjs/examples/build/pyscript.js"></script>
+    <py-env>
+      - paths:
+        - module_a_external.py
+    </py-env>
+  </head>
+
+  <body>
+    Hello world! <br>
+    <!-- Try commenting out the following block and uncommenting the 'import' statement below;
+    the print statements have reversed order, b -->
+    <py-script module="module_a">
+      print("This is printing from module A")
+    </py-script>
+    <py-script>
+        print("This is printing in the default module")
+        #import module_a_external
+    </py-script>
+  </body>
+</html>
