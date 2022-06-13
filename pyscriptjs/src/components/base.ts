@@ -127,6 +127,29 @@ export class BaseEvalElement extends HTMLElement {
         const pyodide = runtime;
         let source: string;
         let output;
+
+        let module_name;
+        if (this.hasAttribute('module')){
+            module_name = this.getAttribute('module')
+        }
+        else {
+            module_name = '__main__'
+        }
+
+        let mod = pyodide.globals.get('sys')['modules'][module_name];
+
+        console.log("Module name found: " + module_name);
+        console.log("Module found: " + mod);
+
+        /* mod = sys.modules.get(modname);
+        if mod:
+            if not isinstance(mod, PyScriptModule):
+                raise Exception(f'Cannot mix <py-script> with regular modules; {modname} already exists')
+        else:
+            mod = PyScriptModule(modname)
+            sys.modules[modname] = mod
+        exec(src, mod.__dict__) */
+
         try {
             source = this.source ? await this.getSourceFromFile(this.source)
                                  : this.getSourceFromElement();
