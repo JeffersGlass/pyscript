@@ -17,10 +17,15 @@
     <py-script module="module_a">
       x = 64
       print(f"In module {__name__} we print {x=} ")
+      if __name__ == '__main__':
+        print("This should not print")
     </py-script>
     <py-script>
+      print("Code that uses if __name == '__main__' still works here")
+      x = 0
       import module_a
       print(f"In module {__name__} we print {module_a.x= }")
+      print(f"But locally {x= }")
     </py-script>
   </body>
 </html>

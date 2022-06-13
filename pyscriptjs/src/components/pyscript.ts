@@ -187,5 +187,12 @@ async function mountElements() {
     }
     await pyodide.runPythonAsync(source);
 }
+
+async function initModuleHandling(){
+    const pyodide = await pyodideReadyPromise;
+}
+
 addInitializer(mountElements);
+addInitializer(initModuleHandling)
 addPostInitializer(initHandlers);
+
