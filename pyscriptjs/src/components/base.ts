@@ -172,8 +172,15 @@ export class BaseEvalElement extends HTMLElement {
                 output = pyodide.runPython(
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
                 );
-                output = pyodide.runPython(source);
-                //output = pyodide.runPython(`eval_pyscript_block(` + source + `, ` + module_name + `)`);
+                //output = pyodide.runPython(source);
+                console.log("About to run runPython for module_name " + module_name)
+                if (module_name == "__main__"){
+                    output = pyodide.runPython(source);
+                }
+                else {
+                    output = pyodide.runPython(`eval_pyscript_block("""` + source + `""", "` + module_name + `")`);    
+                }
+                
                 pyodide.runPython(`output_manager.revert()`);
             }
 

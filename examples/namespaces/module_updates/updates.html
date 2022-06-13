@@ -16,11 +16,11 @@
     This exampe demonstrates challenges in updated extant modules<br>
     <py-script module="module_a">
       x = 64
+      print(f"In module {__name__} we print {x=} ")
     </py-script>
     <py-script>
-y = 2
-#import module_a
-#print(module_a.x)
+      import module_a
+      print(f"In module {__name__} we print {module_a.x= }")
     </py-script>
   </body>
 </html>
