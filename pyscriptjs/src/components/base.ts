@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 import { loadedEnvironments, mode, pyodideLoaded, type Environment } from '../stores';
-import { guidGenerator, addClasses, removeClasses } from '../utils';
-import type { PyodideInterface } from '../pyodide';
-=======
-import { loadedEnvironments, mode, pyodideLoaded } from '../stores';
 import { guidGenerator, addClasses, removeClasses, getNamespace } from '../utils';
->>>>>>> 17fedfb... Custom namespaces for executable tags
 // Premise used to connect to the first available pyodide interpreter
 let runtime;
 let environments: Record<Environment['id'], Environment> = {};
@@ -150,32 +144,48 @@ export class BaseEvalElement extends HTMLElement {
             namespace = getNamespace(this.namespace, runtime);
 
             if (source.includes('asyncio')) {
+<<<<<<< HEAD
 >>>>>>> 17fedfb... Custom namespaces for executable tags
                 await pyodide.runPythonAsync(
+=======
+                await pyodide.pyodide_py.eval_code_async(
+>>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
                         this.appendOutput ? 'True' : 'False'
                     })`,
-                    { globals: namespace },
+                    pyodide.globals,
+                    namespace
                 );
+<<<<<<< HEAD
 <<<<<<< HEAD
                 output = await pyodide.runPythonAsync(source);
 =======
                 output = await pyodide.runPythonAsync(source, { globals: namespace });
                 await pyodide.runPythonAsync(`output_manager.revert()`, { globals: namespace });
 >>>>>>> 17fedfb... Custom namespaces for executable tags
+=======
+                output = await pyodide.pyodide_py.eval_code_async(source, pyodide.globals, namespace );
+                await pyodide.pyodide_py.eval_code_async(`output_manager.revert()`, pyodide.globals, namespace );
+>>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
             } else {
-                output = pyodide.runPython(
+                output = pyodide.pyodide_py.eval_code(
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
                         this.appendOutput ? 'True' : 'False'
                     })`,
-                    { globals: namespace },
+                    pyodide.globals,
+                    namespace
                 );
+<<<<<<< HEAD
 <<<<<<< HEAD
                 output = pyodide.runPython(source);
 =======
                 output = pyodide.runPython(source, { globals: namespace });
                 pyodide.runPython(`output_manager.revert()`, { globals: namespace });
 >>>>>>> 17fedfb... Custom namespaces for executable tags
+=======
+                output = pyodide.pyodide_py.eval_code(source, pyodide.globals, namespace );
+                pyodide.pyodide_py.eval_code(`output_manager.revert()`, pyodide.globals, namespace );
+>>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
             }
 
             if (output !== undefined) {
