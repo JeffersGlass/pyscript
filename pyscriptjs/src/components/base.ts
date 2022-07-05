@@ -129,44 +129,23 @@ export class BaseEvalElement extends HTMLElement {
         else this.namespace = "DEFAULT_NAMESPACE";
 
         try {
-<<<<<<< HEAD
             source = this.source ? await this.getSourceFromFile(this.source)
                                  : this.getSourceFromElement();
             const is_async = source.includes('asyncio')
 
             await this._register_esm(pyodide);
             if (is_async) {
-=======
-            source = this.source ? await this.getSourceFromFile(this.source) : this.getSourceFromElement();
 
-            await this._register_esm(pyodide);
-
-            namespace = getNamespace(this.namespace, runtime);
-
-            if (source.includes('asyncio')) {
-<<<<<<< HEAD
->>>>>>> 17fedfb... Custom namespaces for executable tags
-                await pyodide.runPythonAsync(
-=======
                 await pyodide.pyodide_py.eval_code_async(
->>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
                         this.appendOutput ? 'True' : 'False'
                     })`,
                     pyodide.globals,
                     namespace
                 );
-<<<<<<< HEAD
-<<<<<<< HEAD
-                output = await pyodide.runPythonAsync(source);
-=======
-                output = await pyodide.runPythonAsync(source, { globals: namespace });
-                await pyodide.runPythonAsync(`output_manager.revert()`, { globals: namespace });
->>>>>>> 17fedfb... Custom namespaces for executable tags
-=======
+
                 output = await pyodide.pyodide_py.eval_code_async(source, pyodide.globals, namespace );
                 await pyodide.pyodide_py.eval_code_async(`output_manager.revert()`, pyodide.globals, namespace );
->>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
             } else {
                 output = pyodide.pyodide_py.eval_code(
                     `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${
@@ -175,17 +154,9 @@ export class BaseEvalElement extends HTMLElement {
                     pyodide.globals,
                     namespace
                 );
-<<<<<<< HEAD
-<<<<<<< HEAD
-                output = pyodide.runPython(source);
-=======
-                output = pyodide.runPython(source, { globals: namespace });
-                pyodide.runPython(`output_manager.revert()`, { globals: namespace });
->>>>>>> 17fedfb... Custom namespaces for executable tags
-=======
+
                 output = pyodide.pyodide_py.eval_code(source, pyodide.globals, namespace );
                 pyodide.pyodide_py.eval_code(`output_manager.revert()`, pyodide.globals, namespace );
->>>>>>> 392fa3d... Change runPython to eval_code to allow using locals argument
             }
 
             if (output !== undefined) {
@@ -242,7 +213,7 @@ export class BaseEvalElement extends HTMLElement {
         const eval_namespace = getNamespace(this.namespace, runtime);
 
         try {
-            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+            const output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
             if (output !== undefined) {
                 console.log(output);
             }
@@ -328,11 +299,7 @@ function createWidget(name: string, code: string, klass: string) {
             const eval_namespace = getNamespace(this.namespace, runtime);
 
             try {
-<<<<<<< HEAD
-                const output = await pyodide.runPythonAsync(source);
-=======
-                output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
->>>>>>> 17fedfb... Custom namespaces for executable tags
+                const output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
                 this.proxyClass = pyodide.globals.get(this.klass);
                 if (output !== undefined) {
                     console.log(output);
@@ -437,11 +404,7 @@ export class PyWidget extends HTMLElement {
         const eval_namespace = getNamespace(this.namespace, runtime);
 
         try {
-<<<<<<< HEAD
-            const output = await pyodide.runPythonAsync(source);
-=======
-            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
->>>>>>> 17fedfb... Custom namespaces for executable tags
+            const output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
             if (output !== undefined) {
                 console.log(output);
             }
