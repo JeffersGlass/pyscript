@@ -49,9 +49,12 @@ export class PyButton extends BaseEvalElement {
         mainDiv.id = this.id;
         this.id = `${this.id}-container`;
 
+        if (this.hasAttribute('namespace')) this.namespace = this.getAttribute('namespace');
+        else this.namespace = "DEFAULT_NAMESPACE";
+
         this.appendChild(mainDiv);
         this.code = this.code.split('self').join(this.mount_name);
-        let registrationCode = `from pyodide import create_proxy`;
+        let registrationCode = `from pyodide import create_proxy\nfrom js import console`;
         registrationCode += `\n${this.mount_name} = Element("${mainDiv.id}")`;
         if (this.code.includes('def on_focus')) {
             this.code = this.code.replace('def on_focus', `def on_focus_${this.mount_name}`);
@@ -60,7 +63,9 @@ export class PyButton extends BaseEvalElement {
 
         if (this.code.includes('def on_click')) {
             this.code = this.code.replace('def on_click', `def on_click_${this.mount_name}`);
-            registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(on_click_${this.mount_name}))`;
+            registrationCode += `\nconsole.log("Adding event listener in namespace ` + this.namespace + '")'
+            registrationCode += `\nconsole.log(f"with {globals()['pyscript_namespaces']['`+ this.namespace + `']}")` 
+            registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(pyscript_namespaces['`+ this.namespace + `']['on_click_${this.mount_name}']))`;
         }
 
         // now that we appended and the element is attached, lets connect with the event handlers
@@ -68,7 +73,7 @@ export class PyButton extends BaseEvalElement {
         this.runAfterRuntimeInitialized(async () => {
             await this.eval(this.code);
             await this.eval(registrationCode);
-            console.log('registered handlers');
+            console.log('registered handlers for PyButton in namespace ' + this.namespace);
         });
 
         console.log('py-button connected');

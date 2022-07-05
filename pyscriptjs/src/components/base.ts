@@ -127,7 +127,6 @@ export class BaseEvalElement extends HTMLElement {
 
         const pyodide = runtime;
         let source: string;
-        let namespace;
         let output;
 
         if (this.hasAttribute('namespace')) this.namespace = this.getAttribute('namespace');
@@ -138,7 +137,7 @@ export class BaseEvalElement extends HTMLElement {
 
             await this._register_esm(pyodide);
 
-            namespace = getNamespace(this.namespace, runtime);
+            const namespace = getNamespace(this.namespace, runtime);
 
             if (source.includes('asyncio')) {
                 await pyodide.runPythonAsync(
@@ -209,10 +208,11 @@ export class BaseEvalElement extends HTMLElement {
         if (this.hasAttribute('namespace')) this.namespace = this.getAttribute('namespace');
         else this.namespace = "DEFAULT_NAMESPACE";
         
-        const eval_namespace = getNamespace(this.namespace, runtime);
+        const namespace = getNamespace(this.namespace, runtime);
+        console.log(this.namespace + " has locals " + namespace)
 
         try {
-            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+            output = await pyodide.pyodide_py.eval_code_async(source, pyodide.globals, namespace);
             if (output !== undefined) {
                 console.log(output);
             }
@@ -223,7 +223,7 @@ export class BaseEvalElement extends HTMLElement {
 
     runAfterRuntimeInitialized(callback: () => Promise<void>) {
         pyodideLoaded.subscribe(value => {
-            if ('runPythonAsync' in value) {
+            if ('runPythonAsync' in value || 'eval_code_async' in value) {
                 setTimeout(async () => {
                     await callback();
                 }, 100);
@@ -274,7 +274,7 @@ function createWidget(name: string, code: string, klass: string) {
             // }, 2000);
             pyodideLoaded.subscribe(value => {
                 console.log('RUNTIME READY', value);
-                if ('runPythonAsync' in value) {
+                if ('runPythonAsync' in value || 'eval_code_async' in value) {
                     runtime = value;
                     setTimeout(async () => {
                         await this.eval(this.code);
@@ -296,10 +296,10 @@ function createWidget(name: string, code: string, klass: string) {
         async eval(source: string): Promise<void> {
             let output;
             const pyodide = runtime;
-            const eval_namespace = getNamespace(this.namespace, runtime);
+            const namespace = getNamespace(this.namespace, runtime);
 
             try {
-                output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+                output = await pyodide.pyodide_py.eval_code_async(source, pyodide.globals, namespace );
                 this.proxyClass = pyodide.globals.get(this.klass);
                 if (output !== undefined) {
                     console.log(output);
@@ -404,10 +404,10 @@ export class PyWidget extends HTMLElement {
     async eval(source: string): Promise<void> {
         let output;
         const pyodide = runtime;
-        const eval_namespace = getNamespace(this.namespace, runtime);
+        const namespace = getNamespace(this.namespace, runtime);
 
         try {
-            output = await pyodide.runPythonAsync(source, { globals: eval_namespace });
+            output = await pyodide.pyodide_py.eval_code_async(source, pyodide.globals, namespace);
             if (output !== undefined) {
                 console.log(output);
             }

@@ -80,12 +80,22 @@ function handleFetchError(e: Error, singleFile: string) {
 }
 
 function getNamespace(name: string, runtime: any) {
-    if (name == 'DEFAULT_NAMESPACE') {
-        return runtime.globals;
-    } else {
+    if (typeof name == 'undefined') name = "DEFAULT_NAMESPACE"
+    if (runtime.globals.get('pyscript_namespaces').has(name)) {
         console.log('Using namespace ' + name);
         return runtime.globals.get('pyscript_namespaces').get(name);
     }
+    else {
+        console.log("Did not find namespace " + name + ", creating new namespace")
+        runtime.globals.get('pyscript_namespaces').set(name, runtime.globals.get('dict')());
+        return runtime.globals.get('pyscript_namespaces').get(name);
+    }
+}
+
+function getObjectInNamespace(namespace: string, objectName: string, runtime: any, to_py = false){
+    namespace = getNamespace(namespace, runtime).get(objectName);
+    if (to_py) return runtime.toPy(namespace)
+    else return namespace
 }
 
 export {

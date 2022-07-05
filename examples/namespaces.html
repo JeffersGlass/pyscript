@@ -127,7 +127,7 @@ print(f"{z=}")
 &lt;py-script namespace="button-1"&gt;
 x = 1
 &lt;/py-script&gt;
-&lt;py-button namespace="button-1 label="Set Label to 1"&gt;
+&lt;py-button namespace="button-1" label="Set Label to 1"&gt;
 def on_click(event):
   from js import document
   document.getElementById("button-output").innerText = str(x)
@@ -135,9 +135,11 @@ def on_click(event):
                 <py-script namespace="button-1">x = 1</py-script>
                 <py-button namespace="button-1" label="Set Label to 1">
                   def on_click(event):
-                    from js import document
+                    from js import document, console
+                    console.log(f"Button 1 clicked, {locals() = }")
                     document.getElementById("button-output").innerText = str(x)
                 </py-button>
+                <py-repl namespace="button-1" auto-generate="true"></py-repl>
               </div>
               <div class="bg-gray-300">
 <pre class="mb-4">
@@ -153,9 +155,11 @@ def on_click(event):
                 <py-script namespace="button-2">x = 2</py-script>
                 <py-button namespace="button-2" label="Set Label to 2">
                   def on_click(event):
-                    from js import document
+                    from js import document, console
+                    console.log(f"Button 2 clicked \n {locals() = } {globals() = }")
                     document.getElementById("button-output").innerText = str(x)
                 </py-button>
+                <py-repl namespace="button-2" auto-generate="true"></py-repl>
               </div>
             </div>
           </div>
