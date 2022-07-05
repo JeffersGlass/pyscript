@@ -79,11 +79,16 @@ function handleFetchError(e: Error, singleFile: string) {
     showError(errorContent);
 }
 
+// Returns a python dict, consisting of the local objects to be run in this script
+// If the dict doesn't already exist with this name, create it
+// Scripts with no `namespace` tag use a dict with the key `DEFAULT_NAMESPACE`
 function getNamespace(name: string, runtime: any) {
-    if (name == 'DEFAULT_NAMESPACE') {
-        return runtime.globals;
-    } else {
+    if (runtime.globals.get('pyscript_namespaces').has(name)) {
         console.log('Using namespace ' + name);
+        return runtime.globals.get('pyscript_namespaces').get(name);
+    }
+    else {
+        runtime.globals.get('pyscript_namespaces').set(name, runtime.globals.get('dict')());
         return runtime.globals.get('pyscript_namespaces').get(name);
     }
 }
