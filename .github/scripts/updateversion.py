@@ -7,7 +7,9 @@ def main():
     
     year, month, day = sys.argv[1].split('.')
 
-    with open('version_info.json', 'r') as fp:
+    version_file = pathlib.Path(__file__).parent.parent.resolve() / 'pyscriptjs' / 'src' / 'version_info.json'
+
+    with open(version_file, 'r') as fp:
         version_data = json.load(fp)
     
     version_data['year'] = int(year)
@@ -16,7 +18,7 @@ def main():
 
     print(f"After update, {version_data= }")
 
-    with open(pathlib.Path(__file__).parent.parent.resolve() / 'pyscriptjs' / 'src' / 'version_info.json', 'w') as fp:
+    with open(version_file, 'w') as fp:
         json.dump(version_data, fp, indent=2)
 
 if __name__ == '__main__':
