@@ -1,13 +1,18 @@
 import sys
 import json
 import pathlib
+import os
 
 def main():
     print(f"Running main() in updateversion.py with argument {sys.argv[1]}")
     
     year, month, day = sys.argv[1].split('.')
 
-    version_file = pathlib.Path(__file__).parent.parent.resolve() / 'pyscriptjs' / 'src' / 'version_info.json'
+    root_folder = [p for p in pathlib.Path(__file__).parents if p.name == 'pyscript'][0]
+    print(root_folder)
+    print(os.listdir(root_folder))
+    version_file =  root_folder / 'pyscriptjs' / 'src' / 'version_info.json'
+    print(version_file)
 
     with open(version_file, 'r') as fp:
         version_data = json.load(fp)
