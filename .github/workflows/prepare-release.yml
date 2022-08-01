@@ -45,6 +45,15 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
+        -   name: Update Version to Match Tag
+            run: python ../.github/scripts/updateversion.py ${GITHUB_REF/refs\/tags\//}
+
+        -   name: Commit Updated Version
+            uses: stefanzweifel/git-auto-commit-action@v4
+            with:
+                commit_message: Auto-update version number to ${GITHUB_REF/refs\/tags\//}
+                branch: main
+
         -   name: Build and Test
             run: make test
 
