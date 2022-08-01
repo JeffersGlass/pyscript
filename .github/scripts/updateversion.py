@@ -1,5 +1,6 @@
 import sys
 import json
+import pathlib
 
 def main():
     print(f"Running main() in updateversion.py with argument {sys.argv[1]}")
@@ -15,7 +16,7 @@ def main():
 
     print(f"After update, {version_data= }")
 
-    with open('version_info.json', 'w') as fp:
+    with open(pathlib.Path(__file__).parent.parent.resolve() / 'pyscriptjs' / 'src' / 'version_info.json', 'w') as fp:
         json.dump(version_data, fp, indent=2)
 
 if __name__ == '__main__':
