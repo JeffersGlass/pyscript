@@ -1,9 +1,11 @@
 import asyncio
 import base64
+from collections import namedtuple
 import io
 import sys
 import time
 from textwrap import dedent
+from typing import final
 
 import micropip  # noqa: F401
 from js import console, document
@@ -122,6 +124,17 @@ class PyScript:
         Element(<id>).write instead."""
             )
         )
+
+    _version_year = 2022
+    _version_month = 7
+    _version_day = 1
+    _version_releaselevel = final
+    _version_serial = 0
+
+    __version__ = '.'.join(map(str, [_version_year, f'{_version_month:02}', _version_day]))
+
+    version_info = namedtuple('version_info', ['year', 'month', 'day', 'releaselevel', 'serial'])(
+        _version_year, _version_month, _version_day, _version_releaselevel, _version_serial)
 
 
 class Element:
