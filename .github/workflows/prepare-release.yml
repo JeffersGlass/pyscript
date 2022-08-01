@@ -45,11 +45,6 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
-<<<<<<< HEAD
-        -   name: update version
-            run: print('Tag Name:' + '${{github.ref_name}}')
-            shell: python
-=======
         -   name: Update Version to Match Tag
             run: python ../.github/scripts/updateversion.py ${GITHUB_REF/refs\/tags\//}
 
@@ -58,7 +53,6 @@ jobs:
             with:
                 commit_message: Auto-update version number to ${GITHUB_REF/refs\/tags\//}
                 branch: main
->>>>>>> 8d84e45... Add update script
 
         -   name: Build and Test
             run: make test
