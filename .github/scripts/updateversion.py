@@ -8,7 +8,7 @@ def main():
     
     year, month, day = sys.argv[1].split('.')
 
-    root_folder = [p for p in pathlib.Path(__file__).parents if p.name == 'pyscript'][0]
+    root_folder = [p for p in pathlib.Path(os.getcwd()).parents if p.name == 'pyscript'][0]
     print(root_folder)
     print(os.listdir(root_folder))
     version_file =  root_folder / 'pyscriptjs' / 'src' / 'version_info.json'
