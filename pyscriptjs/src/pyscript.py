@@ -134,8 +134,8 @@ class PyScript:
     __version__ = '.'.join([f"{version['year']:04}", f"{version['month']:02}", f"{version['day']:02}"])
 
     #Format mimics sys.version_info
-    version_info = namedtuple('version_info', ['year', 'month', 'day', 'releaselevel', 'serial'])(
-        version['year'], version['month'], version['day'], version['releaselevel'], version['serial'])
+    _VersionInfo = namedtuple('version_info', version.keys())
+    version_info = _VersionInfo(**version)
 
 
 class Element:
