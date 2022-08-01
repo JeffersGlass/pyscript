@@ -49,10 +49,7 @@ jobs:
             run: python ../.github/scripts/updateversion.py ${GITHUB_REF/refs\/tags\//}
 
         -   name: Commit Updated Version
-            uses: stefanzweifel/git-auto-commit-action@v4
-            with:
-                commit_message: Auto-update version number for release
-                branch: get_version
+            uses: EndBug/add-and-commit@v9
 
         -   name: Build and Test
             run: make test
