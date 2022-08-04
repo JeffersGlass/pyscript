@@ -2,6 +2,8 @@ import asyncio
 import base64
 from collections import namedtuple
 import io
+import json
+import pathlib
 import sys
 import time
 from textwrap import dedent
@@ -125,16 +127,15 @@ class PyScript:
             )
         )
 
-    _version_year = 2022
-    _version_month = 7
-    _version_day = 1
-    _version_releaselevel = final
-    _version_serial = 0
+    #Load version information from file. 
+    with open(pathlib.Path(__file__).parent.resolve() / 'version_info.json', 'r') as fp:
+        version = json.load(fp)
+    
+    __version__ = '.'.join([f"{version['year']:04}", f"{version['month']:02}", f"{version['day']:02}"])
 
-    __version__ = '.'.join(map(str, [_version_year, f'{_version_month:02}', _version_day]))
-
-    version_info = namedtuple('version_info', ['year', 'month', 'day', 'releaselevel', 'serial'])(
-        _version_year, _version_month, _version_day, _version_releaselevel, _version_serial)
+    #Format mimics sys.version_info
+    _VersionInfo = namedtuple('version_info', version.keys())
+    version_info = _VersionInfo(**version)
 
 
 class Element:
