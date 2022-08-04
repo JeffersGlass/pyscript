@@ -45,6 +45,10 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
+        -   name: update version
+            run: print('Tag Name:' + '${{github.ref_name}}')
+            shell: python
+
         -   name: Build and Test
             run: make test
 
