@@ -16,7 +16,8 @@ import type { PyScript } from './pyscript';
 import type { PyodideInterface } from '../pyodide';
 
 const DEFAULT_RUNTIME = {
-    src: 'https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js',
+    src: 'https://pyodide-cdn2.iodide.io/dev/full/pyodide.js',
+    //src: 'https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js',
     name: 'pyodide-default',
     lang: 'python',
 };
@@ -152,6 +153,7 @@ export class PyConfig extends BaseEvalElement {
             this.values = loadedValues;
         }
         if (this.values.runtimes === undefined) {
+            console.warn("using default runtime")
             this.values.runtimes = [DEFAULT_RUNTIME];
         }
         appConfig.set(this.values);

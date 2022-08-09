@@ -21,6 +21,7 @@
   </head>
 
   <body>
+    <h1 style="font-size: xx-large;">COPY COPY COPY</h1>
     <!-- <script src="https://pyodide-cdn2.iodide.io/dev/full/pyodide.js"></script> -->
     <script type="module" src="canvas.js"></script>
 <!--     <script>
@@ -42,20 +43,24 @@
       import * as canvas from './canvas.js'
     </script> -->
     <script>
-      (async () => { canvas = await import('./canvas.js') })()
-      //load_canvas()
-      //const canvas = await import ('./canvas.js')
+      async function load_canvas(){
+        canvas = await import('./canvas.js')
+      }
+      load_canvas()
     </script>
-<div id="my-output" style="margin: 6em;">
-  <py-script>
-    import pyodide_js
-    print(f"{pyodide_js.version= }")
-  
-    from js import canvas
-    ctx = canvas.create('myCanvas', document.getElementById("my-output"), 480, 320).ctx
-    ctx.fillStyle = "blue"
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-  </py-script>
-</div>
+
+<py-script>
+  import pyodide_js
+
+  for d in dir(pyodide_js):
+    print(d)
+  print(f"{pyodide_js.version= }")
+
+  from js import canvas
+
+  ctx = canvas.create('myCanvas', document.body, 480, 320).ctx
+  ctx.fillStyle = "blue"
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+</py-script>
   </body>
 </html>

@@ -8,11 +8,11 @@ import pyscript from './pyscript.py';
 let pyodide: PyodideInterface;
 
 const loadInterpreter = async function (indexUrl: string): Promise<PyodideInterface> {
-    console.log('creating pyodide runtime');
+    console.log('creating pyodide runtime with indexURL ' + indexUrl);
     // eslint-disable-next-line
     // @ts-ignore
     pyodide = await loadPyodide({
-        // indexURL: indexUrl,
+        //indexURL: indexUrl,
         stdout: console.log,
         stderr: console.log,
         fullStdLib: false,
