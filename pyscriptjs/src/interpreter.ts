@@ -12,7 +12,7 @@ const loadInterpreter = async function (indexUrl: string): Promise<PyodideInterf
     // eslint-disable-next-line
     // @ts-ignore
     pyodide = await loadPyodide({
-        //indexURL: indexUrl,
+        indexURL: indexUrl,
         stdout: console.log,
         stderr: console.log,
         fullStdLib: false,
