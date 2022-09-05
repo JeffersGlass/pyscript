@@ -10,8 +10,7 @@
     </py-env>
     </head>
     <body>
-      <div id="mpl"></div>
-      <py-script output="mpl">
+      <py-script>
 import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import numpy as np
@@ -44,7 +43,7 @@ tpc = ax1.tripcolor(triang, z, shading='flat')
 fig1.colorbar(tpc)
 ax1.set_title('tripcolor of Delaunay triangulation, flat shading')
 
-fig1
+display(fig1)
       </py-script>
     </body>
 </html>
