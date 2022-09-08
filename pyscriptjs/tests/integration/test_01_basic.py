@@ -1,4 +1,5 @@
 import re
+import time
 
 from .support import PyScriptTest
 
@@ -51,3 +52,19 @@ class TestBasic(PyScriptTest):
         """
         )
         assert self.console.log.lines == [self.PY_COMPLETE, "true false", "<div></div>"]
+
+    def test_async_nonblocking(self):
+        """
+        Check that py-script tags that execute asynchronously do not block
+        execution while awaiting
+        """
+        self.pyscript_run(
+            """
+            <py-script>import js; import asyncio; js.console.log("one")</py-script>
+            <py-script>await asyncio.sleep(2); js.console.log("two")</py-script>
+            <py-script>js.console.log("three")</py-script>
+        """
+        )
+        #time.sleep(3)
+        #assert True
+        assert self.console.log.lines == ["one", "three", "two", self.PY_COMPLETE]
