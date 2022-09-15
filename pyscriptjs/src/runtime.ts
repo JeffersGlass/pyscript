@@ -161,7 +161,7 @@ export abstract class Runtime extends Object {
 
         loader?.log('Initializing scripts...');
         for (const script of scriptsQueue_) {
-            await script.evaluate();
+            script.evaluate();
         }
         scriptsQueue.set([]);
 

@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import contextvars
 import io
 import sys
 import time
@@ -9,6 +10,10 @@ import micropip  # noqa: F401
 from js import console, document
 
 loop = asyncio.get_event_loop()
+
+output_context_var = contextvars.ContextVar(
+    "output-tag-id", default="_default_output_context"
+)
 
 MIME_METHODS = {
     "__repr__": "text/plain",
@@ -122,6 +127,20 @@ class PyScript:
         Element(<id>).write instead."""
             )
         )
+
+
+def display(value, target=None):
+    # console.log(f"display() value= } {target= } {output_context_var.get()= }")
+
+    token = None  # required to ensure 'token' is a local variable
+    if target is not None:
+        console.log()
+        token = output_context_var.set(target)
+
+    console.log(f"Display\n\tValue: {value}\n\tTarget Id: {output_context_var.get()}")
+
+    if target is not None:
+        output_context_var.reset(token)
 
 
 class Element:

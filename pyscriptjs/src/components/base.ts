@@ -1,5 +1,5 @@
 import { runtimeLoaded } from '../stores';
-import { guidGenerator, addClasses, removeClasses } from '../utils';
+import { guidGenerator, guidID, addClasses, removeClasses } from '../utils';
 
 import type { Runtime } from '../runtime';
 import { getLogger } from '../logger';
@@ -125,9 +125,16 @@ export class BaseEvalElement extends HTMLElement {
                                  : this.getSourceFromElement();
 
             this._register_esm(runtime);
-            <string>await runtime.run(
-                `output_manager.change(out="${this.outputElement.id}", err="${this.errorElement.id}", append=${this.appendOutput ? 'True' : 'False'})`,
-            );
+            let tokenName: string;
+            if (this.hasAttribute('output-target')){
+                const value = this.getAttribute('output-target')
+                tokenName = "token" + guidID()
+                source = `${tokenName} = output_context_var.set('${value}');\n`
+                    + source
+                    + `\noutput_context_var.reset(${tokenName})`
+                console.log(`${tokenName} represents value ${value}`)
+            }
+
             output = <string>await runtime.run(source);
 
             if (output !== undefined) {
@@ -140,8 +147,6 @@ export class BaseEvalElement extends HTMLElement {
                 this.outputElement.hidden = false;
                 this.outputElement.style.display = 'block';
             }
-
-            await runtime.run(`output_manager.revert()`);
 
             // check if this REPL contains errors, delete them and remove error classes
             const errorElements = document.querySelectorAll(`div[id^='${this.errorElement.id}'][error]`);
