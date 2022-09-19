@@ -141,14 +141,6 @@ class PyScript:
         )
 
 
-CURRENT_PY_SCRIPT_TAG = None
-
-
-def set_current_display_target(element):
-    global CURRENT_PY_SCRIPT_TAG
-    CURRENT_PY_SCRIPT_TAG = element
-
-
 def display(value, targetID=None, append=True):
 
     # Ensure targetElement and token are local
