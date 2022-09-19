@@ -1,5 +1,5 @@
 import { BaseEvalElement } from './base';
-import { addClasses, htmlDecode } from '../utils';
+import { addClasses, htmlDecode, guidString} from '../utils';
 import { getLogger } from '../logger'
 
 const logger = getLogger('py-button');
@@ -61,7 +61,22 @@ export class PyButton extends BaseEvalElement {
 
         if (this.code.includes('def on_click')) {
             this.code = this.code.replace('def on_click', `def on_click_${this.mount_name}`);
+            this.code = this.code + `; global last_executed_tag; last_executed_tag = '${this.id}'`;
             registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(on_click_${this.mount_name}))`;
+        }
+
+        let tokenName: string;
+        if (this.hasAttribute('output-target')){
+            const value = this.getAttribute('output-target')
+            tokenName = "token" + guidString()
+            //easier to wrap code in new function than inject new first line into existing function
+            this.code = this.code + `
+original_onclick = on_click_${this.mount_name}
+def on_click_${this.mount_name}(*args, **kwargs):
+    ${tokenName} = output_context_var.set('${value}')
+    original_onclick(*args, **kwargs)
+    output_context_var.reset(${tokenName})
+        `
         }
 
         // now that we appended and the element is attached, lets connect with the event handlers
