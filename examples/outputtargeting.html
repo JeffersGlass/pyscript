@@ -89,55 +89,5 @@
 					</div>
 				</div>
 		</div>
-
-<!--
-			<p><button output-target="button-target" id="b1" py-onClick="myfunc()">myfunc() with target `button-target`</button></p>
-			<p><button id="b2" py-onClick="myfunc()">myfunc() no target</button></p>
-			<p><button id="b3" py-onClick="func_in_pyscript_with_target()" output-target="button-target">func_in_pyscript_with_target(), button has trget 'button-target'</button></p>
-			<p><button id="b4" py-onClick="func_in_pyscript_with_target()">func_in_pyscript_with_target(), button has no target'</button></p>
-			<py-script>
-				display("Default")
-			</py-script>
-			<py-script>
-				display("targeted", target="some-tag")
-			</py-script>
-			<py-script output-target="tag-targeted-div">
-				display("Target at tag level")
-			</py-script>
-			<py-script output-target="div-that-should-not-end-up-targeted">
-				display("This should target `some-tag`", target="some-tag")
-			</py-script>
-			<py-script>
-				def myfunc():
-					display("in myfunc")
-			</py-script>
-			<py-script output-target="second-tag-targeted-div">
-				def func_in_pyscript_with_target():
-					display("in func_in_pyscript_with_target")
-					func_in_pyscript_with_target()
-			</py-script>
-			<py-script>
-				import asyncio
-				for i in range(1,4):
-					display(f"Default: {i}")
-					await asyncio.sleep(0.1)
-			</py-script>
-			<py-script>
-				for i in range(1,4):
-					display(f"Async targeted by display {i}", target='async-targeted by display')
-					await asyncio.sleep(0.1)
-			</py-script>
-			<py-script output-target="async-target-by-tag">
-				for i in range(1,4):
-					display(f"Async targeted by tag{i}")
-					await asyncio.sleep(0.1)
-			</py-script>
-		</div> -->
-	</div>
-
-	<!--<div id="pagesource" style="background: lightgray"></div> <script>
-		document.getElementById("pagesource").innerText = `<pre>${document.body.innerHTML}</pre>`
-	</script> -->
-
 </body>
 </html>
