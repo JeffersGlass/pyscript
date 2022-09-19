@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+	<title>PyScript Hello World</title>
+
+	<link rel="icon" type="image/png" href="favicon.png" />
+
+
+	<script defer src="../pyscriptjs/build/pyscript.js"></script>
+	<link rel="stylesheet" href="../pyscriptjs/build/pyscript.css" />
+
+	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+	<style>
+		button {
+			margin: 0.5rem;
+			border-width: 2px;
+			border-color: #E5E7EB;
+		}
+
+		.output-div{
+			margin: 0.5rem;
+			border-width: 2px;
+			background-color: #FFFBEB;
+		}
+
+		h1 {
+			font-size: 1.5rem;
+			line-height: 2rem;
+		}
+
+		.outer {
+			display: grid;
+			border-top-width: 2px;
+			grid-template-columns: repeat(1, minmax(0, 1fr));
+			row-gap: 5rem;
+		}
+
+		.section {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	</style>
+</head>
+
+<body>
+	<div class="outer">
+				<!-- These should all output to #explicit-target-div -->
+			<div>
+				<h1>Outputs to 'target' argument of display() (A)</h1>
+				<div class="section">
+					<div id="explicit-target-div-scripts">
+						<py-script>display("A", targetID="explicit-target-div")</py-script>
+						<button id="b1" py-onClick='display("A", targetID="explicit-target-div")'>A</button>
+						<py-repl id="r1">display("A", targetID="explicit-target-div")</py-repl>
+						<py-button label="Py-Button A">def on_click(*args): display("A", targetID="explicit-target-div")</py-button>
+					</div>
+					<div id="explicit-target-div" class="output-div">#Explicit Target Div (A)</div>
+				</div>
+			</div>
+
+			<!-- These should all output to #Output-target Div -->
+			<div>
+				<h1>Outputs to tag specified by 'output-target' attribute (B)</h1>
+				<div class="section">
+					<div id="display-target-scripts">
+						<py-script output-target="output-target-div">display("B")</py-script>
+						<button output-target="output-target-div" id="b2" py-onClick='display("B")'>B</button>
+						<py-repl output-target="output-target-div" id="r2">display("B")</py-repl>
+						<py-button output-target="output-target-div" label="Py-Button B">def on_click(*args): display("B")</py-button>
+					</div>
+					<div id="output-target-div" class="output-div">#Output-Target Div (B)</div>
+				</div>
+			</div>
+
+			<!-- These should all output to the location set in PyConfig, or default if there isn't one -->
+				<div>
+					<h1>Outputs to location set in Py-config, or adjacent to element (C)</h1>
+					<div class="section">
+						<div id="default-location-scripts">
+							<py-script>display("C")</py-script>
+							<button id="b3" py-onClick='display("C")'>C</button>
+							<py-repl id="r4">display("C")</py-repl>
+							<!-- <py-button output-target="output-target-div" label="explicit-target">def on_click(): display("#output-target-div from button", target="explicit-target-div")</py-button> -->
+						</div>
+						<div id="default-location-div" class="output-div">#Default Output Div (V)</div>
+					</div>
+				</div>
+		</div>
+
+<!--
+			<p><button output-target="button-target" id="b1" py-onClick="myfunc()">myfunc() with target `button-target`</button></p>
+			<p><button id="b2" py-onClick="myfunc()">myfunc() no target</button></p>
+			<p><button id="b3" py-onClick="func_in_pyscript_with_target()" output-target="button-target">func_in_pyscript_with_target(), button has trget 'button-target'</button></p>
+			<p><button id="b4" py-onClick="func_in_pyscript_with_target()">func_in_pyscript_with_target(), button has no target'</button></p>
+			<py-script>
+				display("Default")
+			</py-script>
+			<py-script>
+				display("targeted", target="some-tag")
+			</py-script>
+			<py-script output-target="tag-targeted-div">
+				display("Target at tag level")
+			</py-script>
+			<py-script output-target="div-that-should-not-end-up-targeted">
+				display("This should target `some-tag`", target="some-tag")
+			</py-script>
+			<py-script>
+				def myfunc():
+					display("in myfunc")
+			</py-script>
+			<py-script output-target="second-tag-targeted-div">
+				def func_in_pyscript_with_target():
+					display("in func_in_pyscript_with_target")
+					func_in_pyscript_with_target()
+			</py-script>
+			<py-script>
+				import asyncio
+				for i in range(1,4):
+					display(f"Default: {i}")
+					await asyncio.sleep(0.1)
+			</py-script>
+			<py-script>
+				for i in range(1,4):
+					display(f"Async targeted by display {i}", target='async-targeted by display')
+					await asyncio.sleep(0.1)
+			</py-script>
+			<py-script output-target="async-target-by-tag">
+				for i in range(1,4):
+					display(f"Async targeted by tag{i}")
+					await asyncio.sleep(0.1)
+			</py-script>
+		</div> -->
+	</div>
+
+	<!--<div id="pagesource" style="background: lightgray"></div> <script>
+		document.getElementById("pagesource").innerText = `<pre>${document.body.innerHTML}</pre>`
+	</script> -->
+
+</body>
+</html>

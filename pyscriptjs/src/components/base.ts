@@ -1,5 +1,5 @@
 import { runtimeLoaded } from '../stores';
-import { guidGenerator, addClasses, removeClasses } from '../utils';
+import { guidGenerator, guidString, addClasses, removeClasses } from '../utils';
 
 import type { Runtime } from '../runtime';
 import { getLogger } from '../logger';
@@ -117,6 +117,7 @@ export class BaseEvalElement extends HTMLElement {
 
     async evaluate(): Promise<void> {
         this.preEvaluate();
+        await runtime.run(`last_executed_tag = '${this.id}'`);
 
         let source: string;
         try {
@@ -124,7 +125,16 @@ export class BaseEvalElement extends HTMLElement {
                                  : this.getSourceFromElement();
             this._register_esm(runtime);
 
-            <string>await runtime.run(`set_current_display_target(element="${this.id}")`);
+            let tokenName: string;
+            if (this.hasAttribute('output-target')){
+                const value = this.getAttribute('output-target')
+                tokenName = "token" + guidString()
+                source = `${tokenName} = output_context_var.set('${value}');\n`
+                    + source
+                    + `\noutput_context_var.reset(${tokenName})`
+                console.log(`${tokenName} represents value ${value}`)
+            }
+
             <string>await runtime.run(source);
 
             removeClasses(this.errorElement, ['py-error']);

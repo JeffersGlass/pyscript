@@ -7,7 +7,7 @@ import {
     type Environment,
 } from '../stores';
 
-import { addClasses, htmlDecode } from '../utils';
+import { addClasses, htmlDecode, guidGenerator, guidString } from '../utils';
 import { BaseEvalElement } from './base';
 import type { Runtime } from '../runtime';
 import { getLogger } from '../logger';
@@ -225,7 +225,18 @@ async function createElementsWithEventListeners(runtime: Runtime, pyAttribute: s
         if (el.id.length === 0) {
             throw new TypeError(`<${el.tagName.toLowerCase()}> must have an id attribute, when using the ${pyAttribute} attribute`)
         }
-        const handlerCode = el.getAttribute(pyAttribute);
+
+        let handlerCode = el.getAttribute(pyAttribute);
+        handlerCode = `last_executed_tag = '${el.id}';\n` + handlerCode;
+
+        if (el.hasAttribute('output-target')) {
+            const newTarget = el.getAttribute('output-target')
+            const tokenName = "token" + guidString()
+            handlerCode = `${tokenName} = output_context_var.set('${newTarget}'); `
+                + handlerCode
+                + `; output_context_var.reset(${tokenName})`
+            }
+
         const event = pyAttributeToEvent.get(pyAttribute);
 
         if (pyAttribute === 'pys-onClick' || pyAttribute === 'pys-onKeyDown'){

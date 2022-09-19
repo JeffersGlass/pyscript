@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import contextvars
 import io
 import time
 from textwrap import dedent
@@ -8,6 +9,23 @@ import micropip  # noqa: F401
 from js import console, document
 
 loop = asyncio.get_event_loop()
+
+# --- To be replaced by reading the app-config set in py-config
+appConfig_default_output_location = "default-location-div"
+# appConfig_default_output_location = None
+# ---
+
+if appConfig_default_output_location is not None:
+    output_context_var = contextvars.ContextVar(
+        "output-tag-id", default=appConfig_default_output_location
+    )
+    # output_context_var.set(appConfig_default_output_location)
+else:
+    output_context_var = contextvars.ContextVar(
+        "output-tag-id", default="_DEFAULT_OUTPUT_CONTEXT"
+    )
+
+last_executed_tag = None
 
 MIME_METHODS = {
     "__repr__": "text/plain",
@@ -131,11 +149,38 @@ def set_current_display_target(element):
     CURRENT_PY_SCRIPT_TAG = element
 
 
-def display(value, parent=None, append=True):
-    if parent is None:
-        global CURRENT_PY_SCRIPT_TAG
-        parent = CURRENT_PY_SCRIPT_TAG
-    Element(parent).write(value, append)
+def display(value, targetID=None, append=True):
+
+    # Ensure targetElement and token are local
+    targetElement = None
+    token = None
+
+    # Explicitly passed in a target ID to display()
+    if targetID is not None:
+        token = output_context_var.set(targetID)
+
+    # If we have no user-set-context, use the ID of the last_executed_tag
+    if output_context_var.get() == "_DEFAULT_OUTPUT_CONTEXT":
+        targetElement = Element(last_executed_tag)
+        console.warn(
+            f"_DefaultOutputContext used, writing next to element {targetElement.id}"
+        )
+    # Otherwise, use whatever context we have
+    else:
+        targetElement = Element(output_context_var.get())
+
+    # targetElement is None if Element constructor fails to find tag with id output_context_var
+    if targetElement is not None:
+        targetElement.write(value, append)
+    else:
+        console.error(
+            f"display(): No element in DOM with ID {output_context_var.get()}"
+        )
+
+    # If we passed in an explicitly ID to target, restore the context to before this function
+    # was called
+    if targetID is not None:
+        output_context_var.reset(token)
 
 
 class Element:

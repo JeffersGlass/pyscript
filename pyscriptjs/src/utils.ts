@@ -47,6 +47,13 @@ function guidGenerator(): string {
     return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
 }
 
+function guidString(): string {
+    const S4 = function (): string {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4()
+}
+
 /*
  *  Display a page-wide error message to show that something has gone wrong with
  *  PyScript or Pyodide during loading. Probably not be used for issues that occur within
@@ -84,4 +91,4 @@ function handleFetchError(e: Error, singleFile: string) {
     showError(errorContent);
 }
 
-export { addClasses, removeClasses, getLastPath, ltrim, htmlDecode, guidGenerator, showError, handleFetchError };
+export { addClasses, removeClasses, getLastPath, ltrim, htmlDecode, guidGenerator, guidString, showError, handleFetchError };
