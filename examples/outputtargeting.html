@@ -53,11 +53,11 @@
 				<div class="section">
 					<div id="explicit-target-div-scripts">
 						<py-script>display("A", targetID="explicit-target-div")</py-script>
-						<button id="b1" py-onClick='display("A", targetID="explicit-target-div")'>A</button>
 						<py-repl id="r1">display("A", targetID="explicit-target-div")</py-repl>
+						<button id="b1" py-onClick='display("A", targetID="explicit-target-div")'>A</button>
 						<py-button label="Py-Button A">def on_click(*args): display("A", targetID="explicit-target-div")</py-button>
 					</div>
-					<div id="explicit-target-div" class="output-div">#Explicit Target Div (A)</div>
+					<div id="explicit-target-div" class="output-div">#explicit-target-div (A)</div>
 				</div>
 			</div>
 
@@ -67,11 +67,11 @@
 				<div class="section">
 					<div id="display-target-scripts">
 						<py-script output-target="output-target-div">display("B")</py-script>
-						<button output-target="output-target-div" id="b2" py-onClick='display("B")'>B</button>
 						<py-repl output-target="output-target-div" id="r2">display("B")</py-repl>
+						<button output-target="output-target-div" id="b2" py-onClick='display("B")'>B</button>
 						<py-button output-target="output-target-div" label="Py-Button B">def on_click(*args): display("B")</py-button>
 					</div>
-					<div id="output-target-div" class="output-div">#Output-Target Div (B)</div>
+					<div id="output-target-div" class="output-div">#output-target-div (B)</div>
 				</div>
 			</div>
 
@@ -81,11 +81,11 @@
 					<div class="section">
 						<div id="default-location-scripts">
 							<py-script>display("C")</py-script>
-							<button id="b3" py-onClick='display("C")'>C</button>
 							<py-repl id="r4">display("C")</py-repl>
+							<button id="b3" py-onClick='display("C")'>C</button>
 							<py-button label="Py-Button C">def on_click(*args): display("C")</py-button>
 						</div>
-						<div id="default-location-div" class="output-div">#Default Output Div (C)</div>
+						<div id="default-location-div" class="output-div">#default-location-div (C)</div>
 					</div>
 				</div>
 		</div>
