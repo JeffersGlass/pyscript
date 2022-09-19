@@ -42,10 +42,16 @@
 			display: grid;
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
+
+		code {
+			background-color: gainsboro;
+			color:brown;
+		}
 	</style>
 </head>
 
 <body>
+	<p>Each of the following sections contains a &lt;py-script&gt; tag, a &lt;py-repl&gt; tag, a &lt;button&gt; with the <code>py-onClick</code> attribute, and a &lt;py-button&gt; tag. Within each section, all four tags use the same syntax to call <code>display()</code>, which you can see in the REPL.</p>
 	<div class="outer">
 				<!-- These should all output to #explicit-target-div -->
 			<div>
