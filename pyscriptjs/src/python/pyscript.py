@@ -11,8 +11,8 @@ from js import console, document
 loop = asyncio.get_event_loop()
 
 # --- To be replaced by reading the app-config set in py-config
-# appConfig_default_output_location = "default-location-div"
-appConfig_default_output_location = None
+appConfig_default_output_location = "default-location-div"
+# appConfig_default_output_location = None
 # ---
 
 if appConfig_default_output_location is not None:

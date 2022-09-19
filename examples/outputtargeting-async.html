@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+	<title>PyScript Hello World</title>
+
+	<link rel="icon" type="image/png" href="favicon.png" />
+
+
+	<script defer src="../pyscriptjs/build/pyscript.js"></script>
+	<link rel="stylesheet" href="../pyscriptjs/build/pyscript.css" />
+
+	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+	<style>
+		.output-div{
+			margin: 0.5rem;
+			border-width: 2px;
+			background-color: #FFFBEB;
+		}
+	</style>
+</head>
+
+<body>
+    <!-- The following two scripts output to '#explicit-target-div'-->
+	<py-script>
+        import asyncio
+        for i in range(1,6):
+            display(f"A{i}", targetID = "explicit-target-div")
+            await asyncio.sleep(.1)
+    </py-script>
+    <py-script>
+        import asyncio
+        for i in range(1,6):
+            display(f"B{i}", targetID = "explicit-target-div")
+            await asyncio.sleep(.1)
+    </py-script>
+    <div id="explicit-target-div" class="output-div">#Explicit Target Div (A & B)</div>
+
+    <!-- The following two scripts output to '#output-target-div'-->
+    <py-script output-target="output-target-div">
+        import asyncio
+        for i in range(1,6):
+            display(f"C{i}")
+            await asyncio.sleep(.1)
+    </py-script>
+
+    <py-script output-target="output-target-div">
+        import asyncio
+        for i in range(1,6):
+            display(f"D{i}")
+            await asyncio.sleep(.1)
+    </py-script>
+
+    <div id="output-target-div" class="output-div">#Output-Target Div (C & D)</div>
+
+    <!-- The following two scripts output to '#default-location-div' if defined, or as a child of each script if it is not-->
+    <py-script>
+        import asyncio
+        for i in range(1,6):
+            display(f"E{i}")
+            await asyncio.sleep(.1)
+    </py-script>
+
+    <py-script>
+        import asyncio
+        for i in range(1,6):
+            display(f"F{i}")
+            await asyncio.sleep(.1)
+    </py-script>
+
+    <div id="default-location-div" class="output-div">#Default Location</div>
+
+
+</body>
+</html>
