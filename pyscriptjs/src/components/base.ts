@@ -120,6 +120,7 @@ export class BaseEvalElement extends HTMLElement {
         //await runtime.run(`last_executed_tag = '${this.id}'`);
 
         let source: string;
+        this.checkId();
         try {
             source = this.source ? await this.getSourceFromFile(this.source)
                                  : this.getSourceFromElement();

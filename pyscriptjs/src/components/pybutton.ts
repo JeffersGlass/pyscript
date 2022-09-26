@@ -66,7 +66,6 @@ export class PyButton extends BaseEvalElement {
             registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(on_click_${this.mount_name}))`;
         }
 
-        const tokenName: string;
         let fallback: string;
         let destination: string;
         if (this.hasAttribute('output-target')){
@@ -78,10 +77,10 @@ export class PyButton extends BaseEvalElement {
             fallback = 'True'
         }
 
-            tokenName = "token" + guidString()
-            //easier to wrap code in new function than inject new first line into existing function
-            //Maybe rewrite this with a decorator?
-            this.code = this.code + `
+        const tokenName = "token" + guidString()
+        //easier to wrap code in new function than inject new first line into existing function
+        //Maybe rewrite this with a decorator?
+        this.code = this.code + `
 original_onclick = on_click_${this.mount_name}
 def on_click_${this.mount_name}(*args, **kwargs):
     ${tokenName} = output_context_var.set(ContextState(fallback=${fallback}, output_location_id='${destination}'))
