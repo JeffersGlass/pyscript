@@ -227,7 +227,7 @@ async function createElementsWithEventListeners(runtime: Runtime, pyAttribute: s
         }
 
         let handlerCode = el.getAttribute(pyAttribute);
-        handlerCode = `last_executed_tag = '${el.id}';\n` + handlerCode;
+        handlerCode = `global last_executed_tag;\nlast_executed_tag = '${el.id}';\nconsole.log('From py-event: last_executed_tag is: ${el.id}');\n` + handlerCode;
 
         if (el.hasAttribute('output-target')) {
             const newTarget = el.getAttribute('output-target')
