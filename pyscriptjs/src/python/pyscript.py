@@ -15,15 +15,9 @@ appConfig_default_output_location = "default-location-div"
 # appConfig_default_output_location = None
 # ---
 
-if appConfig_default_output_location is not None:
-    output_context_var = contextvars.ContextVar(
-        "output-tag-id", default=appConfig_default_output_location
-    )
-    # output_context_var.set(appConfig_default_output_location)
-else:
-    output_context_var = contextvars.ContextVar(
-        "output-tag-id", default="_DEFAULT_OUTPUT_CONTEXT"
-    )
+output_context_var = contextvars.ContextVar(
+    "output-tag-id", default="_DEFAULT_OUTPUT_CONTEXT"
+)
 
 last_executed_tag = None
 
@@ -147,16 +141,38 @@ def display(value, targetID=None, append=True):
     targetElement = None
     token = None
 
+    global appConfig_default_output_location
+    global last_executed_tag
+
     # Explicitly passed in a target ID to display()
     if targetID is not None:
         token = output_context_var.set(targetID)
 
-    # If we have no user-set-context, use the ID of the last_executed_tag
+    # If we have no user-set-context:
     if output_context_var.get() == "_DEFAULT_OUTPUT_CONTEXT":
-        targetElement = Element(last_executed_tag)
-        console.warn(
-            f"_DefaultOutputContext used, writing next to element {targetElement.id}"
-        )
+        # If default location was set in py-config, write there:
+        if appConfig_default_output_location is not None:
+            targetElement = Element(appConfig_default_output_location)
+
+        else:
+            # If current tag already has a container for its default output:
+            if (
+                document.getElementById(str(last_executed_tag) + "-output-container")
+                is not None
+            ):
+                targetElement = Element(str(last_executed_tag) + "-output-container")
+            else:
+                # Create a new div to hold default outputs
+                output_div = document.createElement("div")
+                output_div.id = str(last_executed_tag) + "-output-container"
+
+                # append as sibling of last executed tag, and set as target
+                parent = document.getElementById(last_executed_tag).parentNode
+                parent.insertBefore(
+                    output_div, document.getElementById(last_executed_tag).nextSibling
+                )
+                targetElement = Element(element_id=None, element=output_div)
+
     # Otherwise, use whatever context we have
     else:
         targetElement = Element(output_context_var.get())
@@ -173,6 +189,18 @@ def display(value, targetID=None, append=True):
     # was called
     if targetID is not None:
         output_context_var.reset(token)
+
+
+def sets_last_tag_executed(tag):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            global last_executed_tag
+            last_executed_tag = tag
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 class Element:
