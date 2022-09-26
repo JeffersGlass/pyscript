@@ -83,7 +83,6 @@ export abstract class Runtime extends Object {
     abstract name?: string;
     abstract lang?: string;
     abstract interpreter: RuntimeInterpreter;
-    abstract lastExecutedTag: any;
     /**
      * global symbols table for the underlying interpreter.
      * */
