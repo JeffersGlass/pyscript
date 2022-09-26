@@ -56,12 +56,13 @@
 				<!-- These should all output to #explicit-target-div -->
 			<div>
 				<h1>Outputs to 'target' argument of display() (A)</h1>
+				<p><i>Calls to display() with an explicit <code>targetID</code> argument route their output to the tag on the page with the matching ID, or error if no such tag exists.</i></p>
 				<div class="section">
 					<div id="explicit-target-div-scripts">
 						<py-script>display("A", targetID="explicit-target-div")</py-script>
 						<py-repl id="r1">display("A", targetID="explicit-target-div")</py-repl>
 						<button id="b1" py-onClick='display("A", targetID="explicit-target-div")'>A</button>
-						<py-button label="Py-Button A">def on_click(*args): display("A", targetID="explicit-target-div")</py-button>
+						<br><py-button id="pb1" label="Py-Button A">def on_click(*args): display("A", targetID="explicit-target-div")</py-button>
 					</div>
 					<div id="explicit-target-div" class="output-div">#explicit-target-div (A)</div>
 				</div>
@@ -70,12 +71,13 @@
 			<!-- These should all output to #Output-target Div -->
 			<div>
 				<h1>Outputs to tag specified by 'output-target' attribute (B)</h1>
+				<p><i>Calls to display() that do not have a <code>targetID</code> argument, but are called from an HTML tag with a <code>output-target</code> attribute route their output to the tag on the page with the ID matching the value of that attribute, or error if no such tag exists.</i></p>
 				<div class="section">
 					<div id="display-target-scripts">
 						<py-script output-target="output-target-div">display("B")</py-script>
 						<py-repl output-target="output-target-div" id="r2">display("B")</py-repl>
 						<button output-target="output-target-div" id="b2" py-onClick='display("B")'>B</button>
-						<py-button output-target="output-target-div" label="Py-Button B">def on_click(*args): display("B")</py-button>
+						<br><py-button output-target="output-target-div" id = "pb2" label="Py-Button B">def on_click(*args): display("B")</py-button>
 					</div>
 					<div id="output-target-div" class="output-div">#output-target-div (B)</div>
 				</div>
@@ -84,16 +86,32 @@
 			<!-- These should all output to the location set in PyConfig, or default if there isn't one -->
 				<div>
 					<h1>Outputs to location set in Py-config, or adjacent to element (C)</h1>
+					<p><i>If a default output location is set in &lt;py-config&gt;, any calls to display() that don't have a <code>targetID</code> argument and aren't in a tag with an <code>output-targetting attribute</code></i></p>
+					<p><i>If no default location is set in &lt;py-config&gt;, the output from such calls is placed as the next sibling of the calling tag. You can use the radio buttons below to simulate whether the default is set in &lt;py-config&gt; and observe both behaviors.</i></p>
+					<input type="radio" name="pyconfig-hasdefault" id="yes-default" checked py-change="radio_button_change(True)"><label for="yes-default"> Default output location set to 'default-location-div' in &lt;py-config&gt;</label>
+					<br><input type="radio" name="pyconfig-hasdefault" id="none-default" py-change="radio_button_change(False)"><label for="yes-default"> No default output location set in &lt;py-config&gt;</label>
 					<div class="section">
 						<div id="default-location-scripts">
 							<py-script>display("C")</py-script>
-							<py-repl id="r4">display("C")</py-repl>
+							<py-repl id="r3">display("C")</py-repl>
 							<button id="b3" py-onClick='display("C")'>C</button>
-							<py-button label="Py-Button C">def on_click(*args): display("C")</py-button>
+							<br><py-button id = "pb3" label="Py-Button C">def on_click(*args): display("C")</py-button>
 						</div>
 						<div id="default-location-div" class="output-div">#default-location-div (C)</div>
 					</div>
 				</div>
 		</div>
+<div style="height:40rem"></div>
+<py-script>
+	from js import console as jsconsole
+	def radio_button_change(use_default):
+		jsconsole.log("Called radio_button_change")
+		global appConfig_default_output_location
+		if use_default:
+			appConfig_default_output_location = "default-location-div"
+		else:
+			appConfig_default_output_location = None
+		jsconsole.log(appConfig_default_output_location)
+</py-script>
 </body>
 </html>
