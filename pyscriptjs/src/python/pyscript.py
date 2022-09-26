@@ -3,6 +3,7 @@ import base64
 import contextvars
 import io
 import time
+from dataclasses import dataclass
 from textwrap import dedent
 
 import micropip  # noqa: F401
@@ -15,8 +16,16 @@ appConfig_default_output_location = "default-location-div"
 # appConfig_default_output_location = None
 # ---
 
+
+@dataclass
+class ContextState:
+    fallback: bool
+    output_location_id: str
+
+
 output_context_var = contextvars.ContextVar(
-    "output-tag-id", default="_DEFAULT_OUTPUT_CONTEXT"
+    "output-tag-id",
+    default=ContextState(fallback=True, output_location_id="_DEFAULT_OUTPUT_CONTEXT"),
 )
 
 last_executed_tag = None
@@ -146,64 +155,52 @@ def display(value, targetID=None, append=True):
 
     # Explicitly passed in a target ID to display()
     if targetID is not None:
-        token = output_context_var.set(targetID)
+        token = output_context_var.set(
+            ContextState(fallback=False, output_location_id=targetID)
+        )
 
     # If we have no user-set-context:
-    if output_context_var.get() == "_DEFAULT_OUTPUT_CONTEXT":
+    if output_context_var.get().fallback:
         # If default location was set in py-config, write there:
         if appConfig_default_output_location is not None:
             targetElement = Element(appConfig_default_output_location)
 
         else:
+            target_id = output_context_var.get().output_location_id
             # If current tag already has a container for its default output:
-            if (
-                document.getElementById(str(last_executed_tag) + "-output-container")
-                is not None
-            ):
-                targetElement = Element(str(last_executed_tag) + "-output-container")
+            if document.getElementById(target_id + "-output-container") is not None:
+                targetElement = Element(target_id + "-output-container")
             else:
                 # Create a new div to hold default outputs
                 output_div = document.createElement("div")
-                output_div.id = str(last_executed_tag) + "-output-container"
+                output_div.id = target_id + "-output-container"
 
                 # append as sibling of last executed tag, and set as target
-                parent = document.getElementById(last_executed_tag).parentNode
+                parent = document.getElementById(target_id).parentNode
                 parent.insertBefore(
-                    output_div, document.getElementById(last_executed_tag).nextSibling
+                    output_div, document.getElementById(target_id).nextSibling
                 )
                 targetElement = Element(
-                    element_id=str(last_executed_tag) + "-output-container",
+                    element_id=target_id + "-output-container",
                     element=output_div,
                 )
 
     # Otherwise, use whatever context we have
     else:
-        targetElement = Element(output_context_var.get())
+        targetElement = Element(output_context_var.get().output_location_id)
 
     # targetElement is None if Element constructor fails to find tag with id output_context_var
     if targetElement is not None:
         targetElement.write(value, append)
     else:
         console.error(
-            f"display(): No element in DOM with ID {output_context_var.get()}"
+            f"display(): No element in DOM with ID {output_context_var.get().output_location_id}"
         )
 
     # If we passed in an explicitly ID to target, restore the context to before this function
     # was called
     if targetID is not None:
         output_context_var.reset(token)
-
-
-def sets_last_tag_executed(tag):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            global last_executed_tag
-            last_executed_tag = tag
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
 
 
 class Element:

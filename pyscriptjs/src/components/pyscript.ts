@@ -227,12 +227,17 @@ async function createElementsWithEventListeners(runtime: Runtime, pyAttribute: s
         }
 
         let handlerCode = el.getAttribute(pyAttribute);
-        handlerCode = `global last_executed_tag;\nlast_executed_tag = '${el.id}';\nconsole.log('From py-event: last_executed_tag is: ${el.id}');\n` + handlerCode;
 
         if (el.hasAttribute('output-target')) {
             const newTarget = el.getAttribute('output-target')
             const tokenName = "token" + guidString()
-            handlerCode = `${tokenName} = output_context_var.set('${newTarget}'); `
+            handlerCode = `${tokenName} = output_context_var.set(ContextState(fallback=False, output_location_id='${newTarget}')); `
+                + handlerCode
+                + `; output_context_var.reset(${tokenName})`
+            }
+        else {
+            const tokenName = "token" + guidString()
+            handlerCode = `${tokenName} = output_context_var.set(ContextState(fallback=True, output_location_id='${el.id}')); `
                 + handlerCode
                 + `; output_context_var.reset(${tokenName})`
             }

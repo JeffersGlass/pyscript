@@ -1,4 +1,4 @@
-import { runtimeLoaded } from '../stores';
+import { appConfig, runtimeLoaded } from '../stores';
 import { guidGenerator, guidString, addClasses, removeClasses } from '../utils';
 
 import type { Runtime } from '../runtime';
@@ -117,7 +117,7 @@ export class BaseEvalElement extends HTMLElement {
 
     async evaluate(): Promise<void> {
         this.preEvaluate();
-        await runtime.run(`last_executed_tag = '${this.id}'`);
+        //await runtime.run(`last_executed_tag = '${this.id}'`);
 
         let source: string;
         try {
@@ -128,11 +128,17 @@ export class BaseEvalElement extends HTMLElement {
             let tokenName: string;
             if (this.hasAttribute('output-target')){
                 const value = this.getAttribute('output-target')
-                tokenName = "token" + guidString()
-                source = `${tokenName} = output_context_var.set('${value}');\n`
+                const tokenName = "token" + guidString()
+                source = `${tokenName} = output_context_var.set(ContextState(fallback=False, output_location_id='${value}'));\n`
                     + source
                     + `\noutput_context_var.reset(${tokenName})`
                 console.log(`${tokenName} represents value ${value}`)
+            }
+            else {
+                const tokenName = "token" + guidString()
+                source = `${tokenName} = output_context_var.set(ContextState(fallback=True, output_location_id='${this.id}'));\n`
+                    + source
+                    + `\noutput_context_var.reset(${tokenName})`
             }
 
             <string>await runtime.run(source);
