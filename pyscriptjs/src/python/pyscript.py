@@ -171,7 +171,10 @@ def display(value, targetID=None, append=True):
                 parent.insertBefore(
                     output_div, document.getElementById(last_executed_tag).nextSibling
                 )
-                targetElement = Element(element_id=None, element=output_div)
+                targetElement = Element(
+                    element_id=str(last_executed_tag) + "-output-container",
+                    element=output_div,
+                )
 
     # Otherwise, use whatever context we have
     else:

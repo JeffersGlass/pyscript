@@ -63,8 +63,6 @@ export class PyButton extends BaseEvalElement {
 
         if (this.code.includes('def on_click')) {
             this.code = this.code.replace('def on_click', `@sets_last_tag_executed('${this.id}')\ndef on_click_${this.mount_name}`);
-
-            //this.code = this.code + `;global last_executed_tag;last_executed_tag = '${this.mount_name}';console.log('on_click set last executed tag to ${this.mount_name}');`;
             registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(on_click_${this.mount_name}))`;
         }
 
