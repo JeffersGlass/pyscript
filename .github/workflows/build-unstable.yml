@@ -54,6 +54,9 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
+        -   name: Update Version
+            run: make set-unstable-version
+
         -   name: Build
             run: make build
 
