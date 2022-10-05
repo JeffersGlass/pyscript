@@ -54,9 +54,6 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
-        -   name: Update Version to Match Tag
-            run: make set-unstable-version
-
         -   name: Build
             run: make build
 
