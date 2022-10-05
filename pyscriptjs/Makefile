@@ -60,7 +60,7 @@ build:
 	npm run build
 
 set-version:
-	$(conda_run) $(base_dir)/pyscriptjs/updateversion.py 'testing123' $(git_tag_info)
+	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'testing123' $(git_tag_info)
 
 examples:
 	mkdir -p ./examples
