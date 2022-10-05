@@ -131,7 +131,13 @@ class PyScript:
         version = json.load(fp)
 
     __version__ = ".".join(
-        [f"{version['major']:04}", f"{version['mionr']:02}", f"{version['patch']:02}"]
+        [
+            f"{version['major']:04}",
+            f"{version['minor']:02}",
+            f"{version['patch']:02}",
+            f"{version['releaselevel']:02}",
+            f"{version['commit']:02}",
+        ]
     )
 
     # Format mimics sys.version_info
