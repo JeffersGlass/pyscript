@@ -45,17 +45,20 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
-        -   name: Update Version to Match Tag
+        -   name: Set version with 'final' release level
             run: make set-release-version
+
+        -   name: Build and Test
+            run: make test
+
+        -   name: Set version with 'unstable' release level
+            run: make set-unstable-version
 
         -   name: Commit Updated Version
             uses: EndBug/add-and-commit@v9
             with:
                 repository: ${{ github.event.pull_request.head.repo.full_name }}
                 ref: ${{ github.event.pull_request.head.ref }}
-
-        -   name: Build and Test
-            run: make test
 
         -   name: Prepare Release
             uses: softprops/action-gh-release@v1
