@@ -59,8 +59,11 @@ dev:
 build:
 	npm run build
 
-set-version:
-	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'testing123' $(git_tag_info)
+set-unstable-version:
+	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'unstable' $(git_tag_info)
+
+set-release-version:
+	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'final' $(git_tag_info)
 
 examples:
 	mkdir -p ./examples

@@ -46,7 +46,7 @@ jobs:
             run: make setup
 
         -   name: Update Version to Match Tag
-            run: python -m ../.github/scripts/updateversion.py 'final'
+            run: make set-release-version
 
         -   name: Commit Updated Version
             uses: EndBug/add-and-commit@v9
