@@ -1,13 +1,12 @@
 import asyncio
 import base64
-from collections import namedtuple
 import io
 import json
 import pathlib
 import sys
 import time
+from collections import namedtuple
 from textwrap import dedent
-from typing import final
 
 import micropip  # noqa: F401
 from js import console, document
@@ -127,14 +126,16 @@ class PyScript:
             )
         )
 
-    #Load version information from file. 
-    with open(pathlib.Path(__file__).parent.resolve() / 'version_info.json', 'r') as fp:
+    # Load version information from file.
+    with open(pathlib.Path(__file__).parent.resolve() / "version_info.json") as fp:
         version = json.load(fp)
-    
-    __version__ = '.'.join([f"{version['year']:04}", f"{version['month']:02}", f"{version['day']:02}"])
 
-    #Format mimics sys.version_info
-    _VersionInfo = namedtuple('version_info', version.keys())
+    __version__ = ".".join(
+        [f"{version['major']:04}", f"{version['mionr']:02}", f"{version['patch']:02}"]
+    )
+
+    # Format mimics sys.version_info
+    _VersionInfo = namedtuple("version_info", version.keys())
     version_info = _VersionInfo(**version)
 
 

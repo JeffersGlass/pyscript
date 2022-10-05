@@ -46,7 +46,7 @@ jobs:
             run: make setup
 
         -   name: Update Version to Match Tag
-            run: python ../.github/scripts/updateversion.py ${GITHUB_REF/refs\/tags\//}
+            run: python -m ../.github/scripts/updateversion.py 'final'
 
         -   name: Commit Updated Version
             uses: EndBug/add-and-commit@v9
