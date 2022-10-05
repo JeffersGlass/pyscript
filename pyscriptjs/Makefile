@@ -60,10 +60,10 @@ build:
 	npm run build
 
 set-unstable-version:
-	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'unstable' $(git_tag_info)
+	$(conda_run) python $(base_dir)/pyscriptjs/src/python/updateversion.py 'unstable' $(git_tag_info)
 
 set-release-version:
-	$(conda_run) python $(base_dir)/pyscriptjs/updateversion.py 'final' $(git_tag_info)
+	$(conda_run) python $(base_dir)/pyscriptjs/src/python/updateversion.py 'final' $(git_tag_info)
 
 examples:
 	mkdir -p ./examples

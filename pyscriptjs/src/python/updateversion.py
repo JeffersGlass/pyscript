@@ -10,7 +10,7 @@ def update_version_info() -> None:
     root_folder = [
         p for p in pathlib.Path(os.getcwd()).parents if p.name == "pyscript"
     ][0]
-    version_file = root_folder / "pyscriptjs" / "src" / "version_info.json"
+    version_file = root_folder / "pyscriptjs" / "src" / "python" / "version_info.json"
 
     try:
         with open(version_file, "r") as fp:
