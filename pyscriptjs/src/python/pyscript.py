@@ -132,8 +132,8 @@ class PyScript:
 
     __version__ = ".".join(
         [
-            f"{version['major']:04}",
-            f"{version['minor']:02}",
+            f"{version['year']:04}",
+            f"{version['month']:02}",
             f"{version['patch']:02}",
             f"{version['releaselevel']:02}",
             f"{version['commit']:02}",
