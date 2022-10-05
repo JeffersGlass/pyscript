@@ -1,5 +1,6 @@
 tag := latest
 git_hash ?= $(shell git log -1 --pretty=format:%h)
+git_tag_info ?= $(shell git describe --tags)
 
 base_dir ?= $(shell git rev-parse --show-toplevel)
 src_dir ?= $(base_dir)/pyscriptjs/src
@@ -57,6 +58,9 @@ dev:
 
 build:
 	npm run build
+
+set-version:
+	$(conda_run) $(base_dir)/pyscriptjs/updateversion.py 'testing123' $(git_tag_info)
 
 examples:
 	mkdir -p ./examples
