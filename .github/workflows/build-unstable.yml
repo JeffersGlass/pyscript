@@ -54,6 +54,9 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
+        -   name: Update Version to Match Tag
+            run: python -m ../.github/scripts/updateversion.py 'unstable'
+
         -   name: Build
             run: make build
 
