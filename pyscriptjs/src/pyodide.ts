@@ -1,5 +1,5 @@
 import { Runtime } from './runtime';
-import { getLastPath } from './utils';
+import { getLastPath, globalExport } from './utils';
 import { getLogger } from './logger';
 import type { PyodideInterface } from 'pyodide';
 // eslint-disable-next-line
@@ -61,6 +61,7 @@ export class PyodideRuntime extends Runtime {
 
         logger.info('importing pyscript.py');
         await this.run(pyscript);
+        globalExport('loadEvent', loadEvent)
 
         logger.info('pyodide loaded and initialized');
     }
