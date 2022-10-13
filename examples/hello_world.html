@@ -9,12 +9,17 @@
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <script defer src="../pyscriptjs/build/pyscript.js"></script>
   </head>
 
   <body>
     Hello world! <br>
     This is the current date and time, as computed by Python:
+    <button id="b" py-click="console.log(event)">Click to Log</button>
+    <form id="f" py-submit="console.log(event)">
+      Enter first name: <input name="firstName" type="text">
+      <input type="submit">
+    </form>
     <py-script>
 from datetime import datetime
 now = datetime.now()

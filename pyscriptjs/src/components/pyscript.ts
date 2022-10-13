@@ -221,8 +221,9 @@ async function createElementsWithEventListeners(runtime: Runtime, pyAttribute: s
             await runtime.run(source);
         }
         else{
-            el.addEventListener(event, () => {
-                (async() => {await runtime.run(handlerCode)})();
+            el.addEventListener(event, (event) => {
+                event.preventDefault();
+                (async(event) => {window.loadEvent(event); await runtime.run(handlerCode)})(event);
             });
         }
         // TODO: Should we actually map handlers in JS instead of Python?

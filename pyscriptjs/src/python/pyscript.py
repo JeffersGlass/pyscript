@@ -6,7 +6,7 @@ import time
 from textwrap import dedent
 
 import micropip  # noqa: F401
-from js import console, document
+from js import console, document, window
 
 loop = asyncio.get_event_loop()
 
@@ -421,3 +421,12 @@ class OutputManager:
 
 pyscript = PyScript()
 output_manager = OutputManager()
+
+
+def load_event(js_event):
+    console.log(f"Loading event from from Python {js_event}")
+    global event
+    event = js_event
+
+
+window.loadEvent = load_event
