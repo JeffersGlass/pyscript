@@ -276,6 +276,7 @@ from pyscript import micropip, Element, console, document`);
                 const modulename = singleFile.replace(/^.*[\\/]/, '').replace('.py', '');
 
                 console.log(`importing ${modulename}`);
+                console.log(runtime.run(`import os; from pyodide.ffi import to_js; to_js(os.listdir('.'))`))
                 // TODO: This is very specific to Pyodide API and will not work for other interpreters,
                 //       when we add support for other interpreters we will need to move this to the
                 //       runtime (interpreter) API level and allow each one to implement it in its own way

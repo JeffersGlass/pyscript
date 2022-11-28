@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script defer src="https://pyscript.net/unstable/pyscript.js"></script>
+  <link rel="stylesheet" href="https://pyscript.net/unstable/pyscript.css">
+</head>
+<body>
+  <py-config>
+    plugins = ['first_plugin.py']
+  </py-config>
+  <py-script>
+    display("Hello, world")
+  </py-script>
+  <section class="code">
+    <div id="view-code-button" role="button" aria-pressed="false" tabindex="0">View Code</div>
+    <div id="code-section" class="code-section-hidden">
+      <p>index.html</p>
+      <pre class="prism-code language-html">
+        <code class="language-html">
+          &lt;py-script&gt;
+            from datetime import datetime
+            now = datetime.now()
+            display(now.strftime("%m/%d/%Y, %H:%M:%S"))
+          &lt;/py-script&gt;
+        </code>
+      </pre>
+    </div>
+  </section>
+</body>
+</html>
