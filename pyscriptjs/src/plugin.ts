@@ -108,16 +108,16 @@ export class PluginManager {
         for (const p of this._pythonPlugins) p.afterStartup?.(runtime);
     }
 
-    beforePyScriptExec(runtime, src, pyscriptTag) {
-        for (const p of this._plugins) p.beforePyScriptExec(runtime, src, pyscriptTag);
+    beforePyScriptExec(runtime, pyscriptTag, src) {
+        for (const p of this._plugins) p.beforePyScriptExec(runtime, pyscriptTag ,src);
 
-        for (const p of this._pythonPlugins) p.beforePyScriptExec?.(runtime, src, pyscriptTag);
+        for (const p of this._pythonPlugins) p.beforePyScriptExec?.(runtime, pyscriptTag ,src);
     }
 
-    afterPyScriptExec(runtime: Runtime, src, pyscriptTag, result) {
-        for (const p of this._plugins) p.afterPyScriptExec(runtime, src, pyscriptTag, result);
+    afterPyScriptExec(runtime: Runtime, pyscriptTag, src, result) {
+        for (const p of this._plugins) p.afterPyScriptExec(runtime, pyscriptTag, src, result);
 
-        for (const p of this._pythonPlugins) p.afterPyScriptExec?.(runtime, src, pyscriptTag, result);
+        for (const p of this._pythonPlugins) p.afterPyScriptExec?.(runtime, pyscriptTag, src, result);
     }
 
     onUserError(error: UserError) {
