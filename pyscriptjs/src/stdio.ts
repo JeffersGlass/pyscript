@@ -123,3 +123,28 @@ export class StdioMultiplexer implements Stdio {
         for (const obj of this._listeners) obj.stderr_writeline(msg);
     }
 }
+
+export class StdioDisplayer implements Stdio{
+
+    target_id;
+
+    constructor(target_id: string) {
+        this.target_id = target_id;
+        //console.log(`Constructing new display manager for id ${this.target_id}`)
+    }
+
+    setStdoutTarget(id: string) {
+        this.target_id = id
+    }
+
+    stdout_writeline (msg: string) {
+        const target = document.getElementById(this.target_id)
+        target.innerHTML += "<div>" + msg + "</div>"
+    }
+
+    stderr_writeline (msg: string) {
+        const target = document.getElementById(this.target_id)
+        target.innerHTML += "<div>" + msg + "</div>"
+    }
+
+}

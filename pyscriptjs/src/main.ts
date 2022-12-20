@@ -63,6 +63,7 @@ export class PyScriptApp {
     PyScript: ReturnType<typeof make_PyScript>;
     plugins: PluginManager;
     _stdioMultiplexer: StdioMultiplexer;
+    _stdoutDirector : StdoutPlugin;
 
     constructor() {
         // initialize the builtin plugins
