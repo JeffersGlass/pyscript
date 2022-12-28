@@ -166,9 +166,9 @@ export function make_PyRepl(runtime: Runtime, app: PyScriptApp) {
             outEl.innerHTML = '';
 
             // execute the python code
-            app.plugins.beforePyReplExec(runtime, pySrc, this)
+            app.plugins.beforePyReplExec(runtime, pySrc, outEl, this)
             const pyResult = pyExec(runtime, pySrc, outEl);
-            app.plugins.afterPyReplExec(runtime, pySrc, this, pyResult)
+            app.plugins.afterPyReplExec(runtime, pySrc, this, outEl, pyResult)
 
             // display the value of the last evaluated expression (REPL-style)
             if (pyResult !== undefined) {
