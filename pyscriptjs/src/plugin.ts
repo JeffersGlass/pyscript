@@ -43,9 +43,9 @@ export class Plugin {
 
     afterPyScriptExec(runtime, src, PyScriptTag, result) {}
 
-    beforePyReplExec(runtime, src, pyReplTag) {}
+    beforePyReplExec(runtime, src, pyReplTag, outEl) {}
 
-    afterPyReplExec(runtime, src, pyReplTag, result) {}
+    afterPyReplExec(runtime, src, pyReplTag, result, outEl) {}
 
     /** Startup complete. The interpreter is initialized and ready, user
      * scripts have been executed: the main initialization logic ends here and
@@ -109,16 +109,16 @@ export class PluginManager {
         for (const p of this._pythonPlugins) p.afterPyScriptExec?.(runtime, src, pyscriptTag, result);
     }
 
-    beforePyReplExec(runtime, src, pyReplTag) {
-        for (const p of this._plugins) p.beforePyReplExec(runtime, src, pyReplTag);
+    beforePyReplExec(runtime, src, pyReplTag, outEl) {
+        for (const p of this._plugins) p.beforePyReplExec(runtime, src, pyReplTag, outEl);
 
-        for (const p of this._pythonPlugins) p.beforePyReplExec?.(runtime, src, pyReplTag);
+        for (const p of this._pythonPlugins) p.beforePyReplExec?.(runtime, src, pyReplTag, outEl);
     }
 
-    afterPyReplExec(runtime, src, pyReplTag, result) {
-        for (const p of this._plugins) p.afterPyReplExec(runtime, src, pyReplTag, result);
+    afterPyReplExec(runtime, src, pyReplTag, outEl, result) {
+        for (const p of this._plugins) p.afterPyReplExec(runtime, src, pyReplTag, outEl, result);
 
-        for (const p of this._pythonPlugins) p.afterPyReplExec?.(runtime, src, pyReplTag, result);
+        for (const p of this._pythonPlugins) p.afterPyReplExec?.(runtime, src, pyReplTag, outEl, result);
     }
 
     onUserError(error: UserError) {
