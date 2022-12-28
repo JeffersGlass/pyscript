@@ -195,6 +195,8 @@ class TestPlugin(PyScriptTest):
             "beforeLaunch",
             "beforePyScriptExec",
             "afterPyScriptExec",
+            "beforePyReplExec",
+            "afterPyReplExec",
         ]
 
         # EXPECT it to log the correct logs for the events it intercepts
@@ -210,7 +212,7 @@ class TestPlugin(PyScriptTest):
         # TODO: It'd be actually better to check that the events get called in order
 
     @prepare_test(
-        "exec_test_logger",
+        "pyscript_exec_test_logger",
         EXEC_HOOKS_PLUGIN_CODE,
         template=HTML_TEMPLATE_NO_TAG + "\n<py-script id='pyid'>x=2; x</py-script>",
     )
