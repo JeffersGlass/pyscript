@@ -53,6 +53,7 @@ class PyReplQuiz:
         #Create Question:
         self.question_div = js.document.createElement("div")
         self.question_div.innerHTML = self.question
+        self.question_div.classList.add("question-text")
         self.element.appendChild(self.question_div)
 
         #Create Repl

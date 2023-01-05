@@ -112,16 +112,16 @@ export class PluginManager {
         for (const p of this._pythonPlugins) p.afterStartup?.(runtime);
     }
 
-    beforePyScriptExec(runtime, pyscriptTag, src) {
-        for (const p of this._plugins) p.beforePyScriptExec(runtime, src, pyscriptTag);
+    beforePyScriptExec(runtime, src, pyscriptTag) {
+        //for (const p of this._plugins) p.beforePyScriptExec(runtime, src, pyscriptTag);
 
-        for (const p of this._pythonPlugins) p.beforePyScriptExec?.(runtime, src, pyscriptTag);
+        //for (const p of this._pythonPlugins) p.beforePyScriptExec?.(runtime, src, pyscriptTag);
     }
 
     afterPyScriptExec(runtime: Runtime, pyscriptTag, src, result) {
-        for (const p of this._plugins) p.afterPyScriptExec(runtime, src, pyscriptTag, result);
+        //for (const p of this._plugins) p.afterPyScriptExec(runtime, src, pyscriptTag, result);
 
-        for (const p of this._pythonPlugins) p.afterPyScriptExec?.(runtime, src, pyscriptTag, result);
+        //for (const p of this._pythonPlugins) p.afterPyScriptExec?.(runtime, src, pyscriptTag, result);
     }
 
     beforePyReplExec(runtime, src, outEl, pyReplTag) {

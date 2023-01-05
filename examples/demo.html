@@ -17,7 +17,11 @@
             display:none
         }
         py-question {
-            display:none
+            display:none;
+        }
+        .question-text{
+            color:rgb(60, 60, 60);
+            font-weight: 400;
         }
         py-replquiz {
             display:none;
@@ -26,6 +30,9 @@
             margin: 4rem 1rem 4rem;
             padding: 2rem;
             border-radius: 1rem;
+            border-color: rgb(71, 111, 67);
+            border-width: .1rem;
+            border-style: solid;
         }
         .cm-editor {
             background-color: white;
@@ -49,18 +56,22 @@
         terminal = false
         plugins = ['teacher.py']
     </py-config>
-    <h2>Welcome to the Python Quiz!</h2>
+    <h2>Python Quiz</h2>
+    <py-script>
+        def isNamedJeff(obj):
+            return hasattr(obj, ("name")) and obj.name == "Jeff"
+    </py-script>
     <py-replquiz id="one">
         <py-question>Question 1: Output "hello world" from the REPL</py-question>
-        <py-answer>result == "hello world"</answer>
+        <py-answer>result == "hello world"</py-answer>
     </py-replquiz>
     <py-replquiz id="two">
         <py-question>Question 2: Output a list with elements 0, 1, and 2</py-question>
-        <py-answer>(result == [0,1,2])</answer>
+        <py-answer>result == [0,1,2]</py-answer>
     </py-replquiz>
     <py-replquiz id="three">
-        <py-question>Question 3: Output a list with elements 0, 1, 2... 100</py-question>
-        <py-answer>result == list(range(101))</answer>
+        <py-question>Question 3: Output an object with a "name" attribute with value "Jeff"</py-question>
+        <py-answer>hasattr(result, ("name")) and result.name == "Jeff"</py-answer>
     </py-replquiz>
 </body>
 </html>
