@@ -190,7 +190,7 @@ export class PyScriptApp {
 
         this.logStatus('Initializing web components...');
         // lifecycle (8)
-        createCustomElements(runtime);
+        createCustomElements(runtime, this);
 
         initHandlers(runtime);
 
