@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="../pyscriptjs/build/pyscript.js"></script>
+    <link rel="stylesheet" href="../pyscriptjs/build/pyscript.css">
+    <title>Document</title>
+    <style>
+        body{
+            background: linear-gradient(0deg, rgb(100, 151, 95) 0%, rgb(158, 196, 152) 20%, rgb(210, 235, 211) 100%);
+            background-attachment: fixed;
+            height: 100%;
+        }
+        py-answer {
+            display:none
+        }
+        py-question {
+            display:none
+        }
+        py-replquiz {
+            display:none;
+            background-color: white;
+            opacity: 100%;
+            margin: 4rem 1rem 4rem;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .cm-editor {
+            background-color: white;
+        }
+        .py-repl-editor {
+            border-radius: .5rem;
+            border-color:lightgray;
+            padding: .5rem;
+        }
+        .result-holder {
+            border: 2px solid gray;
+            font-weight: 300;
+        }
+        .result-holder:empty {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <py-config>
+        terminal = false
+        plugins = ['teacher.py']
+    </py-config>
+    <h2>Welcome to the Python Quiz!</h2>
+    <py-replquiz id="one">
+        <py-question>Question 1: Output "hello world" from the REPL</py-question>
+        <py-answer>result == "hello world"</answer>
+    </py-replquiz>
+    <py-replquiz id="two">
+        <py-question>Question 2: Output a list with elements 0, 1, and 2</py-question>
+        <py-answer>(result == [0,1,2])</answer>
+    </py-replquiz>
+    <py-replquiz id="three">
+        <py-question>Question 3: Output a list with elements 0, 1, 2... 100</py-question>
+        <py-answer>result == list(range(101))</answer>
+    </py-replquiz>
+</body>
+</html>
