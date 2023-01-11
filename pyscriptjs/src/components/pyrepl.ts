@@ -166,9 +166,6 @@ export function make_PyRepl(runtime: Runtime, app: PyScriptApp) {
                 return;
             }
 
-            // clear the old output before executing the new code
-            outEl.innerHTML = '';
-
             // execute the python code
             app.plugins.beforePyReplExec(runtime, pySrc, outEl, this);
             const pyResult = pyExec(runtime, pySrc, outEl);
