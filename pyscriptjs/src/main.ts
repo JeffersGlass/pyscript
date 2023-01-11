@@ -192,9 +192,10 @@ export class PyScriptApp {
 
         this.logStatus('Initializing web components...');
         // lifecycle (8)
-        createCustomElements(interpreter);
 
-        initHandlers(interpreter);
+        //Takes a runtime and a reference to the PyScriptApp (to access plugins)
+        createCustomElements(runtime, this);
+        initHandlers(runtime);
 
         // NOTE: interpreter message is used by integration tests to know that
         // pyscript initialization has complete. If you change it, you need to
