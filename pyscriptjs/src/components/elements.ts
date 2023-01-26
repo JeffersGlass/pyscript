@@ -1,9 +1,9 @@
 import type { PyScriptApp } from '../main';
-import type { Runtime } from '../runtime';
+import type { Interpreter } from '../interpreter';
 import { make_PyRepl } from './pyrepl';
 import { make_PyWidget } from './pywidget';
 
-function createCustomElements(runtime: Runtime, app: PyScriptApp) {
+function createCustomElements(runtime: Interpreter, app: PyScriptApp) {
     const PyWidget = make_PyWidget(runtime);
     const PyRepl = make_PyRepl(runtime, app);
 
