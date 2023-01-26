@@ -261,3 +261,24 @@ class TestPyRepl(PyScriptTest):
         # check that the code and the outputs are in order
         out_texts = [el.inner_text() for el in self.iter_locator(outputs)]
         assert out_texts == ["hello", "world", ""]
+
+    def test_repl_output_attribute(self):
+        # Test that output attribute sends stdout and display()
+        # To the element with the given ID
+        self.pyscript_run(
+            """
+            <div id="repl-target"></div>
+            <py-repl output="repl-target">
+                print('print from py-repl')
+                display('display from py-repl')
+            </py-repl>
+
+            """
+        )
+
+        py_repl = self.page.locator("py-repl")
+        py_repl.locator("button").click()
+
+        target = self.page.locator("#repl-target")
+        assert "print from py-repl" in target.text_content()
+        assert "display from py-repl" in target.text_content()
