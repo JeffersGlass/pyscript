@@ -6,7 +6,7 @@ import { keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
 import { oneDarkTheme } from '@codemirror/theme-one-dark';
 
-import { getAttribute, ensureUniqueId, htmlDecode } from '../utils';
+import { getAttribute, ensureUniqueId, htmlDecode, createSingularWarning } from '../utils';
 import type { Interpreter } from '../interpreter';
 import { pyExec, pyDisplay } from '../pyexec';
 import { getLogger } from '../logger';
@@ -188,8 +188,7 @@ export function make_PyRepl(runtime: Interpreter, app: PyScriptApp) {
             if (outputID !== null) {
                 const el = document.getElementById(outputID);
                 if (el === null) {
-                    const err = `py-repl ERROR: cannot find the output element #${outputID} in the DOM`;
-                    this.outDiv.innerText = err;
+                    createSingularWarning(`output = "${this.getAttribute("output")}" does not match the id of any element on the page.`)
                     return undefined;
                 }
                 return el;
