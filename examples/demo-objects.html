@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="../pyscriptjs/build/pyscript.js"></script>
+    <link rel="stylesheet" href="../pyscriptjs/build/pyscript.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full">
+    <style>
+        .vardisplay:nth-child(odd){
+            background-color: #eff6ff;
+        }
+        .vardisplay:nth-child(even){
+            background-color: #dbeafe;
+        }
+    </style>
+    <div class="m-2 grid grid-cols-2 gap-x-4 h-full">
+        <div>
+            <py-config>
+                plugins = ['pytext.py']
+            </py-config>
+            <py-script src="demoobjects.py">
+            </py-script>
+            <py-repl auto-generate>
+            </py-repl>
+        </div>
+        <div class="gap-y-2 bg-blue-200 h-full p-2">
+            <p class="font-bold">You have created <py-text code="len(set(globals())) - len(initial_globals) - 1" fallback="[error]">0</py-text> objects since this page started.</p>
+            <div class="grid grid-cols-3 px-2 py-1 vardisplay">
+                <div class="underline text-center">Variable Name</div>
+                <div class="underline text-center">Value</div>
+                <div class="underline text-center">ID</div>
+            </div>
+                <py-text class="grid"
+                    code="make_variable_display()">
+                </py-text>
+        </div>
+    </div>
+        
+</body>
+</html>
