@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script defer src="../pyscriptjs/build/pyscript.js"></script> -->
+    <link rel="stylesheet" href="../pyscriptjs/build/pyscript.css">
+</head>
+<body>
+    <button onClick="askForSerial()">Open a Serial Port</button>
+    <input type="text" id="text">
+    <button onClick ="writeValueToSerial()">Write to the serial port</button>
+    <script>
+        let encoder
+        let decoder
+
+        async function askForSerial() {
+            port = await navigator.serial.requestPort();
+            await port.open({baudRate: 9600})
+            console.log("OPENED PORT")
+
+            encoder = new TextEncoderStream()
+            const outputDone = encoder.readable.pipeTo(port.writable)
+
+            //Set up listening for incoming bytes
+            let decoder = new TextDecoderStream();
+            inputDone = port.readable.pipeTo(decoder.writable);
+            inputStream = decoder.readable;
+
+            reader = inputStream.getReader();
+            listen();
+        }
+
+        async function writeValueToSerial(){
+            const textInput = document.getElementById("text")
+            const value = textInput.value
+            textInput.value = ''
+
+            outputWriter = encoder.writable.getWriter()
+            outputWriter.write(value + '\n')
+            outputWriter.releaseLock()
+            console.log(`Wrote to stream: ${value}`)
+        }
+
+
+        async function listen(){
+            let receivedValues = Array()
+            while (true){
+                const {value, done} = await reader.read();
+                if (value.includes('\r') || value.includes('\n')){
+                    console.log(`Received from Serial: ${receivedValues.join('')}`)
+                    receivedValues = []
+                }
+                else if (value) {
+                    console.log(`Char: ${value}`)
+                    receivedValues.push(value)
+                }
+            }
+        }
+    </script>
+</body>
+</html>
