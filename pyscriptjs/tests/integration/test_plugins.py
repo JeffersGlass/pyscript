@@ -103,7 +103,7 @@ class Upper:
 HTML_TEMPLATE_WITH_TAG = """
     <py-config>
         plugins = [
-            "./{plugin_name}.py"
+            "./{plugin_name}.{extension}"
         ]
     </py-config>
 
@@ -114,14 +114,14 @@ HTML_TEMPLATE_WITH_TAG = """
 HTML_TEMPLATE_NO_TAG = """
     <py-config>
         plugins = [
-            "./{plugin_name}.py"
+            "./{plugin_name}.{extension}"
         ]
     </py-config>
 """
 
 
 def prepare_test(
-    plugin_name, code, tagname="", html="", template=HTML_TEMPLATE_WITH_TAG
+    plugin_name, code, tagname="", html="", template=HTML_TEMPLATE_WITH_TAG, extension="py"
 ):
     """
     Prepares the test by writing a new plugin file named `plugin_name`.py, with `code` as its
@@ -156,9 +156,9 @@ def prepare_test(
 
     def dec(f):
         def _inner(self, *args, **kws):
-            self.writefile(f"{plugin_name}.py", code)
+            self.writefile(f"{plugin_name}.{extension}", code)
             page_html = template.format(
-                plugin_name=plugin_name, tagname=tagname, html=html
+                plugin_name=plugin_name, tagname=tagname, html=html, extension=extension
             )
             self.pyscript_run(page_html)
             return f(self, *args, **kws)

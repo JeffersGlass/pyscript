@@ -56,6 +56,9 @@ More concretely:
     in turns calls PyScriptApp.afterInterpreterLoad().
 
   - PyScriptApp.afterInterpreterLoad() implements all the points >= 5.
+
+This lifecycle is tested wholistically for ordering in the test_lifecycle tests. 
+Adjustments to this lifecycle will probably need to adjust those tests.
 */
 
 export class PyScriptApp {
@@ -104,6 +107,7 @@ export class PyScriptApp {
 
     // lifecycle (1)
     _realMain() {
+        logger.info("PyScript main() running")
         this.loadConfig();
         this.plugins.configure(this.config);
         this.plugins.beforeLaunch(this.config);

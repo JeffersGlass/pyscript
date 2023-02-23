@@ -66,6 +66,7 @@ export const defaultConfig: AppConfig = {
 };
 
 export function loadConfigFromElement(el: Element): AppConfig {
+    logger.info("Loading config from py-config element")
     let srcConfig: AppConfig;
     let inlineConfig: AppConfig;
     if (el === null) {

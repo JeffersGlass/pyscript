@@ -29,6 +29,8 @@ export class SplashscreenPlugin extends Plugin {
         this.autoclose = true;
         this.enabled = true;
 
+        logger.info("configuring py-splashscreen")
+
         if ('autoclose_loader' in config) {
             this.autoclose = config.autoclose_loader;
             showWarning(AUTOCLOSE_LOADER_DEPRECATED, 'html');
@@ -38,6 +40,7 @@ export class SplashscreenPlugin extends Plugin {
             this.autoclose = config.splashscreen.autoclose ?? true;
             this.enabled = config.splashscreen.enabled ?? true;
         }
+        logger.info("configuring py-splashscreen")
     }
 
     beforeLaunch(config: AppConfig) {
