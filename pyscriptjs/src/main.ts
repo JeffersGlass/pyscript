@@ -193,7 +193,7 @@ export class PyScriptApp {
         //Refresh module cache in case plugins have modified the filesystem
         interpreter.invalidate_module_path_cache();
         this.logStatus('Executing <py-script> tags...');
-        this.executeScripts(interpreter);
+        await this.executeScripts(interpreter);
 
         this.logStatus('Initializing web components...');
         // lifecycle (8)
@@ -364,10 +364,11 @@ modules must contain a "plugin" attribute. For more information check the plugin
     }
 
     // lifecycle (7)
-    executeScripts(interpreter: Interpreter) {
+    async executeScripts(interpreter: Interpreter) {
         // make_PyScript takes an interpreter and a PyScriptApp as arguments
         this.PyScript = make_PyScript(interpreter, this);
         customElements.define('py-script', this.PyScript);
+        await globalApp.tagExecutionLock()
     }
 
     // ================= registraton API ====================

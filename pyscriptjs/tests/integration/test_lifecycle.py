@@ -51,9 +51,9 @@ class TestLifecycle(PyScriptTest):
             "[py-script] Mounting py-mount elements", # inside mountElements()
             "afterSetup called", #plugins.afterSetup()
             "[pyscript/main] Executing <py-script> tags...", # prior to main.executeScripts()
-            # "beforePyscriptExec called", #plugins.beforePyScriptExec()
-            # "Hello", # Uncommenting this will break the test; but this is where it should be; uncomment when ready! (7)
-            # "afterPyScriptExec": Something for afterPyScriptExec()
+            "beforePyscriptExec called", #plugins.beforePyScriptExec()
+            "Hello", # Uncommenting this will break the test; but this is where it should be; uncomment when ready! (7)
+            "afterPyScriptExec called", #Something for afterPyScriptExec()
             "[pyscript/main] Initializing web components...", # Following completion of py-script tags
             "[element] pyWidget and pyRepl registered", #Inside createCustomElements() (8)
             "[py-script] Initializing py-* event handlers...", #Inside initHandlers()
