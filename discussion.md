@@ -24,10 +24,11 @@ Functional Keys contain values which have a direct effect on the loading an oper
 |--|--|--|--|
 |`name`|string|Required|The name of the plugin, as it will be referenced within the PyScript App|
 |`language`|string|Required|The language of the Plugin. Accepts js/JS/JavaScript or py/PY/Python (the exact list will be specified and documented).|
-|`entrypoint`|string|Required for Python Plugins|The name of the module that will be imported; the plugin object should be an object in that module with the identifier `plugin`. XXXXXXX|
+|`entrypoint`|string|Required|For Python plugins, the name of the module that will be imported; the plugin object should be an object in that module with the identifier `plugin`. For JavaScript plugins, the name of the file whose default export will be used as the plugin object.|
 |`packages`|list[string]|Optional|Additional Python pacakags to install; these are prepended to the list of packages listed in \<py-config\> prior to attempting to install them all|
-|`fetch`|list[fetchConfiguration]|Optional|Additional fetch configurations to execute; works the same as fetch configurations in \<py-config\>. These are files to be fetched and installed into the virtual filesystem which surrounds the Python runtime. These files are fetched before any fetch configurations listed by the user in \<py-config\>. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from. See [Installation Location](#python-plugin-installation-location) for further discussion around exactly where in the filesystem these files should be installed.|
 |`files`|list[url]|Optional|Additional files to be fetched into the browser's JavaScript namespace. Likely to be most-used with JS plugins XXXXXXXXXXX|
+|`fetch`|list[fetchConfiguration]|Optional|Additional fetch configurations to execute; works the same as fetch configurations in \<py-config\>. These are files to be fetched and installed into the virtual filesystem which surrounds the Python runtime. These files are fetched before any fetch configurations listed by the user in \<py-config\>. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from. See [Installation Location](#python-plugin-installation-location) for further discussion around exactly where in the filesystem these files should be installed.|
+
 |`schema` XXXXXXXXXX |string|Optional|Specifies the version of the schema for the metadata file. If not specified or unparsable, PyScript defaults to using the latest specified metadata schema.| 
 
 ## Descriptive Keys
@@ -55,11 +56,16 @@ This proposal does not cover some of the discussion of the discussion at the off
 
 # Example
 
-To illustrate the features of this new architecture, what follows is in the implementation of a plugin called XXXXXXXX, which XXXXXXXXXXXXX
+To illustrate the features of this new architecture, what follows is in the implementation of a Python plugin called XXXXXXXX, which XXXXXXXXXXXXX
 
 ## Index.html
 
-## laserBeams.json
+## XXXXXXX.json
+```
+{
 
-## laserBeams.py
+}
+```
+
+## XXXXX.py
 
