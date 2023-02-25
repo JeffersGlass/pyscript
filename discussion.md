@@ -26,7 +26,7 @@ Functional Keys contain values which have a direct effect on the loading an oper
 |`language`|string|Required|The language of the Plugin. Accepts js/JS/JavaScript or py/PY/Python (the exact list will be specified and documented).|
 |`entrypoint`|string|Required|For Python plugins, the name of the module that will be imported; the plugin object should be an object in that module with the identifier `plugin`. For JavaScript plugins, the name of the file whose default export will be used as the plugin object.|
 |`packages`|list[string]|Optional|Additional Python pacakags to install; these are prepended to the list of packages listed in \<py-config\> prior to attempting to install them all|
-|`files`|list[url]|Optional|Additional files to be fetched into the browser's JavaScript namespace. Likely to be most-used with JS plugins XXXXXXXXXXX|
+|`files`|list[url]|Optional|Additional files to be fetched into the browser's JavaScript namespace. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from.|
 |`fetch`|list[fetchConfiguration]|Optional|Additional fetch configurations to execute; works the same as fetch configurations in \<py-config\>. These are files to be fetched and installed into the virtual filesystem which surrounds the Python runtime. These files are fetched before any fetch configurations listed by the user in \<py-config\>. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from. See [Installation Location](#python-plugin-installation-location) for further discussion around exactly where in the filesystem these files should be installed.|
 
 |`schema` XXXXXXXXXX |string|Optional|Specifies the version of the schema for the metadata file. If not specified or unparsable, PyScript defaults to using the latest specified metadata schema.| 
@@ -56,16 +56,39 @@ This proposal does not cover some of the discussion of the discussion at the off
 
 # Example
 
-To illustrate the features of this new architecture, what follows is in the implementation of a Python plugin called XXXXXXXX, which XXXXXXXXXXXXX
+To illustrate the features of this new architecture, what follows is in the sample metadata file for a Python plugin called `noawait`, which, at load time, parses all the PyScript tags on the page looking for async/await/asyncio-looking things, and plays a sound if there are any. 
+
+The plugin fetches the required sound file using a relative URL. It specifies the entrypoint file to fetch (`main.py`) as well as some additional Python and binary files to fetch. The plugin uses the `packages` key to install `open-ffmpeg` to adjust the pitch of the sound at runtime. Finally, some descriptive keys are added for context.
 
 ## Index.html
-
-## XXXXXXX.json
+```html
+<py-config>
+    plugins = ["https://example.com/resources/noawait.json"]
+</py-config>
 ```
-{
 
+## noawait.json
+```json
+{
+    "name": "noawait",
+    "language": "python",
+    "entrypoint": "main.py",
+    "packages": ["open-ffmpeg"],
+    "files": ["horn.wav"],
+    "fetch": [
+        {
+            "files": ["main.py"]
+        },
+        {
+            "files": ["sound.py", "parser.py", "wavetable.bin"],
+            "from": "utils",
+            "to_folder": "utils"
+        }
+    ],
+    "readableName": "No Await",
+    "version": "1.0",
+    "description": "This plugin prevents async/await from being used.",
+    "author": "Jeff Glass",
+    "url": "https://www.example.com/noawait/docs/index.html"
 }
 ```
-
-## XXXXX.py
-
