@@ -12,7 +12,7 @@ Under this proposal, the `plugins` key would contain a list of URLs pointing to 
 
 # Metadata File
 
-A plugin metadata file is a single JSON or TOML file containing all the information needed to describe, initialize, fetch resources for, and execute a plugin.
+A plugin metadata file is a single JSON or TOML file containing all the information needed to describe, fetch resources for, and initialize a plugin.
 
 The description of the keys of the Metadata file are broken into two types for ease of reading: Functional Keys, which have a direct impact on the behavior of the plugin, how it is loaded/referenced/executed/etc.; and Descriptive Keys, which contain additional textual metadata about the plugin. There is no separation of the keys within the Metadata file; the distinction is purely notional.
 
@@ -25,7 +25,7 @@ Functional Keys contain values which have a direct effect on the loading an oper
 |`name`|string|Required|The name of the plugin, as it will be referenced within the PyScript App|
 |`language`|string|Required|The language of the Plugin. Accepts js/JS/JavaScript or py/PY/Python (the exact list will be specified and documented).|
 |`entrypoint`|string|Required|For Python plugins, the name of the module that will be imported; the plugin object should be an object in that module with the identifier `plugin`. For JavaScript plugins, the name of the file whose default export will be used as the plugin object.|
-|`packages`|list[string]|Optional|Additional Python pacakags to install; these are prepended to the list of packages listed in \<py-config\> prior to attempting to install them all|
+|`packages`|list[string]|Optional|Additional Python pqckages to install; these are prepended to the list of packages listed in \<py-config\> prior to attempting to install them all|
 |`files`|list[url]|Optional|Additional files to be fetched into the browser's JavaScript namespace. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from.|
 |`fetch`|list[fetchConfiguration]|Optional|Additional fetch configurations to execute; works the same as fetch configurations in \<py-config\>. These are files to be fetched and installed into the virtual filesystem which surrounds the Python runtime. These files are fetched before any fetch configurations listed by the user in \<py-config\>. Any relative URLs are treated as relative to the base path of the URL the plugin metadata file was retrieved from. See [Installation Location](#python-plugin-installation-location) for further discussion around exactly where in the filesystem these files should be installed.|
 |`metadataVersion`|int|Optional|Specifies the version of the schema for the metadata file.| 
@@ -44,7 +44,7 @@ Descriptive Keys contain values which describe the project, its origin, usage, o
 
 # Python Plugin Installation Location
 
-At the offsite, we didn't come to a conclusion as to where exactly the plugin entrypoint file (and  any addtional files `fetch`'d by the plugin) end up in the Virtual Filesystem. We discussed several options - to keep this discussion to a reasonable length, those options are enumerated in a separate Discussion ## XXXXXXX.
+At the offsite, we didn't come to a conclusion as to where exactly the plugin entrypoint file (and  any additional files `fetch`'d by the plugin) end up in the Virtual Filesystem. We discussed several options - to keep this discussion to a reasonable length, those options are enumerated in a separate Discussion ## XXXXXXX.
 # For Future Expansion
 
 This proposal does not cover all of the things discussed at the offsite that we'd like plugins and the metadata file to be able to do. Specifically:

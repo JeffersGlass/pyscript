@@ -22,10 +22,10 @@ At the offsite, we didn't come to a conclusion as to where exactly the plugin en
 ```
 
 ## (1) "Home"
-Files are fetched relative to the home directory (/pyodide/home XXXXXXXXXX), the same as they are for normal [[fetch]] configurations. The resulting file structure is:
+Files are fetched relative to the current working directory where Pyodide defaults to execution (/home/pyodide/), the same as they are for normal [[fetch]] configurations. The resulting file structure is:
 
 ```
-/pyodide/home/ XXXXXX
+/home/pyodide/
   ├─ pyscript.py
   ├─ singer.py
   ├─ dinner
@@ -41,7 +41,7 @@ This allows the user to write, in their \<py-script\> tags:
 For each plugin, a new folder is created in the home directory with the name of the plugin. The fetch configurations are executed relative to that folder. The resulting file structure is:
 
 ```
-/pyodide/home/ XXXXXX
+/home/pyodide/
   ├─ pyscript.py
   ├─ fado
   │  ├─ singer.py
@@ -58,7 +58,7 @@ This allows the user to write, in their \<py-script\> tags:
 A folder called `plugins` is created in the home directory. For each plugin a new folder is created within _that_ folder with the name of the plugin. The resulting file structure is:
 
 ```
-/pyodide/home/ XXXXXX
+/home/pyodide/
   ├─ pyscript.py
   ├─ plugins
   │  ├─ fado
