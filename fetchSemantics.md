@@ -1,4 +1,6 @@
-This proposal expands the section "Python Plugin Installation Location" from Discussion #### XXXXXXXXXXXX.
+This proposal expands the section "Python Plugin Installation Location" from Discussion #### XXXXXXXXXXXX. See that discussion for context.
+
+This is an unresolved question from the discussion; the location of the plugin files has implications for how users can use the plugin, and potentially implications for the behavior of imports within plugins themselves. **Feedback and further discussion is welcome and requested.**
 
 # Where do Plugins Go in the Virtual Filesystem?
 
@@ -21,7 +23,7 @@ At the offsite, we didn't come to a conclusion as to where exactly the plugin en
 }
 ```
 
-## (1) "Home"
+## (1) Execution Directory
 Files are fetched relative to the current working directory where Pyodide defaults to execution (/home/pyodide/), the same as they are for normal [[fetch]] configurations. The resulting file structure is:
 
 ```
