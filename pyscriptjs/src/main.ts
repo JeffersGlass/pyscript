@@ -149,7 +149,7 @@ export class PyScriptApp {
             interpreter_cfg.name,
             interpreter_cfg.lang,
         );
-        this.logStatus(`Downloading ${interpreter_cfg.name}...`);
+        this.logStatus(`Downloading ${interpreter_cfg.name ? interpreter_cfg.name : ''}...`);
 
         // download pyodide by using a <script> tag. Once it's ready, the
         // "load" event will be fired and the exeuction logic will continue.

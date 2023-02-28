@@ -6,23 +6,25 @@ import { UserError, ErrorCode } from './exceptions';
 
 const logger = getLogger('py-config');
 
-export interface AppConfig extends Record<string, any> {
-    name?: string;
-    description?: string;
-    version?: string;
-    schema_version?: number;
-    type?: string;
-    author_name?: string;
-    author_email?: string;
-    license?: string;
-    interpreters?: InterpreterConfig[];
+export interface AppConfig extends Partial<Record<string, ConfigRecord>> {
+    name: string;
+    description: string;
+    version: string;
+    schema_version: number;
+    type: string;
+    author_name: string;
+    author_email: string;
+    license: string;
+    interpreters: InterpreterConfig[];
     // TODO: Remove `runtimes` once the deprecation cycle is over
-    runtimes?: InterpreterConfig[];
-    packages?: string[];
-    fetch?: FetchConfig[];
-    plugins?: string[];
-    pyscript?: PyScriptMetadata;
+    runtimes: InterpreterConfig[];
+    packages: string[];
+    fetch: FetchConfig[];
+    plugins: string[];
+    pyscript: PyScriptMetadata;
 }
+
+type ConfigRecord = string | string[] | number | InterpreterConfig[] | FetchConfig[] | PyScriptMetadata
 
 export type FetchConfig = {
     from?: string;
