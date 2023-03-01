@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyxel Demo</title>
+    <script defer src="https://pyscript.net/unstable/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/unstable/pyscript.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <py-config>
+         packages=['pyxel']
+
+        [[fetch]]
+        files = ['jump_game.pyxres']
+        from = 'https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel-examples/assets'
+        to_folder = 'assets'
+
+        [[interpreters]]
+        src = "https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel/pyodide.js"
+        name = "pyodide-0.22.1"
+        lang = "python"
+    </py-config>
+    <py-script src="setupPixel.py"></py-script>
+    <py-script src="demo_2.py">
+        
+    </py-script>
+    <div class="flex flex-row m-auto h-[40rem]" >
+        <div class="">
+            <canvas id="canvas" tabindex="-1"></canvas>
+        </div>
+        <div class="px-10 space-y-4 m-4 border-2 p-2 h-full bg-gray-200 border-gray-700 rounded-xl pt-12 hidden" id="sidebar">
+            <div class="bg-green-100 text-green-800 p-4 border-2 border-green-800 rounded-lg text-2xl">Score: <span id="score"></span></div>
+            <div class="bg-yellow-100 text-yellow-800 p-4 border-2 border-yellow-800 rounded-lg text-2xl">X: <span id="x"></span></div>
+            <div class="bg-red-100 text-red-800 p-4 border-2 border-red-800 rounded-lg text-2xl">Y: <span id="y"></span></div>
+            <div class="bg-blue-100 text-blue-800 p-4 border-2 border-blue-800 rounded-lg text-2xl"># Fruits:<span id="fruits"></span></div>
+            <div class="bg-blue-100 text-blue-800 p-4 border-2 border-blue-800 rounded-lg text-2xl hover:bg-blue-800 hover:text-blue-100" id="pause">Pause</div>
+            <div class="p-4 border-2 border-gray-900 rounded-lg text-2xl">High Score<br><div id="highscore" class="text-center m-auto w-full">0</div></div>
+        </div>
+    </div>
+    
+</body>
+</html>

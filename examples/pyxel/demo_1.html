@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <script defer src="https://pyscript.net/unstable/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/unstable/pyscript.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <py-config>
+         packages=['pyxel']
+
+        [[fetch]]
+        files = ['jump_game.pyxres', 'platformer.pyxres']
+        from = 'https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel-examples/assets'
+        to_folder = 'assets'
+
+
+        [[interpreters]]
+        src = "https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel/pyodide.js"
+        name = "pyodide-0.22.1"
+        lang = "python"
+    </py-config>
+    <py-script src="setupPixel.py"></py-script>
+    <py-script>
+        import pyxel
+
+        class App:
+            def __init__(self):
+                pyxel.init(160, 120, title="PyScript Fun Demo")
+                pyxel.run(self.update, self.draw)
+
+            def update(self):
+                if pyxel.btnp(pyxel.KEY_Q):
+                    pyxel.quit()
+
+            def draw(self):
+                pyxel.cls(0)
+                pyxel.text(35, 41, "Hello, PyScriptians!", int(pyxel.frame_count / 3) % 16)
+                pyxel.blt(51, 66, 0, 0, 0, 38, 16)
+
+        App()
+    </py-script>
+    <canvas id="canvas" tabindex="-1"></canvas>
+       
+    
+</body>
+</html>

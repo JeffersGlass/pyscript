@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="dist/pyodide.js"></script>
+</head>
+<body>
+    <script>
+        async function main() {
+            const pyodide = await loadPyodide();
+            globalThis.pyodide = pyodide
+            await pyodide.loadPackage("micropip")
+            console.log("Micropip installed")
+            const micropip = pyodide.pyimport("micropip")
+            console.log("Micropip imported")
+            await micropip.install('pyxel')
+            console.log("Pyxel installed")
+            
+            };
+        main().then(() => {
+            console.log("About to run Python")
+            pyodide.runPython(`
+                import pyodide.code
+
+                pyodide.code.run_js(
+                    """
+                    var sdl2Canvas = document.createElement("canvas");
+                    sdl2Canvas.id = "canvas";
+                    sdl2Canvas.tabindex = -1;
+                    document.body.appendChild(sdl2Canvas);
+                    console.log(window)
+                    pyodide._module.canvas = document.querySelector("canvas#canvas");
+
+                    _virtualGamepadStates = [
+                        false, // Up
+                        false, // Down
+                        false, // Left
+                        false, // Right
+                        false, // A
+                        false, // B
+                        false, // X
+                        false, // Y
+                    ];
+                    """
+                )
+
+                import pyxel
+
+                class App:
+                    def __init__(self):
+                        pyxel.init(160, 120, title="PyScript Fun Demo")
+                        pyxel.run(self.update, self.draw)
+
+                    def update(self):
+                        if pyxel.btnp(pyxel.KEY_Q):
+                            pyxel.quit()
+
+                    def draw(self):
+                        pyxel.cls(0)
+                        pyxel.text(55, 41, "Hello, Nerds!", pyxel.frame_count % 16)
+                        pyxel.blt(61, 66, 0, 0, 0, 38, 16)
+
+                App()
+            `);
+        });
+    </script>
+
+    
+</body>
+</html>
