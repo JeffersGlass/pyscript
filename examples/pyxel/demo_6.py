@@ -19,6 +19,7 @@ class Vec2:
 class Bubble:
     def __init__(self):
         self.r = pyxel.rndf(3, 10)
+        pyxel.image(0).load(0, 0, 'assets/sprite.png')
 
         self.pos = Vec2(
             pyxel.rndf(self.r, SCREEN_WIDTH - self.r),
@@ -141,6 +142,8 @@ class App:
         if self.paused:
             #pyxel.text(0, 0, str(pyxel.width), 5)
             pyxel.rect(0, 128-20, 256, 40, 5)
+            pyxel.blt(100, 128-16, 0, 0, 0, 128, 32, 0)
+            return
         
         if not self.is_exploded and pyxel.frame_count % 20 < 10:
             pyxel.text(96, 50, "CLICK ON BUBBLE", pyxel.frame_count % 15 + 1)

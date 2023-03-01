@@ -13,6 +13,16 @@
     <py-config>
          packages=['pyxel']
 
+        [[fetch]]
+        files = ['jump_game.pyxres', 'platformer.pyxres']
+        from = 'https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel-examples/assets'
+        to_folder = 'assets'
+
+        [[fetch]]
+        files = ['sprite.png']
+        from = 'assets'
+        to_folder = 'assets'
+
         [[interpreters]]
         src = "https://jeff-glass-dev.s3.amazonaws.com/pyodide-pyxel/pyodide.js"
         name = "pyodide-0.22.1"

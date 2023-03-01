@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
+</head>
+<body>
+  <script>
+    async function main() {
+      let pyodide = await loadPyodide();
+      const generator = pyodide.runPython(`
+        from js import Array
+        fromFunc = getattr(Array, 'from')
+        b = fromFunc([4,5,6])
+        print(b)
+        `);
+    };
+    main();
+  </script>
+  
+</body>
+</html>
