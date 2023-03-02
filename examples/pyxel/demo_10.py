@@ -127,8 +127,8 @@ class Player:
         if self.y >= pyxel.height:
             game_over()
 
-    def draw(self):
-        u = (2 if self.is_falling else pyxel.frame_count // 3 % 2) * 8
+    def draw(self, paused = False):
+        u = (2 if (self.is_falling or paused) else pyxel.frame_count // 3 % 2) * 8
         w = 8 if self.direction > 0 else -8
         pyxel.blt(self.x, self.y, 0, u, 16, w, 8, TRANSPARENT_COLOR)
 
@@ -151,8 +151,8 @@ class Enemy1:
             self.direction = -1
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
-    def draw(self):
-        u = pyxel.frame_count // 4 % 2 * 8
+    def draw(self, paused = False):
+        u = pyxel.frame_count // 4 % 2 * 8 if not paused else 0
         w = 8 if self.direction > 0 else -8
         pyxel.blt(self.x, self.y, 0, u, 24, w, 8, TRANSPARENT_COLOR)
 
@@ -180,8 +180,8 @@ class Enemy2:
                 self.direction = -1
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
-    def draw(self):
-        u = pyxel.frame_count // 4 % 2 * 8 + 16
+    def draw(self, paused = False):
+        u = pyxel.frame_count // 4 % 2 * 8 + 16 if not paused else 16
         w = 8 if self.direction > 0 else -8
         pyxel.blt(self.x, self.y, 0, u, 24, w, 8, TRANSPARENT_COLOR)
 
@@ -204,8 +204,8 @@ class Enemy3:
                 enemies.append(Enemy3Bullet(self.x, self.y, dx / dist, dy / dist))
                 self.time_to_fire = 60
 
-    def draw(self):
-        u = pyxel.frame_count // 8 % 2 * 8
+    def draw(self, paused = False):
+        u = pyxel.frame_count // 8 % 2 * 8 if not paused else 0
         pyxel.blt(self.x, self.y, 0, u, 32, 8, 8, TRANSPARENT_COLOR)
 
 
@@ -221,8 +221,8 @@ class Enemy3Bullet:
         self.x += self.dx
         self.y += self.dy
 
-    def draw(self):
-        u = pyxel.frame_count // 2 % 2 * 8 + 16
+    def draw(self, paused = False):
+        u = pyxel.frame_count // 2 % 2 * 8 + 16 if not paused else 16
         pyxel.blt(self.x, self.y, 0, u, 32, 8, 8, TRANSPARENT_COLOR)
 
 
@@ -237,12 +237,32 @@ class App:
         global player
         player = Player(0, 0)
         spawn_enemy(0, 127)
+        self.music_on = True
         pyxel.playm(0, loop=True)
+        self.paused = False
         pyxel.run(self.update, self.draw)
 
     def update(self):
         if pyxel.btn(pyxel.KEY_Q):
             pyxel.quit()
+        if pyxel.btnp(pyxel.KEY_M):
+            if self.music_on:
+                pyxel.stop()
+                self.music_on = False
+            else:
+                pyxel.playm(0, True)
+                self.music_on = True
+        if pyxel.btnp(pyxel.KEY_P):
+            self.paused = not self.paused
+            if self.paused:
+                self.music_on = False
+                pyxel.stop()
+            else:
+                self.music_on = True
+                pyxel.playm(0, True)
+            
+
+        if self.paused: return
 
         player.update()
         for enemy in enemies:
@@ -264,9 +284,9 @@ class App:
 
         # Draw characters
         pyxel.camera(scroll_x, 0)
-        player.draw()
+        player.draw(paused = self.paused)
         for enemy in enemies:
-            enemy.draw()
+            enemy.draw(paused = self.paused)
 
 
 def game_over():
