@@ -13,9 +13,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900">
-<div class="w-full m-4">
-    <div class="text-3xl text-white bg-gray-600 px-4 py-2 rounded-lg mb-4 w-96">Pyxel in PyScript Demos</div>
-    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 [&:hover>div]:opacity-70">
+    <div class="text-3xl text-white bg-gray-600 px-4 py-2 rounded-lg mb-4 w-96 mt-4 m-4">Pyxel in PyScript Demos</div>
+    <div class="m-4">
+    <p class="text-gray-400 text-3xl mb-4">Gallery</p>
+    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 [&:hover>div]:opacity-70 bg-gray-800 p-2 rounded-xl">
         <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600">
             <a href="demo_1.html"><img src="thumbs/hello.jpg" alt="">
             <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">Hello World</span></div></a>
@@ -36,6 +37,12 @@
         </div>
         <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600"><a href="demo_jg.html"><img src="thumbs/jsexplorer.jpg" alt="">
             <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">JS Explorer</span></div></a></div>
+    </div>
+    <p class="text-gray-400 text-xl lg:text-3xl mt-12 mb-4">Links</p>
+    <div class="grid grid-cols-1 ml-4 text-blue-400 text-lg gap-y-2">
+        <p><a href="https://github.com/kitao/pyxel">Pyxel Documentation</a></p>
+        <p><a href="https://github.com/pyodide/pyodide/pull/3508">Pyodide Pyxel PR(#3508)</a></p>
+        <p><a href="https://pyscriptapps.com/3748111e-bd36-4293-8467-08ca7d447289/28743dbd-c383-4216-83eb-fc0cc70bfe55/latest">PyScriptApps Demo</a></p>
     </div>
 </div>
 <!-- <li><a href="editor.html">Editor</a></li> -->
