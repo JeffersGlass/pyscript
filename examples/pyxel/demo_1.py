@@ -11,7 +11,7 @@ class App:
 
     def draw(self):
         pyxel.cls(0)
-        pyxel.text(55, 41, "Hello, Nerds!", pyxel.frame_count % 16)
-        pyxel.blt(61, 66, 0, 0, 0, 38, 16)
+        for index, y in enumerate(range(10, 100, 8)):
+            pyxel.text(40, y, "Hello, PyScript Fun!!", int((pyxel.frame_count + index )/ 8) % 15 + 1)
 
 App()

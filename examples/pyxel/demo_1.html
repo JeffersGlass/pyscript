@@ -25,24 +25,7 @@
         lang = "python"
     </py-config>
     <py-script src="setupPixel.py"></py-script>
-    <py-script>
-        import pyxel
-
-        class App:
-            def __init__(self):
-                pyxel.init(160, 120, title="PyScript Fun Demo")
-                pyxel.run(self.update, self.draw)
-
-            def update(self):
-                if pyxel.btnp(pyxel.KEY_Q):
-                    pyxel.quit()
-
-            def draw(self):
-                pyxel.cls(0)
-                pyxel.text(35, 41, "Hello, PyScriptians!", int(pyxel.frame_count / 3) % 16)
-                pyxel.blt(51, 66, 0, 0, 0, 38, 16)
-
-        App()
+    <py-script src=demo_1.py>
     </py-script>
     <canvas id="canvas" tabindex="-1"></canvas>
        

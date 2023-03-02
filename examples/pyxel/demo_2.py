@@ -102,7 +102,11 @@ class App:
     
     def flipPaused(self, event):
         js.console.log("PAUSE CLICKED")
-        self.paused = not self.paused
+        self.paused = not self.paused   
+        if self.paused:
+            pyxel.stop()
+        else:
+            pyxel.playm(0, loop=True)
 
     def draw(self):
         if self.paused: return

@@ -142,7 +142,7 @@ class App:
         if self.paused:
             #pyxel.text(0, 0, str(pyxel.width), 5)
             pyxel.rect(0, 128-20, 256, 40, 5)
-            pyxel.blt(100, 128-16, 0, 0, 0, 128, 32, 0)
+            pyxel.blt(60, 128-16, 0, 0, 0, 128, 32, 0)
             return
         
         if not self.is_exploded and pyxel.frame_count % 20 < 10:

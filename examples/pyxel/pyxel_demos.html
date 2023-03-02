@@ -10,17 +10,35 @@
             font-size: xx-large;
         }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<ul>
-    <li><a href="demo_1.html">Hello World</a></li>
-    <li><a href="demo_6.html">Bubbles</a></li>
-    <li><a href="demo_10.html">Platformer</a></li>
-    <li><a href="demo_2.html">Jump Game</a> (<a href="editor_jump.html">Editor</a>)</li>
-    <li><a href="demo_jg.html">Jeff Glass</a></li>
-    <li></li>
-    <li><a href="editor.html">Editor</a></li>
-</ul>
+<body class="bg-gray-900">
+<div class="w-full m-4">
+    <div class="text-3xl text-white bg-gray-600 px-4 py-2 rounded-lg mb-4 w-96">Pyxel in PyScript Demos</div>
+    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 [&:hover>div]:opacity-70">
+        <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600">
+            <a href="demo_1.html"><img src="thumbs/hello.jpg" alt="">
+            <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">Hello World</span></div></a>
+        </div>
+        <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600"><a href="demo_10.html"><img src="thumbs/platformer.jpg" alt="">
+            <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">Platformer</span></div></a>
+            <a href="editor_platformer.html" class="absolute right-2 bottom-2 rounded-lg hover:bg-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-12 h-12">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+            </a>
+        </div>
+        <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600"><a href="demo_6.html"><img src="thumbs/bubbles.jpg" alt="">
+            <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">Bubbles</span></div></a></div>
+        <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600"><a href="demo_2.html"><img src="thumbs/jump.jpg" alt="">
+            <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">Jump Man</span></div></a>
+            <a href="editor_jump.html" class="absolute right-2 bottom-2 rounded-lg hover:bg-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-12 h-12">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+            </a>
+        </div>
+        <div class="relative hover:!opacity-100 border-4 rounded-md p-1 border-yellow-600 bg-gray-600"><a href="demo_jg.html"><img src="thumbs/jsexplorer.jpg" alt="">
+            <div class="absolute bottom-2 left-2 rounded-lg bg-gray-700 "><span class="text-white font-semibold text-3xl px-4">JS Explorer</span></div></a></div>
+    </div>
+</div>
+<!-- <li><a href="editor.html">Editor</a></li> -->
     
 </body>
 </html>
