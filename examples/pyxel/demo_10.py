@@ -284,7 +284,7 @@ class App:
 
         # Draw characters
         pyxel.camera(scroll_x, 0)
-        player.draw(paused = self.paused)
+        player.dr   aw(paused = self.paused)
         for enemy in enemies:
             enemy.draw(paused = self.paused)
 
