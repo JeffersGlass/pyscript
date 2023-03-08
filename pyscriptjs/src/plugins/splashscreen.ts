@@ -1,9 +1,9 @@
 import type { AppConfig } from '../pyconfig';
 import type { UserError } from '../exceptions';
-import type { Interpreter } from '../interpreter';
 import { showWarning } from '../utils';
 import { Plugin } from '../plugin';
 import { getLogger } from '../logger';
+import { InterpreterClient } from '../interpreter_client';
 
 const logger = getLogger('py-splashscreen');
 
@@ -29,7 +29,7 @@ export class SplashscreenPlugin extends Plugin {
         this.autoclose = true;
         this.enabled = true;
 
-        logger.info("configuring py-splashscreen")
+        logger.info('configuring py-splashscreen');
 
         if ('autoclose_loader' in config) {
             this.autoclose = config.autoclose_loader;
@@ -40,7 +40,7 @@ export class SplashscreenPlugin extends Plugin {
             this.autoclose = config.splashscreen.autoclose ?? true;
             this.enabled = config.splashscreen.enabled ?? true;
         }
-        logger.info("configuring py-splashscreen")
+        logger.info('configuring py-splashscreen');
     }
 
     beforeLaunch(config: AppConfig) {
@@ -58,7 +58,7 @@ export class SplashscreenPlugin extends Plugin {
         });
     }
 
-    afterStartup(interpreter: Interpreter) {
+    afterStartup(interpreter: InterpreterClient) {
         if (this.autoclose && this.enabled) {
             this.elem.close();
         }

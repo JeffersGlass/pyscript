@@ -1,44 +1,52 @@
-import { Interpreter } from './interpreter';
-import { getLogger } from './logger';
-import { InstallError, ErrorCode } from './exceptions';
-import type { loadPyodide as loadPyodideDeclaration, PyodideInterface, PyProxy } from 'pyodide';
-import { robustFetch } from './fetch';
 import type { AppConfig } from './pyconfig';
-import type { Stdio } from './stdio';
+import { getLogger } from './logger';
+import { Stdio } from './stdio';
+import { InstallError, ErrorCode } from './exceptions';
+import { robustFetch } from './fetch';
+import type { loadPyodide as loadPyodideDeclaration, PyodideInterface, PyProxy } from 'pyodide';
 
 declare const loadPyodide: typeof loadPyodideDeclaration;
-
 const logger = getLogger('pyscript/pyodide');
+
+export type InterpreterInterface = PyodideInterface | null;
 
 interface Micropip extends PyProxy {
     install: (packageName: string | string[]) => Promise<void>;
     destroy: () => void;
 }
 
-export class PyodideInterpreter extends Interpreter {
+/*
+RemoteInterpreter class is responsible to process requests from the
+`InterpreterClient` class -- these can be requests for installation of
+a package, executing code, etc.
+
+Currently, the only interpreter available is Pyodide as indicated by the
+`InterpreterInterface` type above. This serves as a Union of types of
+different interpreters which will be added in near future.
+
+Methods available handle loading of the interpreter, initialization,
+running code, loading and installation of packages, loading from files etc.
+
+The class will be turned `abstract` in future, to support more runtimes
+such as MicroPython.
+ */
+export class RemoteInterpreter extends Object {
     src: string;
-    stdio: Stdio;
-    name?: string;
-    lang?: string;
-    interface: PyodideInterface;
+    interface: InterpreterInterface;
     globals: PyProxy;
     // TODO: Remove this once `runtimes` is removed!
-    interpreter: PyodideInterface;
+    interpreter: InterpreterInterface;
 
-    constructor(
-        config: AppConfig,
-        stdio: Stdio,
-        src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js',
-        name = 'pyodide-default',
-        lang = 'python',
-    ) {
-        logger.info('Interpreter config:', { name, lang, src });
-        super(config);
-        this.stdio = stdio;
+    constructor(src = 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js') {
+        super();
         this.src = src;
-        this.name = name;
-        this.lang = lang;
     }
+
+    /**
+     * loads the interface for the interpreter and saves an instance of it
+     * in the `this.interface` property along with calling of other
+     * additional convenience functions.
+     * */
 
     /**
      * Although `loadPyodide` is used below,
@@ -56,14 +64,13 @@ export class PyodideInterpreter extends Interpreter {
      * contain these files and is clearly the wrong
      * path.
      */
-    async loadInterpreter(): Promise<void> {
-        logger.info('Loading pyodide');
+    async loadInterpreter(config: AppConfig, stdio: Stdio): Promise<void> {
         this.interface = await loadPyodide({
             stdout: (msg: string) => {
-                this.stdio.stdout_writeline(msg);
+                stdio.stdout_writeline(msg);
             },
             stderr: (msg: string) => {
-                this.stdio.stderr_writeline(msg);
+                stdio.stderr_writeline(msg);
             },
             fullStdLib: false,
         });
@@ -73,16 +80,16 @@ export class PyodideInterpreter extends Interpreter {
 
         this.globals = this.interface.globals;
 
-        if (this.config.packages) {
+        if (config.packages) {
             logger.info('Found packages in configuration to install. Loading micropip...');
             await this.loadPackage('micropip');
         }
         logger.info('pyodide loaded and initialized');
-        await this.run('print("Python initialization complete")')
+        await this.run('print("Python initialization complete")');
     }
 
     /* eslint-disable */
-    async run(code: string): Promise<{result: any}> {
+    async run(code: string): Promise<{ result: any }> {
         /**
          * eslint wants `await` keyword to be used i.e.
          * { result: await this.interface.runPython(code) }
@@ -105,10 +112,18 @@ export class PyodideInterpreter extends Interpreter {
     }
     /* eslint-enable */
 
+    /**
+     * delegates the registration of JS modules to
+     * the underlying interface.
+     * */
     registerJsModule(name: string, module: object): void {
         this.interface.registerJsModule(name, module);
     }
 
+    /**
+     * delegates the loading of packages to
+     * the underlying interface.
+     * */
     async loadPackage(names: string | string[]): Promise<void> {
         logger.info(`pyodide.loadPackage: ${names.toString()}`);
         // the new way in v0.22.1 is to pass it as a dict of options i.e.
@@ -117,14 +132,23 @@ export class PyodideInterpreter extends Interpreter {
         // for which the signature of `loadPackage` accepts the above params as args i.e.
         // the call uses `logger.info.bind(logger), logger.info.bind(logger)`.
         const pyodide_version = (await this.run("import sys; sys.modules['pyodide'].__version__")).result.toString();
-        if (pyodide_version.startsWith("0.22")) {
-            await this.interface.loadPackage(names, { messageCallback: logger.info.bind(logger), errorCallback: logger.info.bind(logger) });
-        }
-        else {
+        if (pyodide_version.startsWith('0.22')) {
+            await this.interface.loadPackage(names, {
+                messageCallback: logger.info.bind(logger),
+                errorCallback: logger.info.bind(logger),
+            });
+        } else {
             await this.interface.loadPackage(names, logger.info.bind(logger), logger.info.bind(logger));
         }
     }
 
+    /**
+     * delegates the installation of packages
+     * (using a package manager, which can be specific to
+     * the interface) to the underlying interface.
+     *
+     * For Pyodide, we use `micropip`
+     * */
     async installPackage(package_name: string | string[]): Promise<void> {
         if (package_name.length > 0) {
             logger.info(`micropip install ${package_name.toString()}`);
@@ -169,63 +193,45 @@ export class PyodideInterpreter extends Interpreter {
      * @param path : the path in the filesystem
      * @param fetch_path : the path to be fetched
      *
-     * Given a file available at `fetch_path` URL (eg: `http://dummy.com/hi.py`),
-     * the function downloads the file and saves it to the `path` (eg: `a/b/c/foo.py`)
-     * on the FS.
+     * Given a file available at `fetch_path` URL (eg:
+     * `http://dummy.com/hi.py`), the function downloads the file and saves it
+     * to the `path` (eg: `a/b/c/foo.py`) on the FS.
      *
-     * Example usage:
-     * await loadFromFile(`a/b/c/foo.py`, `http://dummy.com/hi.py`)
+     * Example usage: await loadFromFile(`a/b/c/foo.py`,
+     * `http://dummy.com/hi.py`)
      *
-     * Nested paths are iteratively analysed and each part is created
-     * if it doesn't exist.
-     *
-     * The analysis returns if the part exists and if it's parent directory exists
-     * Due to the manner in which we proceed, the parent will ALWAYS exist.
-     *
-     * The iteration proceeds in the following manner for `a/b/c/foo.py`:
-     *
-     * - `a` doesn't exist but it's parent i.e. `root` exists --> create `a`
-     * - `a/b` doesn't exist but it's parent i.e. `a` exists --> create `a/b`
-     * - `a/b/c` doesn't exist but it's parent i.e. `a/b` exists --> create `a/b/c`
-     *
-     * Finally, write content of `http://dummy.com/hi.py` to `a/b/c/foo.py`
+     * Write content of `http://dummy.com/hi.py` to `a/b/c/foo.py`
      *
      * NOTE: The `path` parameter expects to have the `filename` in it i.e.
-     * `a/b/c/foo.py` is valid while `a/b/c` (i.e. only the folders) are incorrect.
+     * `a/b/c/foo.py` is valid while `a/b/c` (i.e. only the folders) are
+     * incorrect.
+     *
+     * The path will be resolved relative to the current working directory,
+     * which is initially `/home/pyodide`. So by default `a/b.py` will be placed
+     * in `/home/pyodide/a/b.py`, `../a/b.py` will be placed into `/home/a/b.py`
+     * and `/a/b.py` will be placed into `/a/b.py`.
      */
     async loadFromFile(path: string, fetch_path: string): Promise<void> {
-        const pathArr = path.split('/');
-        const filename = pathArr.pop();
-        for (let i = 0; i < pathArr.length; i++) {
-            // iteratively calculates parts of the path i.e. `a`, `a/b`, `a/b/c` for `a/b/c/foo.py`
-            const eachPath = pathArr.slice(0, i + 1).join('/');
-
-            // analyses `eachPath` and returns if it exists along with if its parent directory exists or not
-            const { exists, parentExists } = this.interface.FS.analyzePath(eachPath);
-
-            // due to the iterative manner in which we proceed, the parent directory should ALWAYS exist
-            if (!parentExists) {
-                throw new Error(`'INTERNAL ERROR! cannot create ${path}, this should never happen'`);
-            }
-
-            // creates `eachPath` if it doesn't exist
-            if (!exists) {
-                this.interface.FS.mkdir(eachPath);
-            }
-        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        path = this.interface._module.PATH_FS.resolve(path);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const dir = this.interface._module.PATH.dirname(path);
+        this.interface.FS.mkdirTree(dir);
 
         // `robustFetch` checks for failures in getting a response
         const response = await robustFetch(fetch_path);
         const buffer = await response.arrayBuffer();
         const data = new Uint8Array(buffer);
 
-        pathArr.push(filename);
-        // opens a file descriptor for the file at `path`
-        const stream = this.interface.FS.open(pathArr.join('/'), 'w');
-        this.interface.FS.write(stream, data, 0, data.length, 0);
-        this.interface.FS.close(stream);
+        this.interface.FS.writeFile(path, data, { canOwn: true });
     }
 
+    /**
+     * delegates clearing importlib's module path
+     * caches to the underlying interface
+     */
     invalidate_module_path_cache(): void {
         const importlib = this.interface.pyimport('importlib');
         importlib.invalidate_caches();

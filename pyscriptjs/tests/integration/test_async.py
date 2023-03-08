@@ -43,7 +43,7 @@ class TestAsync(PyScriptTest):
 
             async def get_results():
                 results = await asyncio.gather(*[coro(d) for d in range(3,0,-1)])
-                js.console.log(to_js(results))
+                js.console.log(str(results)) #Compare to string representation, not Proxy
                 js.console.log("DONE")
 
             asyncio.ensure_future(get_results())
@@ -51,7 +51,7 @@ class TestAsync(PyScriptTest):
             """
         )
         self.wait_for_console("DONE")
-        assert self.console.log.lines[-2:] == ["[3,2,1]", "DONE"]
+        assert self.console.log.lines[-2:] == ["[3, 2, 1]", "DONE"]
 
     def test_multiple_async(self):
         self.pyscript_run(
@@ -80,9 +80,7 @@ class TestAsync(PyScriptTest):
         )
         self.wait_for_console("b func done")
         assert self.console.log.lines[0] == self.PY_COMPLETE
-        # We are getting some deprecation warnings from pyodide, so we
-        # need to skip the first 2 lines
-        assert self.console.log.lines[3:] == [
+        assert self.console.log.lines[1:] == [
             "A 0",
             "B 0",
             "A 1",
