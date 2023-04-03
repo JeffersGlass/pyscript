@@ -24,6 +24,8 @@ import pyscript from './python/pyscript/__init__.py';
 import { robustFetch } from './fetch';
 import { RemoteInterpreter } from './remote_interpreter';
 
+//bed4d84 was: pass
+
 const logger = getLogger('pyscript/main');
 
 /**
