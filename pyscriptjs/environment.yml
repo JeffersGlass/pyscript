@@ -18,6 +18,8 @@ dependencies:
           - playwright
           - pytest-playwright
           - pytest-xdist
+          - pytest-instafail
+          - pytest-random-order
           # We need Pyodide and micropip so we can import them in our Python
           # unit tests
           - pyodide_py==0.23.0

@@ -1,0 +1,502 @@
+make examples
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p ./examples
+cp -r ../examples/* ./examples
+chmod -R 755 examples
+find ./examples/toga -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../build/+g {} \;
+find ./examples/webgl -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../../build/+g {} \;
+find ./examples -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../build/+g {} \;
+npm run build
+
+> pyscript@0.0.1 build
+> npm run tsc && node esbuild.mjs
+
+
+> pyscript@0.0.1 tsc
+> tsc --noEmit
+
+[1mpyscript[0m [2m(prod)[0m built in: 105.123ms
+rm -rf ./examples/build
+mkdir -p ./examples/build
+cp -R ./build/* ./examples/build
+To serve examples run: conda run -p /home/jglass/Documents/pyscript/pyscriptjs/env python -m http.server 8080 --directory examples
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-ts
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+npm run test
+
+> pyscript@0.0.1 test
+> cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage
+
+  console.error
+    Something went wrong!
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:11:9)
+
+  console.warn
+    This is a warning
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:21:9)
+
+  console.error
+    Something went wrong!
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:33:9)
+
+  console.warn
+    This warning
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:41:9)
+
+  console.warn
+    Warning!
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:50:9)
+
+  console.error
+    <p>Test message</p>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:85:9)
+
+  console.error
+    <p>Test message</p>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:98:9)
+
+  console.warn
+    A unique error message
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at warn (src/exceptions.ts:77:21)
+      at _createAlertBanner (src/utils.ts:112:9)
+      at Object.<anonymous> (tests/unit/utils.test.ts:57:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.error
+    (PY0000): Computer says no
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:30:9)
+
+  console.error
+    (PY0000): hello <br>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:42:9)
+
+  console.error
+    (PY0000): hello <br>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:54:9)
+
+  console.info
+    [pyscript/pyodide] importing pyscript
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] pyodide loaded and initialized
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] pyodide.loadPackage: numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] Loading numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] Loaded numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+---------------------------|---------|----------|---------|---------|---------------------------------
+File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s               
+---------------------------|---------|----------|---------|---------|---------------------------------
+All files                  |    37.2 |    42.47 |   38.21 |   37.73 |                                 
+ pyscriptjs                |     100 |    83.33 |     100 |     100 |                                 
+  directoryManifest.mjs    |     100 |    83.33 |     100 |     100 | 40                              
+ pyscriptjs/src            |   53.07 |    59.23 |   51.18 |   54.56 |                                 
+  exceptions.ts            |   95.34 |      100 |   83.33 |   95.34 | 61-62                           
+  fetch.ts                 |   94.11 |    88.88 |     100 |   94.11 | 53                              
+  interpreter_client.ts    |   56.25 |      100 |   42.85 |   56.25 | 75-92                           
+  logger.ts                |     100 |      100 |     100 |     100 |                                 
+  main.ts                  |    16.9 |       20 |   17.39 |   16.54 | 35-37,120-129,147-434,443       
+  plugin.ts                |   14.28 |        0 |   16.66 |   15.38 | 150-218,243-267                 
+  pyconfig.ts              |   86.31 |    74.41 |    92.3 |   86.31 | 117,121,128,177,211-225         
+  pyexec.ts                |    4.34 |        0 |       0 |    4.34 | 14-73                           
+  remote_interpreter.ts    |      45 |     9.09 |   45.45 |      45 | 104,134-135,146,166-255,268-273 
+  stdio.ts                 |   96.77 |       70 |     100 |   96.55 | 73                              
+  utils.ts                 |   73.58 |       65 |   63.63 |   77.55 | 4-11,45,58,92,130-134           
+  version.ts               |     100 |      100 |     100 |     100 |                                 
+ pyscriptjs/src/components |    2.76 |        0 |       0 |    2.76 |                                 
+  elements.ts              |       0 |      100 |       0 |       0 | 7-11                            
+  pyrepl.ts                |    2.38 |        0 |       0 |    2.38 | 36-224                          
+  pyscript.ts              |     3.5 |        0 |       0 |     3.5 | 26-70,170-250                   
+  pywidget.ts              |    2.77 |        0 |       0 |    2.77 | 14-100                          
+ pyscriptjs/src/plugins    |   14.76 |    21.53 |      20 |   14.58 |                                 
+  calculateFetchPaths.ts   |     100 |      100 |     100 |     100 |                                 
+  importmap.ts             |    5.55 |        0 |       0 |    6.25 | 24-50                           
+  pyterminal.ts            |    8.69 |        0 |    9.09 |    9.09 | 14-24,38-138                    
+  splashscreen.ts          |    9.09 |     7.69 |   11.11 |    9.09 | 31-62,69-107                    
+  stdiodirector.ts         |       5 |        0 |      20 |       5 | 34-128                          
+---------------------------|---------|----------|---------|---------|---------------------------------
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-py
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+Tests from /home/jglass/Documents/pyscript/pyscriptjs/src
+mkdir -p test_results
+/home/jglass/Documents/pyscript/pyscriptjs/env/bin/pytest -vv  tests/py-unit/ --log-cli-level=warning --junitxml=test_results/py-unit.xml
+============================= test session starts ==============================
+platform linux -- Python 3.11.0, pytest-7.1.2, pluggy-1.0.0 -- /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+cachedir: .pytest_cache
+Test order randomisation NOT enabled. Enable with --random-order or --random-order-bucket=<bucket_type>
+rootdir: /home/jglass/Documents/pyscript/pyscriptjs
+plugins: random-order-1.1.0, base-url-2.0.0, playwright-0.3.2, xdist-3.2.1, instafail-0.5.0
+collecting ... collected 19 items
+
+tests/py-unit/test_pyscript.py::TestElement::test_id_is_correct PASSED   [  5%]
+tests/py-unit/test_pyscript.py::TestElement::test_element PASSED         [ 10%]
+tests/py-unit/test_pyscript.py::test_format_mime_str PASSED              [ 15%]
+tests/py-unit/test_pyscript.py::test_format_mime_str_escaping PASSED     [ 21%]
+tests/py-unit/test_pyscript.py::test_format_mime_repr_escaping PASSED    [ 26%]
+tests/py-unit/test_pyscript.py::test_format_mime_HTML PASSED             [ 31%]
+tests/py-unit/test_pyscript.py::test_uses_top_level_await PASSED         [ 36%]
+tests/py-unit/test_pyscript.py::test_set_version_info PASSED             [ 42%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_repr PASSED   [ 47%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_show_warning_override PASSED [ 52%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_getattr PASSED [ 57%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_dont_show_warning_twice PASSED [ 63%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_call PASSED   [ 68%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_iter PASSED   [ 73%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_getitem PASSED [ 78%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_setitem PASSED [ 84%]
+tests/py-unit/test_python_plugins.py::TestPyMarkdown::test_plugin_hooks PASSED [ 89%]
+tests/py-unit/test_python_plugins.py::TestPyTutor::test_connected_calls PASSED [ 94%]
+tests/py-unit/test_python_plugins.py::TestPyTutor::test_plugin_registered PASSED [100%]
+
+=============================== warnings summary ===============================
+src/python/pyscript/__init__.py:26
+  /home/jglass/Documents/pyscript/pyscriptjs/src/python/pyscript/__init__.py:26: DeprecationWarning: There is no current event loop
+    loop = asyncio.get_event_loop()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/jglass/Documents/pyscript/pyscriptjs/test_results/py-unit.xml -
+======================== 19 passed, 1 warning in 0.04s =========================
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-integration-parallel
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make examples
+make[2]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p ./examples
+cp -r ../examples/* ./examples
+chmod -R 755 examples
+find ./examples/toga -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../build/+g {} \;
+find ./examples/webgl -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../../build/+g {} \;
+find ./examples -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../build/+g {} \;
+npm run build
+
+> pyscript@0.0.1 build
+> npm run tsc && node esbuild.mjs
+
+
+> pyscript@0.0.1 tsc
+> tsc --noEmit
+
+[1mpyscript[0m [2m(prod)[0m built in: 75.497ms
+rm -rf ./examples/build
+mkdir -p ./examples/build
+cp -R ./build/* ./examples/build
+To serve examples run: conda run -p /home/jglass/Documents/pyscript/pyscriptjs/env python -m http.server 8080 --directory examples
+make[2]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p test_results
+/home/jglass/Documents/pyscript/pyscriptjs/env/bin/pytest --numprocesses auto -vv  tests/integration/ --log-cli-level=warning --junitxml=test_results/integration.xml --instafail --random-order
+gw0 I / gw1 I / gw2 I / gw3 I / gw4 I / gw5 I / gw6 I / gw7 I
+[gw0] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw1] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw2] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw3] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw4] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw5] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw6] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw7] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+============================= test session starts ==============================
+platform linux -- Python 3.11.0, pytest-7.1.2, pluggy-1.0.0 -- /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+cachedir: .pytest_cache
+Using --random-order-bucket=module
+Using --random-order-seed=141169
+
+rootdir: /home/jglass/Documents/pyscript/pyscriptjs
+plugins: random-order-1.1.0, base-url-2.0.0, playwright-0.3.2, xdist-3.2.1, instafail-0.5.0
+collecting ... [gw0] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw1] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw2] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw3] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw4] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw5] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw6] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw7] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+gw0 [191] / gw1 [191] / gw2 [191] / gw3 [191] / gw4 [191] / gw5 [191] / gw6 [191] / gw7 [191]
+
+scheduling tests via LoadScheduling
+
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_solo[chromium] 
+tests/integration/test_importmap.py::TestImportmap::test_invalid_json[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_different_target_from_call[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_append_true[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_append_false[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_target_pyscript_tag[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_simple_display[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr_id_errors[chromium] 
+[gw7] [  0%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_different_target_from_call[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_fetch[chromium] 
+[gw3] [  1%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_target_pyscript_tag[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_target_on_button_tag[chromium] 
+[gw6] [  1%] PASSED tests/integration/test_02_display.py::TestOutput::test_append_true[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_no_implicit_target[chromium] 
+[gw0] [  2%] XPASS tests/integration/test_importmap.py::TestImportmap::test_invalid_json[chromium] 
+tests/integration/test_importmap.py::TestImportmap::test_importmap[chromium] 
+[gw5] [  2%] PASSED tests/integration/test_02_display.py::TestOutput::test_append_false[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_values[chromium] 
+[gw4] [  3%] PASSED tests/integration/test_02_display.py::TestOutput::test_simple_display[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_text_HTML_and_console_output[chromium] 
+[gw1] [  3%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_solo[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr[chromium] 
+[gw2] [  4%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr_id_errors[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_dynamic_tags[chromium] 
+[gw7] [  4%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_fetch[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_requests[chromium] 
+[gw0] [  5%] XFAIL tests/integration/test_importmap.py::TestImportmap::test_importmap[chromium] 
+[gw4] [  5%] PASSED tests/integration/test_02_display.py::TestOutput::test_text_HTML_and_console_output[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_interleaved[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_consecutive_display[chromium] 
+[gw3] [  6%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_target_on_button_tag[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false_with_target[chromium] 
+[gw5] [  6%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_multiple_values[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_target_attribute[chromium] 
+[gw6] [  7%] PASSED tests/integration/test_02_display.py::TestOutput::test_no_implicit_target[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_multiple_display_calls_same_tag[chromium] 
+[gw2] [  7%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_dynamic_tags[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stdout_id_errors[chromium] 
+[gw1] [  8%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_escape[chromium] 
+[gw4] [  8%] PASSED tests/integration/test_02_display.py::TestOutput::test_consecutive_display[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_should_escape[chromium] 
+[gw0] [  9%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_interleaved[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_target_element_id_change[chromium] 
+[gw3] [  9%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false_with_target[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_empty_HTML_and_console_output[chromium] 
+[gw2] [ 10%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stdout_id_errors[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false[chromium] 
+[gw6] [ 10%] PASSED tests/integration/test_02_display.py::TestOutput::test_multiple_display_calls_same_tag[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_list_dict_tuple[chromium] 
+[gw1] [ 11%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_escape[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_linebreaks[chromium] 
+[gw5] [ 12%] PASSED tests/integration/test_02_display.py::TestOutput::test_target_attribute[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_image_renders_correctly[chromium] 
+[gw7] [ 12%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_requests[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_guides_asyncio[chromium] 
+[gw4] [ 13%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_should_escape[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_HTML[chromium] 
+[gw0] [ 13%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_target_element_id_change[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_output_attribute_change[chromium] 
+[gw3] [ 14%] PASSED tests/integration/test_02_display.py::TestOutput::test_empty_HTML_and_console_output[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_console_line_break[chromium] 
+[gw2] [ 14%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_implicit_target_from_a_different_tag[chromium] 
+[gw6] [ 15%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_list_dict_tuple[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_image_display[chromium] 
+[gw1] [ 15%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_linebreaks[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_async[chromium] 
+[gw7] [ 16%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_guides_asyncio[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_interpreter[chromium] 
+[gw5] [ 16%] PASSED tests/integration/test_02_display.py::TestOutput::test_image_renders_correctly[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_consecutive_display_target[chromium] 
+[gw3] [ 17%] PASSED tests/integration/test_02_display.py::TestOutput::test_console_line_break[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_todo_pylist[chromium] 
+[gw4] [ 17%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_HTML[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_writing_to_page[chromium] 
+[gw0] [ 18%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_output_attribute_change[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_altair[chromium] 
+[gw2] [ 18%] PASSED tests/integration/test_02_display.py::TestOutput::test_implicit_target_from_a_different_tag[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_matplotlib[chromium] 
+[gw5] [ 19%] PASSED tests/integration/test_02_display.py::TestOutput::test_consecutive_display_target[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_python_plugin[chromium] 
+[gw7] [ 19%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_interpreter[chromium] 
+tests/integration/test_async.py::TestAsync::test_asyncio_ensure_future[chromium] 
+[gw1] [ 20%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_async[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_id[chromium] 

@@ -1,0 +1,3 @@
+After 755a run, installed instafail via environment.yml, added to `make test`
+Starting with 1024a run, using --random-order
+Starting with 10250a run, using --random-order-bucket=global
