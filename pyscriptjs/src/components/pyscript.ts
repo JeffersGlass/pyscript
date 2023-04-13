@@ -156,48 +156,72 @@ export async function initHandlers(interpreter: InterpreterClient) {
 
 /** Initializes an element with the given py-on* attribute and its handler */
 async function createElementsWithEventListeners(interpreter: InterpreterClient, browserEvent: string) {
-    const pyEval = await interpreter.globals.get('eval');
-    const pyCallable = await interpreter.globals.get('callable');
-    const pyDictClass = await interpreter.globals.get('dict');
+    //const pyEval = await interpreter.globals.get('eval');
+    //const pyCallable = await interpreter.globals.get('callable');
+    //const pyDictClass = await interpreter.globals.get('dict');
+
+    await interpreter._remote.pyscript_py._run_pyscript('from pyodide.ffi import create_proxy')
+    const pyEval = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(eval)')).result;
+    const pyCallable = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(callable)')).result;
+    const pyDictClass = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(dict)')).result;
+    
 
     const localsDict = pyDictClass();
 
     let matches: NodeListOf<HTMLElement> = document.querySelectorAll(`[py-${browserEvent}]`);
     for (const el of matches) {
+        console.debug({pyEval})
+        console.debug(`Found element with attribute py-${browserEvent}`, el)
         // If the element doesn't have an id, let's add one automatically
         if (el.id.length === 0) {
             ensureUniqueId(el);
         }
         const pyEvent = 'py-' + browserEvent;
         const userProvidedFunctionName = el.getAttribute(pyEvent);
+        console.debug(`User provided function called ${userProvidedFunctionName}`)
 
         el.addEventListener(browserEvent, async evt => {
             try {
+                console.debug(`Starting function call`)
                 localsDict.event = evt;
 
-                const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
+                const evalResult = (await interpreter.run(`from pyodide.ffi import create_proxy; create_proxy(${userProvidedFunctionName})`)).result // pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
+                console.debug("Evaluated??")
+                console.debug('evalResult:', {evalResult})
                 const isCallable = pyCallable(evalResult);
+                console.debug('isCallable:', {isCallable})
 
                 if (await isCallable) {
+                    console.debug("Found to be callable")
                     const pyInspectModule = await interpreter._remote.interface.pyimport('inspect')
-                    const params = await pyInspectModule.signature(evalResult).parameters;
-
-                    if (params.length == 0) {
+                    const sig = await pyInspectModule.signature(evalResult)
+                    console.debug('sig:', {sig})
+                    const params = await sig.parameters;
+                    console.debug('params:', {params})
+                    console.debug('params.length(): ', params.length())
+                    console.debug(`Established Params`)
+                    
+                    if (await params.length == 0) {
+                        console.debug(`calling with no params`)
                         evalResult();
                     }
                     // Functions that receive an event attribute
-                    else if (params.length == 1) {
+                    else if (params.get('length') == 1) {
+                        console.debug(`Calling with one param`)
                         evalResult(evt);
                     } else {
+                        console.debug(`About to throw an error about argument count`)
                         throw new UserError(ErrorCode.GENERIC, "'py-[event]' take 0 or 1 arguments");
                     }
                 } else {
+                    console.debug(`Throwing an error about callableness`)
                     throw new UserError(
                         ErrorCode.GENERIC,
                         "The code provided to 'py-[event]' should be the name of a function or Callable. To run an expression as code, use 'py-[event]-code'",
                     );
                 }
             } catch (err) {
+                console.debug("Some Kind of Error")
                 // TODO: This should be an error - probably need to refactor
                 // this function into createSingularBanner similar to createSingularWarning(err);
                 // tracked in issue #1253

@@ -7,6 +7,8 @@ class TestEventHandler(PyScriptTest):
             """
             <button id="foo_id">foo_button</button>
             <py-script>
+                for d in list(dir()):
+                    print(d)
                 from pyscript import when
                 @when("click", id="foo_id")
                 def foo(evt):
