@@ -99,7 +99,7 @@ test-integration:
 test-integration-parallel:
 	make examples
 	mkdir -p test_results
-	$(PYTEST_EXE) --numprocesses auto -vv $(ARGS) tests/integration/ --log-cli-level=warning --junitxml=test_results/integration.xml --instafail --random-order-bucket=global
+	$(PYTEST_EXE) --numprocesses 4 -vv $(ARGS) tests/integration/ --log-cli-level=warning --junitxml=test_results/integration.xml --instafail --random-order-bucket=global
 
 test-py:
 	@echo "Tests from $(src_dir)"

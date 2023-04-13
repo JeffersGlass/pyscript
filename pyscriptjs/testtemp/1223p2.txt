@@ -1,0 +1,2616 @@
+make examples
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p ./examples
+cp -r ../examples/* ./examples
+chmod -R 755 examples
+find ./examples/toga -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../build/+g {} \;
+find ./examples/webgl -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../../build/+g {} \;
+find ./examples -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../build/+g {} \;
+npm run build
+
+> pyscript@0.0.1 build
+> npm run tsc && node esbuild.mjs
+
+
+> pyscript@0.0.1 tsc
+> tsc --noEmit
+
+[1mpyscript[0m [2m(prod)[0m built in: 142.702ms
+rm -rf ./examples/build
+mkdir -p ./examples/build
+cp -R ./build/* ./examples/build
+To serve examples run: conda run -p /home/jglass/Documents/pyscript/pyscriptjs/env python -m http.server 8080 --directory examples
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-ts
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+npm run test
+
+> pyscript@0.0.1 test
+> cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage
+
+  console.error
+    Something went wrong!
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:11:9)
+
+  console.warn
+    This is a warning
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:21:9)
+
+  console.error
+    Something went wrong!
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:33:9)
+
+  console.warn
+    This warning
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:41:9)
+
+  console.warn
+    Warning!
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at warn (src/exceptions.ts:77:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:50:9)
+
+  console.warn
+    A unique error message
+
+      75 |             break;
+      76 |         case 'log-warning-true':
+    > 77 |             console.warn(message);
+         |                     ^
+      78 |             break;
+      79 |     }
+      80 |
+
+      at warn (src/exceptions.ts:77:21)
+      at _createAlertBanner (src/utils.ts:112:9)
+      at Object.<anonymous> (tests/unit/utils.test.ts:57:13)
+
+  console.error
+    <p>Test message</p>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:85:9)
+
+  console.error
+    <p>Test message</p>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:709:23)
+      at error (src/exceptions.ts:74:21)
+      at Object.<anonymous> (tests/unit/exceptions.test.ts:98:9)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading  /covfefe.json
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.error
+    (PY0000): Computer says no
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:30:9)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.error
+    (PY0000): hello <br>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:42:9)
+
+  console.info
+    [py-config] loading <py-config> content
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.error
+    (PY0000): hello <br>
+
+      72 |     switch (`log-${level}-${logMessage}`) {
+      73 |         case 'log-error-true':
+    > 74 |             console.error(message);
+         |                     ^
+      75 |             break;
+      76 |         case 'log-warning-true':
+      77 |             console.warn(message);
+
+      at error (src/exceptions.ts:74:21)
+      at MyApp._createAlertBanner [as _handleUserErrorMaybe] (src/main.ts:136:13)
+      at MyApp._handleUserErrorMaybe [as main] (src/main.ts:115:24)
+      at Object.<anonymous> (tests/unit/main.test.ts:54:9)
+
+  console.info
+    [pyscript/pyodide] importing pyscript
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] pyodide loaded and initialized
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] pyodide.loadPackage: numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] Loading numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+  console.info
+    [pyscript/pyodide] Loaded numpy
+
+      at Object.out_fn [as info] (src/logger.ts:50:13)
+
+---------------------------|---------|----------|---------|---------|---------------------------------
+File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s               
+---------------------------|---------|----------|---------|---------|---------------------------------
+All files                  |    37.2 |    42.47 |   38.21 |   37.73 |                                 
+ pyscriptjs                |     100 |    83.33 |     100 |     100 |                                 
+  directoryManifest.mjs    |     100 |    83.33 |     100 |     100 | 40                              
+ pyscriptjs/src            |   53.07 |    59.23 |   51.18 |   54.56 |                                 
+  exceptions.ts            |   95.34 |      100 |   83.33 |   95.34 | 61-62                           
+  fetch.ts                 |   94.11 |    88.88 |     100 |   94.11 | 53                              
+  interpreter_client.ts    |   56.25 |      100 |   42.85 |   56.25 | 75-92                           
+  logger.ts                |     100 |      100 |     100 |     100 |                                 
+  main.ts                  |    16.9 |       20 |   17.39 |   16.54 | 35-37,120-129,147-434,443       
+  plugin.ts                |   14.28 |        0 |   16.66 |   15.38 | 150-218,243-267                 
+  pyconfig.ts              |   86.31 |    74.41 |    92.3 |   86.31 | 117,121,128,177,211-225         
+  pyexec.ts                |    4.34 |        0 |       0 |    4.34 | 14-73                           
+  remote_interpreter.ts    |      45 |     9.09 |   45.45 |      45 | 104,134-135,146,166-255,268-273 
+  stdio.ts                 |   96.77 |       70 |     100 |   96.55 | 73                              
+  utils.ts                 |   73.58 |       65 |   63.63 |   77.55 | 4-11,45,58,92,130-134           
+  version.ts               |     100 |      100 |     100 |     100 |                                 
+ pyscriptjs/src/components |    2.76 |        0 |       0 |    2.76 |                                 
+  elements.ts              |       0 |      100 |       0 |       0 | 7-11                            
+  pyrepl.ts                |    2.38 |        0 |       0 |    2.38 | 36-224                          
+  pyscript.ts              |     3.5 |        0 |       0 |     3.5 | 26-70,170-250                   
+  pywidget.ts              |    2.77 |        0 |       0 |    2.77 | 14-100                          
+ pyscriptjs/src/plugins    |   14.76 |    21.53 |      20 |   14.58 |                                 
+  calculateFetchPaths.ts   |     100 |      100 |     100 |     100 |                                 
+  importmap.ts             |    5.55 |        0 |       0 |    6.25 | 24-50                           
+  pyterminal.ts            |    8.69 |        0 |    9.09 |    9.09 | 14-24,38-138                    
+  splashscreen.ts          |    9.09 |     7.69 |   11.11 |    9.09 | 31-62,69-107                    
+  stdiodirector.ts         |       5 |        0 |      20 |       5 | 34-128                          
+---------------------------|---------|----------|---------|---------|---------------------------------
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-py
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+Tests from /home/jglass/Documents/pyscript/pyscriptjs/src
+mkdir -p test_results
+/home/jglass/Documents/pyscript/pyscriptjs/env/bin/pytest -vv  tests/py-unit/ --log-cli-level=warning --junitxml=test_results/py-unit.xml
+============================= test session starts ==============================
+platform linux -- Python 3.11.0, pytest-7.1.2, pluggy-1.0.0 -- /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+cachedir: .pytest_cache
+Test order randomisation NOT enabled. Enable with --random-order or --random-order-bucket=<bucket_type>
+rootdir: /home/jglass/Documents/pyscript/pyscriptjs
+plugins: random-order-1.1.0, base-url-2.0.0, playwright-0.3.2, xdist-3.2.1, instafail-0.5.0
+collecting ... collected 19 items
+
+tests/py-unit/test_pyscript.py::TestElement::test_id_is_correct PASSED   [  5%]
+tests/py-unit/test_pyscript.py::TestElement::test_element PASSED         [ 10%]
+tests/py-unit/test_pyscript.py::test_format_mime_str PASSED              [ 15%]
+tests/py-unit/test_pyscript.py::test_format_mime_str_escaping PASSED     [ 21%]
+tests/py-unit/test_pyscript.py::test_format_mime_repr_escaping PASSED    [ 26%]
+tests/py-unit/test_pyscript.py::test_format_mime_HTML PASSED             [ 31%]
+tests/py-unit/test_pyscript.py::test_uses_top_level_await PASSED         [ 36%]
+tests/py-unit/test_pyscript.py::test_set_version_info PASSED             [ 42%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_repr PASSED   [ 47%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_show_warning_override PASSED [ 52%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_getattr PASSED [ 57%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_dont_show_warning_twice PASSED [ 63%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_call PASSED   [ 68%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_iter PASSED   [ 73%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_getitem PASSED [ 78%]
+tests/py-unit/test_pyscript.py::TestDeprecatedGlobal::test_setitem PASSED [ 84%]
+tests/py-unit/test_python_plugins.py::TestPyMarkdown::test_plugin_hooks PASSED [ 89%]
+tests/py-unit/test_python_plugins.py::TestPyTutor::test_connected_calls PASSED [ 94%]
+tests/py-unit/test_python_plugins.py::TestPyTutor::test_plugin_registered PASSED [100%]
+
+=============================== warnings summary ===============================
+src/python/pyscript/__init__.py:26
+  /home/jglass/Documents/pyscript/pyscriptjs/src/python/pyscript/__init__.py:26: DeprecationWarning: There is no current event loop
+    loop = asyncio.get_event_loop()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/jglass/Documents/pyscript/pyscriptjs/test_results/py-unit.xml -
+======================== 19 passed, 1 warning in 0.05s =========================
+make[1]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make test-integration-parallel
+make[1]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+make examples
+make[2]: Entering directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p ./examples
+cp -r ../examples/* ./examples
+chmod -R 755 examples
+find ./examples/toga -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../build/+g {} \;
+find ./examples/webgl -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../../../build/+g {} \;
+find ./examples -type f -name '*.html' -exec sed -i s+https://pyscript.net/latest/+../build/+g {} \;
+npm run build
+
+> pyscript@0.0.1 build
+> npm run tsc && node esbuild.mjs
+
+
+> pyscript@0.0.1 tsc
+> tsc --noEmit
+
+[1mpyscript[0m [2m(prod)[0m built in: 70.618ms
+rm -rf ./examples/build
+mkdir -p ./examples/build
+cp -R ./build/* ./examples/build
+To serve examples run: conda run -p /home/jglass/Documents/pyscript/pyscriptjs/env python -m http.server 8080 --directory examples
+make[2]: Leaving directory '/home/jglass/Documents/pyscript/pyscriptjs'
+mkdir -p test_results
+/home/jglass/Documents/pyscript/pyscriptjs/env/bin/pytest --numprocesses auto -vv  tests/integration/ --log-cli-level=warning --junitxml=test_results/integration.xml --instafail --random-order-bucket=global
+gw0 I / gw1 I / gw2 I / gw3 I / gw4 I / gw5 I / gw6 I / gw7 I
+[gw0] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw1] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw2] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw3] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw4] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw5] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw6] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+[gw7] linux Python 3.11.0 cwd: /home/jglass/Documents/pyscript/pyscriptjs
+============================= test session starts ==============================
+platform linux -- Python 3.11.0, pytest-7.1.2, pluggy-1.0.0 -- /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+cachedir: .pytest_cache
+Using --random-order-bucket=global
+Using --random-order-seed=728245
+
+rootdir: /home/jglass/Documents/pyscript/pyscriptjs
+plugins: random-order-1.1.0, base-url-2.0.0, playwright-0.3.2, xdist-3.2.1, instafail-0.5.0
+collecting ... [gw0] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw1] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw2] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw3] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw4] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw5] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw6] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+[gw7] Python 3.11.0 (main, Jan 16 2023, 14:19:54) [GCC 11.2.0]
+gw0 [191] / gw1 [191] / gw2 [191] / gw3 [191] / gw4 [191] / gw5 [191] / gw6 [191] / gw7 [191]
+
+scheduling tests via LoadScheduling
+
+tests/integration/test_00_support.py::TestSupport::test_wait_for_console_simple[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin_non_existent[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_stderr_id_errors[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_autoclose_false[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_clear_input[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_pyscript_hello[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_multiple_repls[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_write_append[chromium] 
+[gw0] [  0%] PASSED tests/integration/test_00_support.py::TestSupport::test_wait_for_console_simple[chromium] 
+tests/integration/test_async.py::TestAsync::test_sync_and_async_order[chromium] 
+[gw0] [  1%] PASSED tests/integration/test_async.py::TestAsync::test_sync_and_async_order[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_bokeh_interactive[chromium] 
+[gw5] [  1%] PASSED tests/integration/test_03_element.py::TestElement::test_element_write_append[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_run_clears_previous_output[chromium] 
+[gw7] [  2%] PASSED tests/integration/test_03_element.py::TestElement::test_element_clear_input[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_different_target_from_call[chromium] 
+[gw2] [  2%] PASSED tests/integration/test_splashscreen.py::TestSplashscreen::test_autoclose_false[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_simple_clock[chromium] 
+[gw4] [  3%] PASSED tests/integration/test_01_basic.py::TestBasic::test_pyscript_hello[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false_with_target[chromium] 
+[gw6] [  3%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_stderr_id_errors[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_custom_message[chromium] 
+[gw3] [  4%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_multiple_repls[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_value[chromium] 
+[gw1] [  4%] PASSED tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin_non_existent[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_multiple_repls_mixed_display_order[chromium] 
+[gw7] [  5%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_different_target_from_call[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_wait_for_console_timeout[chromium] 
+[gw5] [  5%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_run_clears_previous_output[chromium] 
+tests/integration/test_interpreter.py::TestInterpreterAccess::test_interpreter_script_execution[chromium] 
+[gw6] [  6%] PASSED tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_custom_message[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_webgl_raycaster_index[chromium] 
+[gw7] [  6%] PASSED tests/integration/test_00_support.py::TestSupport::test_wait_for_console_timeout[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_consecutive_display_target[chromium] 
+[gw4] [  7%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false_with_target[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_multiple_display_calls_same_tag[chromium] 
+[gw3] [  7%] PASSED tests/integration/test_03_element.py::TestElement::test_element_value[chromium] 
+tests/integration/test_async.py::TestAsync::test_asyncio_ensure_future[chromium] 
+[gw1] [  8%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_multiple_repls_mixed_display_order[chromium] 
+tests/integration/test_async.py::TestAsync::test_asyncio_gather[chromium] 
+[gw2] [  8%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_simple_clock[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_repl[chromium] 
+[gw4] [  9%] PASSED tests/integration/test_02_display.py::TestOutput::test_multiple_display_calls_same_tag[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_clone_no_id[chromium] 
+[gw7] [  9%] PASSED tests/integration/test_02_display.py::TestOutput::test_consecutive_display_target[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_hello_world[chromium] 
+[gw0] [ 10%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_bokeh_interactive[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_escape[chromium] 
+[gw5] [ 10%] PASSED tests/integration/test_interpreter.py::TestInterpreterAccess::test_interpreter_script_execution[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_antigravity[chromium] 
+[gw6] [ 11%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_webgl_raycaster_index[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_dynamic_tags[chromium] 
+[gw3] [ 12%] PASSED tests/integration/test_async.py::TestAsync::test_asyncio_ensure_future[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_assert_no_banners[chromium] 
+[gw2] [ 12%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_repl[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_toga_freedom[chromium] 
+[gw1] [ 13%] PASSED tests/integration/test_async.py::TestAsync::test_asyncio_gather[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_py_config_inline[chromium] 
+[gw4] [ 13%] PASSED tests/integration/test_03_element.py::TestElement::test_element_clone_no_id[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_config_docked[chromium] 
+[gw0] [ 14%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_escape[chromium] 
+tests/integration/test_async.py::TestAsync::test_asyncio_create_task[chromium] 
+[gw7] [ 14%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_hello_world[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_non_existent_package[chromium] 
+[gw6] [ 15%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_dynamic_tags[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_id[chromium] 
+[gw3] [ 15%] PASSED tests/integration/test_01_basic.py::TestBasic::test_assert_no_banners[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_remove_single_class[chromium] 
+[gw5] [ 16%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_antigravity[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_todo[chromium] 
+[gw1] [ 16%] PASSED tests/integration/test_py_config.py::TestConfig::test_py_config_inline[chromium] 
+tests/integration/test_interpreter.py::TestInterpreterAccess::test_backward_compatibility_runtime_python_access[chromium] 
+[gw2] [ 17%] XFAIL tests/integration/test_zz_examples.py::TestExamples::test_toga_freedom[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_py_script_src_attribute[chromium] 
+[gw4] [ 17%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_config_docked[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_python_version[chromium] 
+[gw7] [ 18%] PASSED tests/integration/test_01_basic.py::TestBasic::test_non_existent_package[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_autoclose_loader_deprecated[chromium] 
+[gw6] [ 18%] PASSED tests/integration/test_03_element.py::TestElement::test_element_id[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_clear_div[chromium] 
+[gw0] [ 19%] PASSED tests/integration/test_async.py::TestAsync::test_asyncio_create_task[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_disabled_option[chromium] 
+[gw3] [ 19%] PASSED tests/integration/test_03_element.py::TestElement::test_element_remove_single_class[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_numpy_canvas_fractals[chromium] 
+[gw1] [ 20%] PASSED tests/integration/test_interpreter.py::TestInterpreterAccess::test_backward_compatibility_runtime_python_access[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_interpreter[chromium] 
+[gw5] [ 20%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_todo[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_wait_for_console_exception_1[chromium] 
+[gw5] [ 21%] PASSED tests/integration/test_00_support.py::TestSupport::test_wait_for_console_exception_1[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_attribute[chromium] 
+[gw2] [ 21%] PASSED tests/integration/test_01_basic.py::TestBasic::test_py_script_src_attribute[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_python_exception_in_event_handler[chromium] 
+[gw4] [ 22%] PASSED tests/integration/test_01_basic.py::TestBasic::test_python_version[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_hide_previous_error_after_successful_run[chromium] 
+[gw6] [ 23%] PASSED tests/integration/test_03_element.py::TestElement::test_element_clear_div[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_append_true[chromium] 
+[gw0] [ 23%] PASSED tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_disabled_option[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_element_id_change[chromium] 
+[gw7] [ 24%] PASSED tests/integration/test_splashscreen.py::TestSplashscreen::test_autoclose_loader_deprecated[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_js_version[chromium] 
+[gw1] [ 24%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_interpreter[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_execution_in_order[chromium] 
+[gw5] [ 25%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_attribute[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_multiple_interpreter[chromium] 
+[gw2] [ 25%] PASSED tests/integration/test_01_basic.py::TestBasic::test_python_exception_in_event_handler[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_fetch[chromium] 
+[gw4] [ 26%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_hide_previous_error_after_successful_run[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_click[chromium] 
+[gw6] [ 26%] PASSED tests/integration/test_02_display.py::TestOutput::test_append_true[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_panel_kmeans[chromium] 
+[gw0] [ 27%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_element_id_change[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_HTML[chromium] 
+[gw7] [ 27%] PASSED tests/integration/test_01_basic.py::TestBasic::test_js_version[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_add_multiple_class[chromium] 
+[gw1] [ 28%] PASSED tests/integration/test_01_basic.py::TestBasic::test_execution_in_order[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_two_terminals[chromium] 
+[gw5] [ 28%] PASSED tests/integration/test_py_config.py::TestConfig::test_multiple_interpreter[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_basic[chromium] 
+[gw5] [ 29%] PASSED tests/integration/test_00_support.py::TestSupport::test_basic[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_innerHtml[chromium] 
+[gw2] [ 29%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_config_fetch[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_escaping_of_angle_brackets[chromium] 
+[gw4] [ 30%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_py_click[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_py_script_src_not_found[chromium] 
+[gw7] [ 30%] PASSED tests/integration/test_03_element.py::TestElement::test_element_add_multiple_class[chromium] 
+[gw0] [ 31%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_HTML[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_altair[chromium] 
+[gw1] [ 31%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_two_terminals[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_no_plugin_attribute_error[chromium] 
+[gw5] [ 32%] PASSED tests/integration/test_03_element.py::TestElement::test_element_innerHtml[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_no_interpreter[chromium] 
+[gw5] [ 32%] PASSED tests/integration/test_py_config.py::TestConfig::test_no_interpreter[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_clone_with_id[chromium] 
+[gw2] [ 33%] PASSED tests/integration/test_01_basic.py::TestBasic::test_escaping_of_angle_brackets[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_pyrepl_exec_hooks[chromium] 
+[gw4] [ 34%] PASSED tests/integration/test_01_basic.py::TestBasic::test_py_script_src_not_found[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_panel[chromium] 
+[gw0] [ 34%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_show_last_expression_with_output[chromium] 
+[gw1] [ 35%] PASSED tests/integration/test_plugins.py::TestPlugin::test_no_plugin_attribute_error[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_src_change[chromium] 
+[gw5] [ 35%] PASSED tests/integration/test_03_element.py::TestElement::test_element_clone_with_id[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_invalid_json_config[chromium] 
+[gw5] [ 36%] PASSED tests/integration/test_py_config.py::TestConfig::test_invalid_json_config[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_multiple_py_config[chromium] 
+[gw2] [ 36%] PASSED tests/integration/test_plugins.py::TestPlugin::test_pyrepl_exec_hooks[chromium] 
+tests/integration/test_async.py::TestAsync::test_multiple_async_multiple_display_targeted[chromium] 
+[gw0] [ 37%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_show_last_expression_with_output[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin[chromium] 
+[gw3] [ 37%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_numpy_canvas_fractals[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stdout_id_errors[chromium] 
+[gw1] [ 38%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_src_change[chromium] 
+tests/integration/test_importmap.py::TestImportmap::test_importmap[chromium] 
+[gw5] [ 38%] PASSED tests/integration/test_py_config.py::TestConfig::test_multiple_py_config[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_requests[chromium] 
+[gw2] [ 39%] PASSED tests/integration/test_async.py::TestAsync::test_multiple_async_multiple_display_targeted[chromium] 
+[gw0] [ 39%] PASSED tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_repl2[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_deprecated_globals[chromium] 
+[gw1] [ 40%] XFAIL tests/integration/test_importmap.py::TestImportmap::test_importmap[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_implicit_target_from_a_different_tag[chromium] 
+[gw3] [ 40%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stdout_id_errors[chromium] 
+tests/integration/test_style.py::TestStyle::test_pyscript_not_defined[chromium] 
+[gw3] [ 41%] PASSED tests/integration/test_style.py::TestStyle::test_pyscript_not_defined[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_plugin_no_file_extension[chromium] 
+[gw7] [ 41%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_altair[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_py_plugin_inline[chromium] 
+[gw5] [ 42%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_requests[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_console_line_break[chromium] 
+[gw0] [ 42%] PASSED tests/integration/test_01_basic.py::TestBasic::test_deprecated_globals[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_paths[chromium] 
+[gw1] [ 43%] PASSED tests/integration/test_02_display.py::TestOutput::test_implicit_target_from_a_different_tag[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_check_js_errors_multiple[chromium] 
+[gw1] [ 43%] PASSED tests/integration/test_00_support.py::TestSupport::test_check_js_errors_multiple[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_iter_locator[chromium] 
+[gw4] [ 44%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_panel[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_target_on_button_tag[chromium] 
+[gw1] [ 45%] PASSED tests/integration/test_00_support.py::TestSupport::test_iter_locator[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_py_mount_shows_deprecation_warning[chromium] 
+[gw3] [ 45%] PASSED tests/integration/test_plugins.py::TestPlugin::test_fetch_plugin_no_file_extension[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_config_auto[chromium] 
+[gw5] [ 46%] PASSED tests/integration/test_02_display.py::TestOutput::test_console_line_break[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_write_no_append[chromium] 
+[gw7] [ 46%] PASSED tests/integration/test_plugins.py::TestPlugin::test_py_plugin_inline[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_todo_pylist[chromium] 
+[gw0] [ 47%] PASSED tests/integration/test_py_config.py::TestConfig::test_paths[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_execution_hooks[chromium] 
+[gw1] [ 47%] PASSED tests/integration/test_01_basic.py::TestBasic::test_py_mount_shows_deprecation_warning[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_add_single_class[chromium] 
+[gw4] [ 48%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_target_on_button_tag[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_values[chromium] 
+[gw3] [ 48%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_config_auto[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_show_last_expression[chromium] 
+[gw5] [ 49%] PASSED tests/integration/test_03_element.py::TestElement::test_element_write_no_append[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_getPySrc_returns_source_code[chromium] 
+[gw0] [ 49%] PASSED tests/integration/test_plugins.py::TestPlugin::test_execution_hooks[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_execute_on_shift_enter[chromium] 
+[gw7] [ 50%] XPASS tests/integration/test_zz_examples.py::TestExamples::test_todo_pylist[chromium] 
+[gw7] [ 50%] XFAIL tests/integration/test_zz_examples.py::TestExamples::test_todo_pylist[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_python_plugin[chromium] 
+[gw1] [ 50%] FAILED tests/integration/test_03_element.py::TestElement::test_element_add_single_class[chromium] 
+_____________ TestElement.test_element_add_single_class[chromium] ______________
+[gw1] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_03_element.TestElement object at 0x7f2ffd9b2890>
+
+    def test_element_add_single_class(self):
+        """Test the element add_class"""
+>       self.pyscript_run(
+            """
+            <style> .red { color: red; } </style>
+            <div id="foo">Hi!</div>
+            <py-script>
+            from pyscript import Element
+            el = Element("foo")
+            el.add_class("red")
+            </py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_03_element.py:265: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_03_element.TestElement object at 0x7f2ffd9b2890>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30039.68 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] element_add_single_class.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/element_add_single_class.html[00m
+[34;01m[  0.02 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.21 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.21 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "schema_version": 1,
+  "type": "app",
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "runtimes": [],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:40.290Z"
+  }
+}
+[  0.21 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.22 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.22 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.22 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.23 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.24 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.27 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.35 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.25 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.41 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_py_repl.py::TestPyRepl::test_display[chromium] 
+[gw4] [ 51%] FAILED tests/integration/test_02_display.py::TestOutput::test_display_multiple_values[chromium] 
+______________ TestOutput.test_display_multiple_values[chromium] _______________
+[gw4] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_02_display.TestOutput object at 0x7f868114b290>
+
+    def test_display_multiple_values(self):
+>       self.pyscript_run(
+            """
+            <py-script>
+                hello = 'hello'
+                world = 'world'
+                display(hello, world)
+            </py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_02_display.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_02_display.TestOutput object at 0x7f868114b290>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30008.87 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] display_multiple_values.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/display_multiple_values.html[00m
+[34;01m[  0.05 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.06 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.28 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.28 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "schema_version": 1,
+  "type": "app",
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "runtimes": [],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:40.771Z"
+  }
+}
+[  0.28 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.28 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.28 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.28 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.31 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.31 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.36 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.43 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.46 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.61 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_00_support.py::TestSupport::test_console[chromium] 
+[gw4] [ 51%] PASSED tests/integration/test_00_support.py::TestSupport::test_console[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_load_content_from_src[chromium] 
+[gw3] [ 52%] FAILED tests/integration/test_py_repl.py::TestPyRepl::test_show_last_expression[chromium] 
+________________ TestPyRepl.test_show_last_expression[chromium] ________________
+[gw3] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_py_repl.TestPyRepl object at 0x7f68995a0210>
+
+    def test_show_last_expression(self):
+        """
+        Test that we display() the value of the last expression, as you would
+        expect by a REPL
+        """
+>       self.pyscript_run(
+            """
+            <py-repl>
+                42
+            </py-repl>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_py_repl.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_py_repl.TestPyRepl object at 0x7f68995a0210>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30036.43 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] show_last_expression.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/show_last_expression.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.22 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.22 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "schema_version": 1,
+  "type": "app",
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "runtimes": [],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:40.905Z"
+  }
+}
+[  0.22 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.23 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.23 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.23 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.25 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.26 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.30 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.38 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.34 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_02_display.py::TestOutput::test_display_list_dict_tuple[chromium] 
+[gw5] [ 52%] FAILED tests/integration/test_01_basic.py::TestBasic::test_getPySrc_returns_source_code[chromium] 
+____________ TestBasic.test_getPySrc_returns_source_code[chromium] _____________
+[gw5] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_01_basic.TestBasic object at 0x7fe8cb9c7550>
+
+    def test_getPySrc_returns_source_code(self):
+>       self.pyscript_run(
+            """
+            <py-script>
+                print("hello world!")
+            </py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_01_basic.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_01_basic.TestBasic object at 0x7fe8cb9c7550>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30050.76 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] getPySrc_returns_source_code.html[00m
+[34;01m[  0.02 request          ] 200 - fake_server - http://fake_server/getPySrc_returns_source_code.html[00m
+[34;01m[  0.05 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.05 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.31 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.33 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "schema_version": 1,
+  "type": "app",
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "runtimes": [],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:42.693Z"
+  }
+}
+[  0.34 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.34 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.34 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.37 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.38 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.41 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.44 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[ 10.04 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[ 10.24 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_zz_examples.py::TestExamples::test_folium[chromium] 
+[gw0] [ 53%] FAILED tests/integration/test_py_repl.py::TestPyRepl::test_execute_on_shift_enter[chromium] 
+_______________ TestPyRepl.test_execute_on_shift_enter[chromium] _______________
+[gw0] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_py_repl.TestPyRepl object at 0x7f569f617010>
+
+    def test_execute_on_shift_enter(self):
+>       self.pyscript_run(
+            """
+            <py-repl>
+                print("hello world")
+            </py-repl>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_py_repl.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_py_repl.TestPyRepl object at 0x7f569f617010>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30001.66 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] execute_on_shift_enter.html[00m
+[34;01m[  0.02 request          ] 200 - fake_server - http://fake_server/execute_on_shift_enter.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.33 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.33 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "schema_version": 1,
+  "type": "app",
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "runtimes": [],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:43.023Z"
+  }
+}
+[  0.34 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.34 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.34 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.34 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.37 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.38 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.45 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.58 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  9.73 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  9.94 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_py_repl.py::TestPyRepl::test_execute_preloaded_source[chromium] 
+[gw3] [ 53%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_list_dict_tuple[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_closes_on_error_with_pys_onClick[chromium] 
+[gw3] [ 54%] SKIPPED tests/integration/test_splashscreen.py::TestSplashscreen::test_splashscreen_closes_on_error_with_pys_onClick[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_config_false[chromium] 
+[gw1] [ 54%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_display[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_empty_HTML_and_console_output[chromium] 
+[gw4] [ 55%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_load_content_from_src[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_await_with_run_js[chromium] 
+[gw4] [ 56%] PASSED tests/integration/test_00_support.py::TestSupport::test_await_with_run_js[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_check_js_errors_expected_not_found_but_other_errors[chromium] 
+[gw4] [ 56%] PASSED tests/integration/test_00_support.py::TestSupport::test_check_js_errors_expected_not_found_but_other_errors[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_clone_to_other_element[chromium] 
+[gw0] [ 57%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_execute_preloaded_source[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_simple_display[chromium] 
+[gw3] [ 57%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_config_false[chromium] 
+tests/integration/test_async.py::TestAsync::test_multiple_async[chromium] 
+[gw1] [ 58%] PASSED tests/integration/test_02_display.py::TestOutput::test_empty_HTML_and_console_output[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_async[chromium] 
+[gw4] [ 58%] PASSED tests/integration/test_03_element.py::TestElement::test_element_clone_to_other_element[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_select[chromium] 
+[gw0] [ 59%] PASSED tests/integration/test_02_display.py::TestOutput::test_simple_display[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_auto_attribute[chromium] 
+[gw7] [ 59%] FAILED tests/integration/test_plugins.py::TestPlugin::test_fetch_python_plugin[chromium] 
+________________ TestPlugin.test_fetch_python_plugin[chromium] _________________
+[gw7] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_plugins.TestPlugin object at 0x7fed463c2210>
+
+    def test_fetch_python_plugin(self):
+        """
+        Test that we can fetch a plugin from a remote URL. Note we need to use
+        the 'raw' URL for the plugin, otherwise the request will be rejected
+        by cors policy.
+        """
+>       self.pyscript_run(
+            """
+            <py-config>
+                plugins = [
+                    "https://raw.githubusercontent.com/FabioRosado/pyscript-plugins/main/python/hello-world.py"
+                ]
+    
+            </py-config>
+            <py-hello-world></py-hello-world>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_plugins.py:310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_plugins.TestPlugin object at 0x7fed463c2210>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30000.30 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] fetch_python_plugin.html[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/fetch_python_plugin.html[00m
+[34;01m[  0.08 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.08 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  1.04 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  1.05 console.info     ] [36m[py-config][00m loading <py-config> content
+[  1.06 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [],
+  "fetch": [],
+  "plugins": [
+    "https://raw.githubusercontent.com/FabioRosado/pyscript-plugins/main/python/hello-world.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:53.915Z"
+  }
+}
+[  1.06 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  1.07 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  1.07 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  1.07 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  1.15 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  1.17 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  1.22 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  1.27 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  2.88 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  3.06 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_writing_to_page[chromium] 
+[gw3] [ 60%] PASSED tests/integration/test_async.py::TestAsync::test_multiple_async[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_check_js_errors_expected_but_didnt_raise[chromium] 
+[gw3] [ 60%] PASSED tests/integration/test_00_support.py::TestSupport::test_check_js_errors_expected_but_didnt_raise[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_consecutive_display[chromium] 
+[gw4] [ 61%] PASSED tests/integration/test_03_element.py::TestElement::test_element_select[chromium] 
+tests/integration/test_style.py::TestStyle::test_pyscript_defined[chromium] 
+[gw1] [ 61%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_async[chromium] 
+tests/integration/test_warnings_and_banners.py::TestWarningsAndBanners::test_create_singular_warning[chromium] 
+[gw0] [ 62%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_auto_attribute[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_interleaved[chromium] 
+[gw7] [ 62%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_tutorials_writing_to_page[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_src_path_that_do_not_exist[chromium] 
+[gw3] [ 63%] PASSED tests/integration/test_02_display.py::TestOutput::test_consecutive_display[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_bokeh[chromium] 
+[gw4] [ 63%] PASSED tests/integration/test_style.py::TestStyle::test_pyscript_defined[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_no_implicit_target[chromium] 
+[gw5] [ 64%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_folium[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_target_element_id_change[chromium] 
+[gw1] [ 64%] PASSED tests/integration/test_warnings_and_banners.py::TestWarningsAndBanners::test_create_singular_warning[chromium] 
+[gw0] [ 65%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_interleaved[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_id_errors[chromium] 
+[gw7] [ 65%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_src_path_that_do_not_exist[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_loads[chromium] 
+[gw4] [ 66%] PASSED tests/integration/test_02_display.py::TestOutput::test_no_implicit_target[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_py_config_external[chromium] 
+[gw0] [ 67%] PASSED tests/integration/test_02_display.py::TestOutput::test_display_multiple_append_false[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_packages[chromium] 
+[gw5] [ 67%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_target_element_id_change[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_stderr[chromium] 
+[gw1] [ 68%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_id_errors[chromium] 
+tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_guides_asyncio[chromium] 
+[gw7] [ 68%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_loads[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_wait_for_console_dont_wait_if_already_emitted[chromium] 
+[gw7] [ 69%] PASSED tests/integration/test_00_support.py::TestSupport::test_wait_for_console_dont_wait_if_already_emitted[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_interpreter_config[chromium] 
+[gw4] [ 69%] PASSED tests/integration/test_py_config.py::TestConfig::test_py_config_external[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_py_attribute_without_id[chromium] 
+[gw1] [ 70%] PASSED tests/integration/test_zzz_docs_snippets.py::TestDocsSnippets::test_guides_asyncio[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_text_HTML_and_console_output[chromium] 
+[gw5] [ 70%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_stderr[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_runtime_still_works_but_shows_deprecation_warning[chromium] 
+[gw2] [ 71%] FAILED tests/integration/test_zz_examples.py::TestExamples::test_repl2[chromium] 
+______________________ TestExamples.test_repl2[chromium] _______________________
+[gw2] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f76fd187e90>
+
+    def test_repl2(self):
+        self.goto("examples/repl2.html")
+>       self.wait_for_pyscript(timeout=1.5 * 60 * 1000)
+
+tests/integration/test_zz_examples.py:320: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f76fd187e90>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 90045.00 ms
+
+tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] examples/repl2.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/examples/repl2.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/examples/repl.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/examples/assets/css/examples.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/examples/logo.png[00m
+[  0.29 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.29 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.30 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "bokeh",
+    "numpy"
+  ],
+  "fetch": [
+    {
+      "files": [
+        "./utils.py",
+        "./antigravity.py"
+      ]
+    }
+  ],
+  "plugins": [
+    "../build/plugins/python/py_tutor.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:26:23.468Z"
+  }
+}
+[  0.30 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.30 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.30 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.30 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.32 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.33 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.41 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.50 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.62 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[  5.40 console.info     ] [36m[pyscript/pyodide][00m importing pyscript
+[  5.46 console.info     ] [36m[pyscript/pyodide][00m Found packages in configuration to install. Loading micropip...
+[  5.46 console.info     ] [36m[pyscript/pyodide][00m pyodide.loadPackage: micropip
+[  5.47 console.info     ] [36m[pyscript/pyodide][00m Loading micropip, packaging, pyparsing
+[34;01m[  5.47 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/micropip-0.3.0-py3-none-any.whl[00m
+[34;01m[  5.47 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/packaging-23.0-py3-none-any.whl[00m
+[34;01m[  5.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyparsing-3.0.9-py3-none-any.whl[00m
+[  5.56 console.info     ] [36m[pyscript/pyodide][00m Loaded pyparsing, packaging, micropip
+[  5.67 console.info     ] [36m[pyscript/pyodide][00m pyodide loaded and initialized
+[  5.68 console.log      ] Python initialization complete
+[  5.68 console.info     ] [36m[pyscript/main][00m Python ready!
+[  5.68 console.info     ] [36m[pyscript/main][00m Setting up virtual environment...
+[  5.99 console.info     ] [36m[pyscript/main][00m Packages to install:  [bokeh, numpy]
+[  5.99 console.info     ] [36m[pyscript/main][00m Fetching urls: ./utils.py, ./antigravity.py
+[  5.99 console.info     ] [36m[pyscript/pyodide][00m micropip install bokeh,numpy
+[34;01m[  6.00 request          ] 200 - fake_server - http://fake_server/examples/utils.py[00m
+[34;01m[  6.00 request          ] 200 - fake_server - http://fake_server/examples/antigravity.py[00m
+[  6.01 console.log      ] Loading bokeh, distutils, numpy, jinja2, markupsafe, pillow, python-dateutil, six, typing-extensions, pyyaml
+[34;01m[  6.35 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/bokeh-3.1.0-py3-none-any.whl[00m
+[34;01m[  6.76 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/distutils-1.0.0.zip[00m
+[34;01m[  6.99 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/numpy-1.24.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  7.19 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/Jinja2-3.1.2-py3-none-any.whl[00m
+[34;01m[  7.29 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/MarkupSafe-2.1.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  7.35 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PIL-9.1.1-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  7.39 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_dateutil-2.8.2-py2.py3-none-any.whl[00m
+[34;01m[  7.40 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/six-1.16.0-py2.py3-none-any.whl[00m
+[34;01m[  7.41 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/typing_extensions-4.5.0-py3-none-any.whl[00m
+[34;01m[  7.43 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PyYAML-6.0-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[  7.43 console.info     ] [36m[pyscript/main][00m     Fetched ./utils.py ==> ./utils.py
+[  7.43 console.info     ] [36m[pyscript/main][00m     Fetched ./antigravity.py ==> ./antigravity.py
+[  7.43 console.info     ] [36m[pyscript/main][00m Fetched all paths
+
+tests/integration/test_01_basic.py::TestBasic::test_pys_onClick_shows_deprecation_warning[chromium] 
+[gw2] [ 71%] SKIPPED tests/integration/test_01_basic.py::TestBasic::test_pys_onClick_shows_deprecation_warning[chromium] 
+tests/integration/test_interpreter.py::TestInterpreterAccess::test_backward_compatibility_runtime_script_execution[chromium] 
+[gw4] [ 72%] PASSED tests/integration/test_01_basic.py::TestBasic::test_py_attribute_without_id[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_check_js_errors_simple[chromium] 
+[gw4] [ 72%] PASSED tests/integration/test_00_support.py::TestSupport::test_check_js_errors_simple[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_markdown_plugin[chromium] 
+[gw1] [ 73%] PASSED tests/integration/test_02_display.py::TestOutput::test_text_HTML_and_console_output[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_attribute_change[chromium] 
+[gw2] [ 73%] PASSED tests/integration/test_interpreter.py::TestInterpreterAccess::test_backward_compatibility_runtime_script_execution[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_auto_generate[chromium] 
+[gw4] [ 74%] PASSED tests/integration/test_zz_examples.py::TestExamples::test_markdown_plugin[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_python_exception[chromium] 
+[gw1] [ 74%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_attribute_change[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_dynamically_add_py_script_tag[chromium] 
+[gw2] [ 75%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_auto_generate[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_execute_code_typed_by_the_user[chromium] 
+[gw4] [ 75%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_python_exception[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_paths_that_do_not_exist[chromium] 
+[gw0] [ 76%] FAILED tests/integration/test_01_basic.py::TestBasic::test_packages[chromium] 
+______________________ TestBasic.test_packages[chromium] _______________________
+[gw0] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_01_basic.TestBasic object at 0x7f56b18e7210>
+
+    def test_packages(self):
+>       self.pyscript_run(
+            """
+            <py-config>
+                # we use asciitree because it's one of the smallest packages
+                # which are built and distributed with pyodide
+                packages = ["asciitree"]
+            </py-config>
+            <py-script>
+                import js
+                import asciitree
+                js.console.log('hello', asciitree.__name__)
+            </py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_01_basic.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_01_basic.TestBasic object at 0x7f56b18e7210>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30014.18 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] packages.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/packages.html[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.23 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.23 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.24 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "asciitree"
+  ],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:27:38.727Z"
+  }
+}
+[  0.24 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.24 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.24 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.24 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.25 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.26 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.31 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.42 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.64 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[gw1] [ 76%] PASSED tests/integration/test_01_basic.py::TestBasic::test_dynamically_add_py_script_tag[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_matplotlib[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_check_js_errors_some_expected_but_others_not[chromium] 
+[gw7] [ 77%] PASSED tests/integration/test_py_config.py::TestConfig::test_interpreter_config[chromium] 
+tests/integration/test_splashscreen.py::TestSplashscreen::test_autoshow_and_autoclose[chromium] 
+[gw1] [ 78%] PASSED tests/integration/test_00_support.py::TestSupport::test_check_js_errors_some_expected_but_others_not[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_output_attribute_change[chromium] 
+[gw4] [ 78%] PASSED tests/integration/test_py_config.py::TestConfig::test_paths_that_do_not_exist[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_404[chromium] 
+[gw4] [ 79%] PASSED tests/integration/test_00_support.py::TestSupport::test_404[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_output_attribute_does_not_exist[chromium] 
+[gw2] [ 79%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_execute_code_typed_by_the_user[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_panel_stream[chromium] 
+[gw7] [ 80%] PASSED tests/integration/test_splashscreen.py::TestSplashscreen::test_autoshow_and_autoclose[chromium] 
+[gw1] [ 80%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_output_attribute_change[chromium] 
+tests/integration/test_zz_examples.py::TestExamples::test_d3[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_clear_js_errors[chromium] 
+[gw7] [ 81%] SKIPPED tests/integration/test_zz_examples.py::TestExamples::test_d3[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_no_python_wheel[chromium] 
+[gw4] [ 81%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_output_attribute_does_not_exist[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_solo[chromium] 
+[gw1] [ 82%] PASSED tests/integration/test_00_support.py::TestSupport::test_clear_js_errors[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_image_renders_correctly[chromium] 
+[gw5] [ 82%] FAILED tests/integration/test_py_config.py::TestConfig::test_runtime_still_works_but_shows_deprecation_warning[chromium] 
+_ TestConfig.test_runtime_still_works_but_shows_deprecation_warning[chromium] __
+[gw5] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_py_config.TestConfig object at 0x7fe8bd633d10>
+tar_location = '/tmp/tmpisdve_uq/pyodide-build-0.20.0.tar.bz2'
+
+    def test_runtime_still_works_but_shows_deprecation_warning(self, tar_location):
+        unzip(
+            location=tar_location,
+            extract_to=self.tmpdir,
+        )
+    
+>       self.pyscript_run(
+            """
+            <py-config type="json">
+                {
+                    "runtimes": [{
+                        "src": "/pyodide/pyodide.js",
+                        "name": "pyodide-0.20.0",
+                        "lang": "python"
+                    }]
+                }
+            </py-config>
+    
+            <py-script>
+                import sys, js
+                pyodide_version = sys.modules["pyodide"].__version__
+                js.console.log("version", pyodide_version)
+                display(pyodide_version)
+            </py-script>
+        """,
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_py_config.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_py_config.TestConfig object at 0x7fe8bd633d10>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 46626.24 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] runtime_still_works_but_shows_deprecation_warning.html[00m
+[34;01m[  0.05 request          ] 200 - fake_server - http://fake_server/runtime_still_works_but_shows_deprecation_warning.html[00m
+[34;01m[  0.12 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.13 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.30 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.30 console.info     ] [36m[py-config][00m loading <py-config> content
+[33m[  0.30 console.warning  ] The configuration option `config.runtimes` is deprecated. Please use `config.interpreters` instead.[00m
+[  0.31 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "/pyodide/pyodide.js",
+      "name": "pyodide-0.20.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:09.069Z"
+  }
+}
+[  0.31 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.31 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.31 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.31 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.20.0...
+[34;01m[  0.34 request          ] 200 - fake_server - http://fake_server/pyodide/pyodide.js[00m
+[  0.35 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.35 request          ] 200 - fake_server - http://fake_server/pyodide/packages.json[00m
+[34;01m[  0.35 request          ] 200 - fake_server - http://fake_server/pyodide/pyodide_py.tar[00m
+[34;01m[  0.36 request          ] 200 - fake_server - http://fake_server/pyodide/pyodide.asm.js[00m
+[34;01m[  0.62 request          ] 200 - fake_server - http://fake_server/pyodide/pyodide.asm.data[00m
+[34;01m[  0.68 request          ] 200 - fake_server - http://fake_server/pyodide/pyodide.asm.wasm[00m
+
+tests/integration/test_py_repl.py::TestPyRepl::test_python_exception_after_previous_output[chromium] 
+[gw4] [ 83%] FAILED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_solo[chromium] 
+____________ TestOutputHandling.test_targeted_stdio_solo[chromium] _____________
+[gw4] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_stdio_handling.TestOutputHandling object at 0x7f867cf54f90>
+
+    def test_targeted_stdio_solo(self):
+>       self.pyscript_run(
+            """
+            <py-config>
+                terminal = true
+            </py-config>
+            <py-terminal></py-terminal>
+            <div id="container">
+                <div id="first"></div>
+                <div id="second"></div>
+                <div id="third"></div>
+            </div>
+            <py-script output="first">print("first 1.")</py-script>
+            <py-script output="second">print("second.")</py-script>
+            <py-script output="third">print("third.")</py-script>
+            <py-script output="first">print("first 2.")</py-script>
+            <py-script>print("no output.")</py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_stdio_handling.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_stdio_handling.TestOutputHandling object at 0x7f867cf54f90>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30004.33 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] targeted_stdio_solo.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/targeted_stdio_solo.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.20 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.20 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.20 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [],
+  "fetch": [],
+  "plugins": [],
+  "terminal": true,
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:25.862Z"
+  }
+}
+[  0.20 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.21 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.21 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.22 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.23 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.28 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.35 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+
+tests/integration/test_py_terminal.py::TestPyTerminal::test_config_true[chromium] 
+[gw3] [ 83%] FAILED tests/integration/test_zz_examples.py::TestExamples::test_bokeh[chromium] 
+______________________ TestExamples.test_bokeh[chromium] _______________________
+[gw3] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f689942a8d0>
+
+    def test_bokeh(self):
+        # XXX improve this test
+        self.goto("examples/bokeh.html")
+>       self.wait_for_pyscript(timeout=90 * 1000)
+
+tests/integration/test_zz_examples.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+tests/integration/support.py:253: in wait_for_console
+    self.page.wait_for_timeout(50)
+env/lib/python3.11/site-packages/playwright/sync_api/_generated.py:11734: in wait_for_timeout
+    self._sync(self._impl_obj.wait_for_timeout(timeout=timeout))
+env/lib/python3.11/site-packages/playwright/_impl/_page.py:948: in wait_for_timeout
+    await self._main_frame.wait_for_timeout(timeout)
+env/lib/python3.11/site-packages/playwright/_impl/_frame.py:748: in wait_for_timeout
+    await self._channel.send("waitForTimeout", locals_to_params(locals()))
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:61: in send
+    return await self._connection.wrap_api_call(
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:461: in wrap_api_call
+    return await cb()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Channel object at 0x7f6898a3b5d0>
+method = 'waitForTimeout', params = {'timeout': 50}, return_as_dict = False
+
+    async def inner_send(
+        self, method: str, params: Optional[Dict], return_as_dict: bool
+    ) -> Any:
+        if params is None:
+            params = {}
+        callback = self._connection._send_message_to_server(self._guid, method, params)
+        if self._connection._error:
+            error = self._connection._error
+            self._connection._error = None
+            raise error
+        done, _ = await asyncio.wait(
+            {
+                self._connection._transport.on_error_future,
+                callback.future,
+            },
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+        if not callback.future.done():
+            callback.future.cancel()
+>       result = next(iter(done)).result()
+E       Exception: Connection closed while reading from the driver
+
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:96: Exception
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] examples/bokeh.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/examples/bokeh.html[00m
+[34;01m[  0.05 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-3.0.3.min.js[00m
+[34;01m[  0.06 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.0.3.min.js[00m
+[34;01m[  0.07 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.0.3.min.js[00m
+[34;01m[  0.07 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.0.3.min.js[00m
+[34;01m[  0.10 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.0.3.min.js[00m
+[34;01m[  0.12 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.12 request          ] 200 - fake_server - http://fake_server/examples/assets/css/examples.css[00m
+[34;01m[  0.29 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[34;01m[  0.34 request          ] 200 - fake_server - http://fake_server/examples/logo.png[00m
+[  0.37 console.log      ] [36m[bokeh][00m setting log level to: 'info'
+[  0.48 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.48 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.48 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "pandas",
+    "bokeh",
+    "xyzservices"
+  ],
+  "fetch": [],
+  "plugins": [
+    "../build/plugins/python/py_tutor.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:27:30.416Z"
+  }
+}
+[  0.48 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.49 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.49 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.49 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.51 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.52 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.55 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.62 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.39 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[  4.46 console.info     ] [36m[pyscript/pyodide][00m importing pyscript
+[  4.51 console.info     ] [36m[pyscript/pyodide][00m Found packages in configuration to install. Loading micropip...
+[  4.51 console.info     ] [36m[pyscript/pyodide][00m pyodide.loadPackage: micropip
+[  4.52 console.info     ] [36m[pyscript/pyodide][00m Loading micropip, packaging, pyparsing
+[34;01m[  4.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/micropip-0.3.0-py3-none-any.whl[00m
+[34;01m[  4.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/packaging-23.0-py3-none-any.whl[00m
+[34;01m[  4.53 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyparsing-3.0.9-py3-none-any.whl[00m
+[  4.65 console.info     ] [36m[pyscript/pyodide][00m Loaded pyparsing, packaging, micropip
+[  4.76 console.info     ] [36m[pyscript/pyodide][00m pyodide loaded and initialized
+[  4.76 console.log      ] Python initialization complete
+[  4.77 console.info     ] [36m[pyscript/main][00m Python ready!
+[  4.77 console.info     ] [36m[pyscript/main][00m Setting up virtual environment...
+[  5.03 console.info     ] [36m[pyscript/main][00m Packages to install:  [pandas, bokeh, xyzservices]
+[  5.03 console.info     ] [36m[pyscript/main][00m Fetching urls: 
+[  5.03 console.info     ] [36m[pyscript/main][00m Fetched all paths
+[  5.03 console.info     ] [36m[pyscript/pyodide][00m micropip install pandas,bokeh,xyzservices
+[34;01m[  5.05 request          ] 200 - CACHED - https://pypi.org/pypi/xyzservices/json[00m
+[34;01m[  5.07 request          ] 200 - CACHED - https://files.pythonhosted.org/packages/f1/76/1d508556ee4c279841c82521aea4e12496367929d88aec6dd3959f080cfa/xyzservices-2023.2.0-py3-none-any.whl[00m
+[  5.09 console.log      ] Loading pandas, numpy, python-dateutil, six, pytz, bokeh, distutils, jinja2, markupsafe, pillow, typing-extensions, pyyaml
+[34;01m[  5.33 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pandas-1.5.3-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  5.62 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/numpy-1.24.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  5.76 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_dateutil-2.8.2-py2.py3-none-any.whl[00m
+[34;01m[  5.78 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/six-1.16.0-py2.py3-none-any.whl[00m
+[34;01m[  5.80 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pytz-2023.3-py2.py3-none-any.whl[00m
+[34;01m[  6.02 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/bokeh-3.1.0-py3-none-any.whl[00m
+[34;01m[  6.42 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/distutils-1.0.0.zip[00m
+[34;01m[  6.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/Jinja2-3.1.2-py3-none-any.whl[00m
+[34;01m[  6.49 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/MarkupSafe-2.1.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  6.53 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PIL-9.1.1-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  6.57 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/typing_extensions-4.5.0-py3-none-any.whl[00m
+[34;01m[  6.58 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PyYAML-6.0-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+----------------------------- Captured stderr call -----------------------------
+Killed
+[gw1] [ 84%] FAILED tests/integration/test_02_display.py::TestOutput::test_image_renders_correctly[chromium] 
+______________ TestOutput.test_image_renders_correctly[chromium] _______________
+[gw1] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_02_display.TestOutput object at 0x7f2ffd997810>
+
+    def test_image_renders_correctly(self):
+        """This is just a sanity check to make sure that images are rendered correctly."""
+        buffer = io.BytesIO()
+        img = Image.new("RGB", (4, 4), color=(0, 0, 0))
+        img.save(buffer, format="PNG")
+    
+        b64_img = base64.b64encode(buffer.getvalue()).decode("utf-8")
+        expected_img_src = f"data:image/png;charset=utf-8;base64,{b64_img}"
+    
+>       self.pyscript_run(
+            """
+            <py-config>
+                packages = ["pillow"]
+            </py-config>
+    
+            <div id="img-target" />
+            <py-script>
+                from PIL import Image
+                img = Image.new("RGB", (4, 4), color=(0, 0, 0))
+                display(img, target='img-target', append=False)
+            </py-script>
+            """
+        )
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_02_display.py:388: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:320: in pyscript_run
+    self.wait_for_pyscript(timeout=timeout)
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_02_display.TestOutput object at 0x7f2ffd997810>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 30005.78 ms
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] image_renders_correctly.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/image_renders_correctly.html[00m
+[34;01m[  0.02 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.02 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.20 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.20 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.20 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "pillow"
+  ],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:25.998Z"
+  }
+}
+[  0.20 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.20 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.20 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.21 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.23 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.24 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.28 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.39 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+
+tests/integration/test_02_display.py::TestOutput::test_target_attribute[chromium] 
+[gw3] [ 84%] ERROR tests/integration/test_zz_examples.py::TestExamples::test_bokeh[chromium] 
+____________ ERROR at teardown of TestExamples.test_bokeh[chromium] ____________
+[gw3] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/jglass/.cache/ms-playwright/chromium-1055/chrome-linux/chrome> version=112.0.5615.29>
+browser_context_args = {}
+pytestconfig = <_pytest.config.Config object at 0x7f68ac58b310>
+request = <SubRequest 'context' for <Function test_bokeh[chromium]>>
+
+    @pytest.fixture
+    def context(
+        browser: Browser,
+        browser_context_args: Dict,
+        pytestconfig: Any,
+        request: pytest.FixtureRequest,
+    ) -> Generator[BrowserContext, None, None]:
+        pages: List[Page] = []
+        context = browser.new_context(**browser_context_args)
+        context.on("page", lambda page: pages.append(page))
+    
+        tracing_option = pytestconfig.getoption("--tracing")
+        capture_trace = tracing_option in ["on", "retain-on-failure"]
+        if capture_trace:
+            context.tracing.start(
+                name=slugify(request.node.nodeid),
+                screenshots=True,
+                snapshots=True,
+                sources=True,
+            )
+    
+        yield context
+    
+        # If requst.node is missing rep_call, then some error happened during execution
+        # that prevented teardown, but should still be counted as a failure
+        failed = request.node.rep_call.failed if hasattr(request.node, "rep_call") else True
+    
+        if capture_trace:
+            retain_trace = tracing_option == "on" or (
+                failed and tracing_option == "retain-on-failure"
+            )
+            if retain_trace:
+                trace_path = _build_artifact_test_folder(pytestconfig, request, "trace.zip")
+                context.tracing.stop(path=trace_path)
+            else:
+                context.tracing.stop()
+    
+        screenshot_option = pytestconfig.getoption("--screenshot")
+        capture_screenshot = screenshot_option == "on" or (
+            failed and screenshot_option == "only-on-failure"
+        )
+        if capture_screenshot:
+            for index, page in enumerate(pages):
+                human_readable_status = "failed" if failed else "finished"
+                screenshot_path = _build_artifact_test_folder(
+                    pytestconfig, request, f"test-{human_readable_status}-{index+1}.png"
+                )
+                try:
+                    page.screenshot(timeout=5000, path=screenshot_path)
+                except Error:
+                    pass
+    
+>       context.close()
+
+env/lib/python3.11/site-packages/pytest_playwright/pytest_playwright.py:263: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+env/lib/python3.11/site-packages/playwright/sync_api/_generated.py:13553: in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close()))
+env/lib/python3.11/site-packages/playwright/_impl/_browser_context.py:448: in close
+    await self._channel.send("close")
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:61: in send
+    return await self._connection.wrap_api_call(
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:461: in wrap_api_call
+    return await cb()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Channel object at 0x7f68987eb2d0>
+method = 'close', params = {}, return_as_dict = False
+
+    async def inner_send(
+        self, method: str, params: Optional[Dict], return_as_dict: bool
+    ) -> Any:
+        if params is None:
+            params = {}
+        callback = self._connection._send_message_to_server(self._guid, method, params)
+        if self._connection._error:
+            error = self._connection._error
+            self._connection._error = None
+            raise error
+        done, _ = await asyncio.wait(
+            {
+                self._connection._transport.on_error_future,
+                callback.future,
+            },
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+        if not callback.future.done():
+            callback.future.cancel()
+>       result = next(iter(done)).result()
+E       Exception: Connection closed while reading from the driver
+
+env/lib/python3.11/site-packages/playwright/_impl/_connection.py:96: Exception
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] examples/bokeh.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/examples/bokeh.html[00m
+[34;01m[  0.05 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-3.0.3.min.js[00m
+[34;01m[  0.06 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.0.3.min.js[00m
+[34;01m[  0.07 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.0.3.min.js[00m
+[34;01m[  0.07 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.0.3.min.js[00m
+[34;01m[  0.10 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.0.3.min.js[00m
+[34;01m[  0.12 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.12 request          ] 200 - fake_server - http://fake_server/examples/assets/css/examples.css[00m
+[34;01m[  0.29 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[34;01m[  0.34 request          ] 200 - fake_server - http://fake_server/examples/logo.png[00m
+[  0.37 console.log      ] [36m[bokeh][00m setting log level to: 'info'
+[  0.48 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.48 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.48 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "pandas",
+    "bokeh",
+    "xyzservices"
+  ],
+  "fetch": [],
+  "plugins": [
+    "../build/plugins/python/py_tutor.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:27:30.416Z"
+  }
+}
+[  0.48 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.49 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.49 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.49 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.51 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.52 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.55 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.62 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.39 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[  4.46 console.info     ] [36m[pyscript/pyodide][00m importing pyscript
+[  4.51 console.info     ] [36m[pyscript/pyodide][00m Found packages in configuration to install. Loading micropip...
+[  4.51 console.info     ] [36m[pyscript/pyodide][00m pyodide.loadPackage: micropip
+[  4.52 console.info     ] [36m[pyscript/pyodide][00m Loading micropip, packaging, pyparsing
+[34;01m[  4.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/micropip-0.3.0-py3-none-any.whl[00m
+[34;01m[  4.52 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/packaging-23.0-py3-none-any.whl[00m
+[34;01m[  4.53 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyparsing-3.0.9-py3-none-any.whl[00m
+[  4.65 console.info     ] [36m[pyscript/pyodide][00m Loaded pyparsing, packaging, micropip
+[  4.76 console.info     ] [36m[pyscript/pyodide][00m pyodide loaded and initialized
+[  4.76 console.log      ] Python initialization complete
+[  4.77 console.info     ] [36m[pyscript/main][00m Python ready!
+[  4.77 console.info     ] [36m[pyscript/main][00m Setting up virtual environment...
+[  5.03 console.info     ] [36m[pyscript/main][00m Packages to install:  [pandas, bokeh, xyzservices]
+[  5.03 console.info     ] [36m[pyscript/main][00m Fetching urls: 
+[  5.03 console.info     ] [36m[pyscript/main][00m Fetched all paths
+[  5.03 console.info     ] [36m[pyscript/pyodide][00m micropip install pandas,bokeh,xyzservices
+[34;01m[  5.05 request          ] 200 - CACHED - https://pypi.org/pypi/xyzservices/json[00m
+[34;01m[  5.07 request          ] 200 - CACHED - https://files.pythonhosted.org/packages/f1/76/1d508556ee4c279841c82521aea4e12496367929d88aec6dd3959f080cfa/xyzservices-2023.2.0-py3-none-any.whl[00m
+[  5.09 console.log      ] Loading pandas, numpy, python-dateutil, six, pytz, bokeh, distutils, jinja2, markupsafe, pillow, typing-extensions, pyyaml
+[34;01m[  5.33 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pandas-1.5.3-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  5.62 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/numpy-1.24.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  5.76 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_dateutil-2.8.2-py2.py3-none-any.whl[00m
+[34;01m[  5.78 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/six-1.16.0-py2.py3-none-any.whl[00m
+[34;01m[  5.80 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pytz-2023.3-py2.py3-none-any.whl[00m
+[34;01m[  6.02 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/bokeh-3.1.0-py3-none-any.whl[00m
+[34;01m[  6.42 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/distutils-1.0.0.zip[00m
+[34;01m[  6.48 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/Jinja2-3.1.2-py3-none-any.whl[00m
+[34;01m[  6.49 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/MarkupSafe-2.1.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  6.53 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PIL-9.1.1-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[  6.57 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/typing_extensions-4.5.0-py3-none-any.whl[00m
+[34;01m[  6.58 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PyYAML-6.0-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+----------------------------- Captured stderr call -----------------------------
+Killed
+
+tests/integration/test_02_display.py::TestOutput::test_display_should_escape[chromium] 
+[gw1] [ 84%] PASSED tests/integration/test_02_display.py::TestOutput::test_target_attribute[chromium] 
+tests/integration/test_03_element.py::TestElement::test_element_remove_multiple_classes[chromium] 
+[gw4] [ 85%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_config_true[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_explicit_target_pyscript_tag[chromium] 
+[gw5] [ 85%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_python_exception_after_previous_output[chromium] 
+tests/integration/test_py_terminal.py::TestPyTerminal::test_py_terminal[chromium] 
+[gw1] [ 86%] PASSED tests/integration/test_03_element.py::TestElement::test_element_remove_multiple_classes[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_invalid_toml_config[chromium] 
+[gw4] [ 86%] PASSED tests/integration/test_02_display.py::TestOutput::test_explicit_target_pyscript_tag[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin_bare[chromium] 
+[gw5] [ 87%] PASSED tests/integration/test_py_terminal.py::TestPyTerminal::test_py_terminal[chromium] 
+tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_display_async[chromium] 
+[gw1] [ 87%] PASSED tests/integration/test_py_config.py::TestConfig::test_invalid_toml_config[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_wait_for_console_exception_2[chromium] 
+[gw1] [ 88%] PASSED tests/integration/test_00_support.py::TestSupport::test_wait_for_console_exception_2[chromium] 
+tests/integration/test_01_basic.py::TestBasic::test_python_exception[chromium] 
+[gw4] [ 89%] PASSED tests/integration/test_plugins.py::TestPlugin::test_fetch_js_plugin_bare[chromium] 
+tests/integration/test_async.py::TestAsync::test_async_display_untargeted[chromium] 
+[gw1] [ 89%] PASSED tests/integration/test_01_basic.py::TestBasic::test_python_exception[chromium] 
+tests/integration/test_00_support.py::TestSupport::test_smartrouter_cache[chromium] 
+[gw0] [ 90%] FAILED tests/integration/test_zz_examples.py::TestExamples::test_matplotlib[chromium] 
+____________________ TestExamples.test_matplotlib[chromium] ____________________
+[gw0] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f569f475a10>
+
+    def test_matplotlib(self):
+        self.goto("examples/matplotlib.html")
+>       self.wait_for_pyscript(timeout=60 * 1000)
+
+tests/integration/test_zz_examples.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f569f475a10>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 60033.33 ms
+
+tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] examples/matplotlib.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/examples/matplotlib.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[34;01m[  0.04 request          ] 200 - fake_server - http://fake_server/examples/assets/css/examples.css[00m
+[34;01m[  0.05 request          ] 200 - fake_server - http://fake_server/examples/logo.png[00m
+[  0.20 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.20 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.21 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "matplotlib"
+  ],
+  "fetch": [],
+  "plugins": [
+    "../build/plugins/python/py_tutor.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:09.184Z"
+  }
+}
+[  0.21 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.21 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.21 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.21 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.23 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.25 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.28 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.35 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[  1.23 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[  1.44 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[ 15.57 console.info     ] [36m[pyscript/pyodide][00m importing pyscript
+[ 15.63 console.info     ] [36m[pyscript/pyodide][00m Found packages in configuration to install. Loading micropip...
+[ 15.64 console.info     ] [36m[pyscript/pyodide][00m pyodide.loadPackage: micropip
+[ 15.64 console.info     ] [36m[pyscript/pyodide][00m Loading micropip, packaging, pyparsing
+[34;01m[ 15.65 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/micropip-0.3.0-py3-none-any.whl[00m
+[34;01m[ 15.66 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/packaging-23.0-py3-none-any.whl[00m
+[34;01m[ 15.67 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyparsing-3.0.9-py3-none-any.whl[00m
+[ 15.74 console.info     ] [36m[pyscript/pyodide][00m Loaded pyparsing, packaging, micropip
+[ 15.82 console.info     ] [36m[pyscript/pyodide][00m pyodide loaded and initialized
+[ 15.83 console.log      ] Python initialization complete
+[ 15.83 console.info     ] [36m[pyscript/main][00m Python ready!
+[ 15.83 console.info     ] [36m[pyscript/main][00m Setting up virtual environment...
+[ 16.08 console.info     ] [36m[pyscript/main][00m Packages to install:  [matplotlib]
+[ 16.08 console.info     ] [36m[pyscript/main][00m Fetching urls: 
+[ 16.08 console.info     ] [36m[pyscript/main][00m Fetched all paths
+[ 16.08 console.info     ] [36m[pyscript/pyodide][00m micropip install matplotlib
+[ 16.09 console.log      ] packaging already loaded from default channel
+[ 16.09 console.log      ] pyparsing already loaded from default channel
+[ 16.09 console.log      ] Loading matplotlib, cycler, six, fonttools, kiwisolver, numpy, pillow, python-dateutil, pytz, matplotlib-pyodide
+[34;01m[ 16.28 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/matplotlib-3.5.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[ 16.38 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/cycler-0.11.0-py3-none-any.whl[00m
+[34;01m[ 16.38 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/six-1.16.0-py2.py3-none-any.whl[00m
+[34;01m[ 16.39 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/fonttools-4.39.3-py3-none-any.whl[00m
+[34;01m[ 16.42 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/kiwisolver-1.4.4-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[ 16.57 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/numpy-1.24.2-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[ 16.69 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/PIL-9.1.1-cp311-cp311-emscripten_3_1_32_wasm32.whl[00m
+[34;01m[ 16.73 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_dateutil-2.8.2-py2.py3-none-any.whl[00m
+[34;01m[ 16.76 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pytz-2023.3-py2.py3-none-any.whl[00m
+[34;01m[ 16.78 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/matplotlib_pyodide-0.1.1-py3-none-any.whl[00m
+
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr_id_errors[chromium] 
+[gw1] [ 90%] PASSED tests/integration/test_00_support.py::TestSupport::test_smartrouter_cache[chromium] 
+tests/integration/test_py_config.py::TestConfig::test_paths_from_packages[chromium] 
+[gw5] [ 91%] PASSED tests/integration/test_py_repl.py::TestPyRepl::test_repl_output_display_async[chromium] 
+tests/integration/test_plugins.py::TestPlugin::test_fetch_js_no_export[chromium] 
+[gw0] [ 91%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_stdio_stderr_id_errors[chromium] 
+tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_linebreaks[chromium] 
+[gw4] [ 92%] PASSED tests/integration/test_async.py::TestAsync::test_async_display_untargeted[chromium] 
+tests/integration/test_02_display.py::TestOutput::test_image_display[chromium] 
+[gw1] [ 92%] PASSED tests/integration/test_py_config.py::TestConfig::test_paths_from_packages[chromium] 
+[gw5] [ 93%] PASSED tests/integration/test_plugins.py::TestPlugin::test_fetch_js_no_export[chromium] 
+[gw0] [ 93%] PASSED tests/integration/test_stdio_handling.py::TestOutputHandling::test_targeted_stdio_linebreaks[chromium] 
+[gw4] [ 94%] PASSED tests/integration/test_02_display.py::TestOutput::test_image_display[chromium] 
+[gw7] [ 94%] FAILED tests/integration/test_01_basic.py::TestBasic::test_no_python_wheel[chromium] 
+___________________ TestBasic.test_no_python_wheel[chromium] ___________________
+[gw7] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_01_basic.TestBasic object at 0x7fed543d7410>
+
+    def test_no_python_wheel(self):
+        self.pyscript_run(
+            """
+            <py-config>
+                packages = ["opsdroid"]
+            </py-config>
+            """,
+            wait_for_pyscript=False,
+        )
+    
+        expected_alert_banner_msg = (
+            "(PY1001): Unable to install package(s) 'opsdroid'. "
+            "Reason: Can't find a pure Python 3 Wheel for package(s) 'opsdroid'"
+        )
+    
+>       alert_banner = self.page.wait_for_selector(".alert-banner")
+
+/home/jglass/Documents/pyscript/pyscriptjs/tests/integration/test_01_basic.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/sync_api/_generated.py:8251: in wait_for_selector
+    self._sync(
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/_impl/_page.py:368: in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/_impl/_frame.py:322: in wait_for_selector
+    await self._channel.send("waitForSelector", locals_to_params(locals()))
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/_impl/_connection.py:61: in send
+    return await self._connection.wrap_api_call(
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/_impl/_connection.py:461: in wrap_api_call
+    return await cb()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Channel object at 0x7fed41382e50>
+method = 'waitForSelector', params = {'selector': '.alert-banner'}
+return_as_dict = False
+
+    async def inner_send(
+        self, method: str, params: Optional[Dict], return_as_dict: bool
+    ) -> Any:
+        if params is None:
+            params = {}
+        callback = self._connection._send_message_to_server(self._guid, method, params)
+        if self._connection._error:
+            error = self._connection._error
+            self._connection._error = None
+            raise error
+        done, _ = await asyncio.wait(
+            {
+                self._connection._transport.on_error_future,
+                callback.future,
+            },
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+        if not callback.future.done():
+            callback.future.cancel()
+>       result = next(iter(done)).result()
+E       playwright._impl._api_types.TimeoutError: Timeout 60000ms exceeded.
+E       =========================== logs ===========================
+E       waiting for locator(".alert-banner") to be visible
+E       ============================================================
+
+/home/jglass/Documents/pyscript/pyscriptjs/env/lib/python3.11/site-packages/playwright/_impl/_connection.py:96: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] no_python_wheel.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/no_python_wheel.html[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.03 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[  0.20 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.20 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.20 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "opsdroid"
+  ],
+  "fetch": [],
+  "plugins": [],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:25.858Z"
+  }
+}
+[  0.20 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.20 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.20 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.21 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.23 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.24 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  0.28 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  0.34 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+
+tests/integration/test_importmap.py::TestImportmap::test_invalid_json[chromium] 
+[gw7] [ 95%] XPASS tests/integration/test_importmap.py::TestImportmap::test_invalid_json[chromium] 
+[gw2] [ 95%] FAILED tests/integration/test_zz_examples.py::TestExamples::test_panel_stream[chromium] 
+___________________ TestExamples.test_panel_stream[chromium] ___________________
+[gw2] linux -- Python 3.11.0 /home/jglass/Documents/pyscript/pyscriptjs/env/bin/python
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f76fd186610>
+
+    def test_panel_stream(self):
+        # XXX improve this test
+        self.goto("examples/panel_stream.html")
+>       self.wait_for_pyscript(timeout=3 * 60 * 1000)
+
+tests/integration/test_zz_examples.py:291: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/support.py:274: in wait_for_pyscript
+    elapsed_ms = self.wait_for_console(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <integration.test_zz_examples.TestExamples object at 0x7f76fd186610>
+text = '[pyscript/main] PyScript page fully initialized'
+
+    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+        """
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
+    
+        Note: it must be the *exact* string as printed by e.g. console.log.
+    
+        timeout is expressed in milliseconds. If it's None, it will use
+        the same default as playwright, which is 30 seconds.
+    
+        If check_js_errors is True (the default), it also checks that no JS
+        errors were raised during the waiting.
+    
+        Return the elapsed time in ms.
+        """
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
+        try:
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+>                   raise TimeoutError(f"{elapsed_ms:.2f} ms")
+E                   TimeoutError: 180014.87 ms
+
+tests/integration/support.py:247: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+
+----------------------------- Captured stdout call -----------------------------
+[33;01m[  0.00 page.goto        ] examples/panel_stream.html[00m
+[34;01m[  0.01 request          ] 200 - fake_server - http://fake_server/examples/panel_stream.html[00m
+[34;01m[  0.04 request          ] 200 - CACHED - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css[00m
+[34;01m[  0.05 request          ] 200 - CACHED - https://unpkg.com/@holoviz/panel@0.13.1/dist/css/widgets.css[00m
+[34;01m[  0.05 request          ] 200 - CACHED - https://unpkg.com/@holoviz/panel@0.13.1/dist/css/markdown.css[00m
+[34;01m[  0.06 request          ] 200 - CACHED - https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.js[00m
+[34;01m[  0.07 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.js[00m
+[34;01m[  0.09 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js[00m
+[34;01m[  0.11 request          ] 200 - CACHED - https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js[00m
+[34;01m[  0.12 request          ] 200 - CACHED - https://unpkg.com/@holoviz/panel@0.13.1/dist/panel.min.js[00m
+[34;01m[  0.13 request          ] 200 - CACHED - https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css[00m
+[34;01m[  0.13 request          ] 200 - CACHED - https://unpkg.com/@holoviz/panel@0.13.1/dist/bundled/bootstraptemplate/bootstrap.css[00m
+[34;01m[  0.14 request          ] 200 - CACHED - https://unpkg.com/@holoviz/panel@0.13.1/dist/bundled/defaulttheme/default.css[00m
+[34;01m[  0.15 request          ] 200 - CACHED - https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js[00m
+[34;01m[  0.15 request          ] 200 - CACHED - https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js[00m
+[34;01m[  0.20 request          ] 200 - fake_server - http://fake_server/build/pyscript.css[00m
+[34;01m[  0.20 request          ] 200 - fake_server - http://fake_server/examples/assets/css/examples.css[00m
+[34;01m[  0.27 request          ] 200 - fake_server - http://fake_server/build/pyscript.js[00m
+[34;01m[  0.35 request          ] 200 - fake_server - http://fake_server/examples/logo.png[00m
+[  0.64 console.log      ] [36m[bokeh][00m setting log level to: 'info'
+[  0.89 console.info     ] [36m[pyscript/main][00m searching for <py-config>
+[  0.89 console.info     ] [36m[py-config][00m loading <py-config> content
+[  0.90 console.info     ] [36m[pyscript/main][00m config loaded:
+{
+  "type": "app",
+  "schema_version": 1,
+  "runtimes": [],
+  "interpreters": [
+    {
+      "src": "https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js",
+      "name": "pyodide-0.23.0",
+      "lang": "python"
+    }
+  ],
+  "packages": [
+    "https://cdn.holoviz.org/panel/0.14.3/dist/wheels/bokeh-2.4.3-py3-none-any.whl",
+    "numpy",
+    "pandas",
+    "panel==0.13.1"
+  ],
+  "fetch": [],
+  "plugins": [
+    "../build/plugins/python/py_tutor.py"
+  ],
+  "pyscript": {
+    "version": "2022.12.1.dev",
+    "time": "2023-04-13T17:28:10.636Z"
+  }
+}
+[  0.91 console.info     ] [36m[py-splashscreen][00m add py-splashscreen
+[  0.91 console.info     ] [36m[py-terminal][00m No <py-terminal> found, adding one
+[  0.91 console.info     ] [36m[pyscript/main][00m Initializing interpreter
+[  0.91 console.info     ] [36m[pyscript/main][00m Downloading pyodide-0.23.0...
+[34;01m[  0.96 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js[00m
+[  0.97 console.info     ] [36m[pyscript/main][00m Python startup...
+[34;01m[  1.03 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/python_stdlib.zip[00m
+[34;01m[  1.11 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.js[00m
+[34;01m[ 12.77 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/repodata.json[00m
+[34;01m[ 12.99 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.asm.wasm[00m
+[ 15.66 console.info     ] [36m[pyscript/pyodide][00m importing pyscript
+[ 15.70 console.info     ] [36m[pyscript/pyodide][00m Found packages in configuration to install. Loading micropip...
+[ 15.70 console.info     ] [36m[pyscript/pyodide][00m pyodide.loadPackage: micropip
+[ 15.70 console.info     ] [36m[pyscript/pyodide][00m Loading micropip, packaging, pyparsing
+[34;01m[ 15.70 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/micropip-0.3.0-py3-none-any.whl[00m
+[34;01m[ 15.71 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/packaging-23.0-py3-none-any.whl[00m
+[34;01m[ 15.71 request          ] 200 - CACHED - https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyparsing-3.0.9-py3-none-any.whl[00m
+[ 15.76 console.info     ] [36m[pyscript/pyodide][00m Loaded pyparsing, packaging, micropip
+[ 15.85 console.info     ] [36m[pyscript/pyodide][00m pyodide loaded and initialized
+[ 15.86 console.log      ] Python initialization complete
+[ 15.86 console.info     ] [36m[pyscript/main][00m Python ready!
+[ 15.86 console.info     ] [36m[pyscript/main][00m Setting up virtual environment...
+[ 16.13 console.info     ] [36m[pyscript/main][00m Packages to install:  [https://cdn.holoviz.org/panel/0.14.3/dist/wheels/bokeh-2.4.3-py3-none-any.whl, numpy, pandas, panel==0.13.1]
+[ 16.13 console.info     ] [36m[pyscript/main][00m Fetching urls: 
+[ 16.13 console.info     ] [36m[pyscript/main][00m Fetched all paths
+[ 16.13 console.info     ] [36m[pyscript/pyodide][00m micropip install https://cdn.holoviz.org/panel/0.14.3/dist/wheels/bokeh-2.4.3-py3-none-any.whl,numpy,pandas,panel==0.13.1
+[34;01m[ 16.16 request          ] 200 - CACHED - https://cdn.holoviz.org/panel/0.14.3/dist/wheels/bokeh-2.4.3-py3-none-any.whl[00m
+[34;01m[ 16.18 request          ] 200 - CACHED - https://pypi.org/pypi/panel/json[00m
+[34;01m[ 17.82 request          ] 200 - CACHED - https://files.pythonhosted.org/packages/12/90/9bde3e224f5f5a616036401b3f70b54f59a775cc7d630f040d7ce8363560/panel-0.13.1-py2.py3-none-any.whl[00m
+
+tests/integration/test_interpreter.py::TestInterpreterAccess::test_interpreter_python_access[chromium] 
+[gw2] [ 96%] PASSED tests/integration/test_interpreter.py::TestInterpreterAccess::test_interpreter_python_access[chromium] 

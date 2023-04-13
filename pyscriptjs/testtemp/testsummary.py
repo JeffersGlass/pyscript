@@ -14,6 +14,7 @@ class TestSummary:
 @dataclass
 class TestResult:
     name: str
+    completed: bool
     resultText: str
     passed: bool
     errorText: str
