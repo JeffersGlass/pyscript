@@ -160,10 +160,10 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
     //const pyCallable = await interpreter.globals.get('callable');
     //const pyDictClass = await interpreter.globals.get('dict');
 
-    await interpreter._remote.pyscript_py._run_pyscript('from pyodide.ffi import create_proxy')
-    const pyEval = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(eval)')).result;
-    const pyCallable = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(callable)')).result;
-    const pyDictClass = (await interpreter._remote.pyscript_py._run_pyscript('create_proxy(dict)')).result;
+    await interpreter.run('from pyodide.ffi import create_proxy')
+    const pyEval = (await interpreter.run('create_proxy(eval)')).result;
+    const pyCallable = (await interpreter.run('create_proxy(callable)')).result;
+    const pyDictClass = (await interpreter.run('create_proxy(dict)')).result;
     
 
     const localsDict = pyDictClass();
@@ -198,15 +198,16 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                     console.debug('sig:', {sig})
                     const params = await sig.parameters;
                     console.debug('params:', {params})
-                    console.debug('params.length(): ', params.length())
+                    const length = params.length
+                    console.debug('params.length:', length)
                     console.debug(`Established Params`)
                     
-                    if (await params.length == 0) {
+                    if (length == 0) {
                         console.debug(`calling with no params`)
                         evalResult();
                     }
                     // Functions that receive an event attribute
-                    else if (params.get('length') == 1) {
+                    else if (length == 1) {
                         console.debug(`Calling with one param`)
                         evalResult(evt);
                     } else {
