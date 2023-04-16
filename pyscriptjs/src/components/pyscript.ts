@@ -163,8 +163,7 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
     await interpreter.run('from pyodide.ffi import create_proxy')
     const pyEval = (await interpreter.run('create_proxy(eval)')).result;
     const pyCallable = (await interpreter.run('create_proxy(callable)')).result;
-    const pyDictClass = (await interpreter.run('create_proxy(dict)')).result;
-    
+    const pyDictClass = (await interpreter.run('create_proxy(dict)')).result; 
 
     const localsDict = pyDictClass();
 
@@ -191,6 +190,7 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                 const isCallable = await pyCallable(evalResult);
                 console.debug('isCallable:', {isCallable})
 
+
                 if (await isCallable) {
                     console.debug("Found to be callable")
                     const pyInspectModule = await interpreter._remote.interface.pyimport('inspect')
@@ -200,8 +200,10 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                     console.debug('params:', {params})
                     const length = await params.length
                     console.debug('params.length:', length)
-                    console.debug('param names?', await params.keys())
                     console.debug(`Established Params`)
+                    const isMethod = await pyInspectModule.ismethod
+                    const mineIsMethod = await isMethod(userProvidedFunctionName)
+                    console.debug('isMethod', mineIsMethod)
                     
                     if (length == 0) {
                         console.debug(`calling with no params`)
