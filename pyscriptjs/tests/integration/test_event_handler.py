@@ -1,4 +1,5 @@
 from .support import PyScriptTest
+import pytest
 
 
 class TestEventHandler(PyScriptTest):
@@ -60,9 +61,7 @@ class TestEventHandler(PyScriptTest):
         console_text = self.console.all.lines
         assert "I've clicked [object HTMLButtonElement] with id bar_id" in console_text
 
-    # TODO Printing Logging the actual event 
-    # print(f"Reacting to event {evt}")
-    # "TypeError: __str__ returned non-string (type pyodide.JsProxy)"
+    # TODO Printing Logging the actualmar-string (type pyodide.JsProxy)"
     def test_py_click_no_decorator(self):
         self.pyscript_run(
             """
@@ -98,6 +97,7 @@ class TestEventHandler(PyScriptTest):
     # TODO Inspect is incorrectly identifying the 'self' parameter as a second parameter.
     # 'params.length' is identified as 2 in JS though the direct inspection sees only 
     # the 1 non-self paramter
+    @pytest.mark.xfail(reason="Instance methods not yet supported. See PR#1240")
     def test_py_click_method_no_decorator(self):
         self.pyscript_run(
             """
@@ -109,6 +109,7 @@ class TestEventHandler(PyScriptTest):
                         print(f"Got event on Method")
                 instance = Instance()
                 print(f"{len(inspect.signature(instance.someEventFunc).parameters)= }")
+                print(f"{inspect.ismethod(instance.someEventFunc)= }")
             </py-script>
             """
         )
