@@ -188,7 +188,7 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                 const evalResult = (await interpreter.run(`from pyodide.ffi import create_proxy; create_proxy(${userProvidedFunctionName})`)).result // pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
                 console.debug("Evaluated??")
                 console.debug('evalResult:', {evalResult})
-                const isCallable = pyCallable(evalResult);
+                const isCallable = await pyCallable(evalResult);
                 console.debug('isCallable:', {isCallable})
 
                 if (await isCallable) {
@@ -198,18 +198,22 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                     console.debug('sig:', {sig})
                     const params = await sig.parameters;
                     console.debug('params:', {params})
-                    const length = params.length
+                    const length = await params.length
                     console.debug('params.length:', length)
                     console.debug(`Established Params`)
                     
                     if (length == 0) {
                         console.debug(`calling with no params`)
-                        evalResult();
+                        await evalResult.__call__();
                     }
                     // Functions that receive an event attribute
                     else if (length == 1) {
                         console.debug(`Calling with one param`)
-                        evalResult(evt);
+                        const result = evalResult.__call__(evt);
+                        console.debug("called with one param")
+                        console.debug(typeof result)
+                        console.debug(result)
+                        console.debug(await result)
                     } else {
                         console.debug(`About to throw an error about argument count`)
                         throw new UserError(ErrorCode.GENERIC, "'py-[event]' take 0 or 1 arguments");
