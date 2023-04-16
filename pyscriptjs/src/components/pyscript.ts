@@ -200,6 +200,7 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                     console.debug('params:', {params})
                     const length = await params.length
                     console.debug('params.length:', length)
+                    console.debug('param names?', await params.keys())
                     console.debug(`Established Params`)
                     
                     if (length == 0) {

@@ -219,27 +219,52 @@ class PyScriptTest:
         url = f"{self.http_server}/{path}"
         self.page.goto(url, timeout=0)
 
-    def wait_for_console(self, text, *, timeout=None, check_js_errors=True):
+    def wait_for_console(
+        self, text, *, match_substring=False, timeout=None, check_js_errors=True
+    ):
         """
-        Wait until the given message appear in the console.
+        Wait until the given message appear in the console. If the message was
+        already printed in the console, return immediately.
 
-        Note: it must be the *exact* string as printed by e.g. console.log.
-        If you need more control on the predicate (e.g. if you want to match a
-        substring), use self.page.expect_console_message directly.
+        By default "text" must be the *exact* string as printed by a single
+        call to e.g. console.log. If match_substring is True, it is enough
+        that the console contains the given text anywhere.
 
         timeout is expressed in milliseconds. If it's None, it will use
-        playwright's own default value, which is 30 seconds).
+        the same default as playwright, which is 30 seconds.
 
         If check_js_errors is True (the default), it also checks that no JS
         errors were raised during the waiting.
+
+        Return the elapsed time in ms.
         """
+        if match_substring:
 
-        def pred(msg):
-            return msg.text == text
+            def find_text():
+                return text in self.console.all.text
 
+        else:
+
+            def find_text():
+                return text in self.console.all.lines
+
+        if timeout is None:
+            timeout = 30 * 1000
+        # NOTE: we cannot use playwright's own page.expect_console_message(),
+        # because if you call it AFTER the text has already been emitted, it
+        # waits forever. Instead, we have to use our own custom logic.
         try:
-            with self.page.expect_console_message(pred, timeout=timeout):
-                pass
+            t0 = time.time()
+            while True:
+                elapsed_ms = (time.time() - t0) * 1000
+                if elapsed_ms > timeout:
+                    raise TimeoutError(f"{elapsed_ms:.2f} ms")
+                #
+                if find_text():
+                    # found it!
+                    return elapsed_ms
+                #
+                self.page.wait_for_timeout(50)
         finally:
             # raise JsError if there were any javascript exception. Note that
             # this might happen also in case of a TimeoutError. In that case,
