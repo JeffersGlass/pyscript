@@ -156,9 +156,11 @@ export async function initHandlers(interpreter: InterpreterClient) {
 
 /** Initializes an element with the given py-on* attribute and its handler */
 async function createElementsWithEventListeners(interpreter: InterpreterClient, browserEvent: string) {
-    const pyEval = await interpreter.globals.get('eval');
-    const pyCallable = await interpreter.globals.get('callable');
-    const pyDictClass = await interpreter.globals.get('dict');
+    // Need to create PyProxies of these callables to call them later
+    await interpreter.run('from pyodide.ffi import create_proxy');
+    const pyEval = (await interpreter.run('create_proxy(eval)')).result;
+    const pyCallable = (await interpreter.run('create_proxy(callable)')).result;
+    const pyDictClass = (await interpreter.run('create_proxy(dict)')).result;
 
     const localsDict = pyDictClass();
 
@@ -176,19 +178,27 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
                 try {
                     localsDict.event = evt;
 
-                    const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
+                    // Need to create a proxy if this (possibly) Callable object if we want to call it
+                    // directly later
+                    const evalResult = (
+                        await interpreter.run(
+                            `from pyodide.ffi import create_proxy; create_proxy(${userProvidedFunctionName})`,
+                        )
+                    ).result;
                     const isCallable = pyCallable(evalResult);
 
                     if (await isCallable) {
                         const pyInspectModule = await interpreter._remote.interface.pyimport('inspect');
-                        const params = await pyInspectModule.signature(evalResult).parameters;
+                        const signature = await pyInspectModule.signature(evalResult);
+                        const params = await signature.parameters;
+                        const num_params = await params.length;
 
-                        if (params.length == 0) {
-                            evalResult();
+                        if (num_params == 0) {
+                            await evalResult.__call__();
                         }
                         // Functions that receive an event attribute
-                        else if (params.length == 1) {
-                            evalResult(evt);
+                        else if (num_params == 1) {
+                            await evalResult.__call__(evt);
                         } else {
                             throw new UserError(ErrorCode.GENERIC, "'py-[event]' take 0 or 1 arguments");
                         }
