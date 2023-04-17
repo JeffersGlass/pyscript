@@ -1,4 +1,4 @@
-from .support import PyScriptTest
+from .support import PyScriptTest, skip_worker
 
 
 class TestElement(PyScriptTest):
@@ -16,12 +16,12 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "foo"
 
         py_terminal = self.page.wait_for_selector("py-terminal")
         assert "foo" in py_terminal.inner_text()
 
+    @skip_worker("FIXME: js.document")
     def test_element_value(self):
         """Test the element value"""
         self.pyscript_run(
@@ -34,12 +34,12 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "bar"
 
         py_terminal = self.page.wait_for_selector("py-terminal")
         assert "bar" in py_terminal.inner_text()
 
+    @skip_worker("FIXME: js.document")
     def test_element_innerHtml(self):
         """Test the element innerHtml"""
         self.pyscript_run(
@@ -52,12 +52,12 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "<b>bar</b>"
 
         py_terminal = self.page.wait_for_selector("py-terminal")
         assert "bar" in py_terminal.inner_text()
 
+    @skip_worker("FIXME: js.document")
     def test_element_write_no_append(self):
         """Test the element write"""
         self.pyscript_run(
@@ -71,11 +71,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.wait_for_selector("#foo")
         assert "World!" in div.inner_text()
 
+    @skip_worker("FIXME: js.document")
     def test_element_write_append(self):
         """Test the element write"""
         self.pyscript_run(
@@ -89,14 +88,13 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         parent_div = self.page.wait_for_selector("#foo")
 
         assert "Hello!" in parent_div.inner_text()
         # confirm that the second write was appended
         assert "Hello!<div>World!</div>" in parent_div.inner_html()
 
+    @skip_worker("FIXME: js.document")
     def test_element_clear_div(self):
         """Test the element clear"""
         self.pyscript_run(
@@ -109,11 +107,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.locator("#foo")
         assert div.inner_text() == ""
 
+    @skip_worker("FIXME: js.document")
     def test_element_clear_input(self):
         """Test the element clear"""
         self.pyscript_run(
@@ -126,11 +123,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         input = self.page.wait_for_selector("#foo")
         assert input.input_value() == ""
 
+    @skip_worker("FIXME: js.document")
     def test_element_select(self):
         """Test the element select"""
         self.pyscript_run(
@@ -145,11 +141,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         select = self.page.wait_for_selector("#foo")
         assert select.inner_text() == "Bar"
 
+    @skip_worker("FIXME: js.document")
     def test_element_clone_no_id(self):
         """Test the element clone"""
         self.pyscript_run(
@@ -162,13 +157,12 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         divs = self.page.locator("#foo")
         assert divs.count() == 2
         assert divs.first.inner_text() == "Hello!"
         assert divs.last.inner_text() == "Hello!"
 
+    @skip_worker("FIXME: js.document")
     def test_element_clone_with_id(self):
         """Test the element clone"""
         self.pyscript_run(
@@ -181,8 +175,6 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         divs = self.page.locator("#foo")
         assert divs.count() == 1
         assert divs.inner_text() == "Hello!"
@@ -190,6 +182,7 @@ class TestElement(PyScriptTest):
         clone = self.page.locator("#bar")
         assert clone.inner_text() == "Hello!"
 
+    @skip_worker("FIXME: js.document")
     def test_element_clone_to_other_element(self):
         """Test the element clone"""
         self.pyscript_run(
@@ -212,8 +205,6 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         bond_divs = self.page.locator("#bond")
         james_divs = self.page.locator("#james")
         bond_2_divs = self.page.locator("#bond-2")
@@ -226,6 +217,7 @@ class TestElement(PyScriptTest):
         # Make sure that the clones are rendered in the right order
         assert container_div.inner_text() == "Bond\nJames\nBond"
 
+    @skip_worker("FIXME: js.document")
     def test_element_remove_single_class(self):
         """Test the element remove_class"""
         self.pyscript_run(
@@ -238,11 +230,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.locator("#foo")
         assert div.get_attribute("class") == "baz"
 
+    @skip_worker("FIXME: js.document")
     def test_element_remove_multiple_classes(self):
         """Test the element remove_class"""
         self.pyscript_run(
@@ -255,11 +246,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.locator("#foo")
         assert div.get_attribute("class") == ""
 
+    @skip_worker("FIXME: js.document")
     def test_element_add_single_class(self):
         """Test the element add_class"""
         self.pyscript_run(
@@ -273,11 +263,10 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.locator("#foo")
         assert div.get_attribute("class") == "red"
 
+    @skip_worker("FIXME: js.document")
     def test_element_add_multiple_class(self):
         """Test the element add_class"""
         self.pyscript_run(
@@ -291,7 +280,5 @@ class TestElement(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
-
         div = self.page.locator("#foo")
         assert div.get_attribute("class") == "red bold"

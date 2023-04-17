@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from .support import JsErrors, PyScriptTest
+from .support import JsErrors, PyScriptTest, skip_worker
 
 
 class TestBasic(PyScriptTest):
@@ -10,11 +10,36 @@ class TestBasic(PyScriptTest):
         self.pyscript_run(
             """
             <py-script>
+                import js
+                js.console.log('hello pyscript')
+            </py-script>
+            """
+        )
+        assert self.console.log.lines == ["hello pyscript"]
+
+    def test_execution_thread(self):
+        self.pyscript_run(
+            """
+            <!-- we don't really need anything here, we just want to check that
+                 pyscript starts -->
+            """
+        )
+        assert self.execution_thread in ("main", "worker")
+        if self.execution_thread == "main":
+            where = "the main thread"
+        elif self.execution_thread == "worker":
+            where = "a web worker"
+        expected = f"[pyscript/main] Starting the interpreter in {where}"
+        assert expected in self.console.info.lines
+
+    def test_print(self):
+        self.pyscript_run(
+            """
+            <py-script>
                 print('hello pyscript')
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "hello pyscript"
 
     def test_python_exception(self):
@@ -26,7 +51,6 @@ class TestBasic(PyScriptTest):
             </py-script>
         """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert "hello pyscript" in self.console.log.lines
         # check that we sent the traceback to the console
         tb_lines = self.console.error.lines[-1].splitlines()
@@ -55,6 +79,9 @@ class TestBasic(PyScriptTest):
         )
 
         self.page.locator("button").click()
+        self.wait_for_console(
+            "Exception: this is an error inside handler", match_substring=True
+        )
 
         ## error in console
         tb_lines = self.console.error.lines[-1].splitlines()
@@ -80,7 +107,6 @@ class TestBasic(PyScriptTest):
             <py-script>js.console.log('four')</py-script>
         """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-4:] == [
             "one",
             "two",
@@ -99,7 +125,6 @@ class TestBasic(PyScriptTest):
         """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-2:] == ["true false", "<div></div>"]
 
     def test_packages(self):
@@ -118,13 +143,13 @@ class TestBasic(PyScriptTest):
             """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-3:] == [
             "Loading asciitree",  # printed by pyodide
             "Loaded asciitree",  # printed by pyodide
             "hello asciitree",  # printed by us
         ]
 
+    @skip_worker("FIXME: the banner doesn't appear")
     def test_non_existent_package(self):
         self.pyscript_run(
             """
@@ -144,6 +169,7 @@ class TestBasic(PyScriptTest):
         alert_banner = self.page.wait_for_selector(".alert-banner")
         assert expected_alert_banner_msg in alert_banner.inner_text()
 
+    @skip_worker("FIXME: the banner doesn't appear")
     def test_no_python_wheel(self):
         self.pyscript_run(
             """
@@ -178,7 +204,6 @@ class TestBasic(PyScriptTest):
         self.page.locator("button").click()
 
         self.page.wait_for_selector("py-terminal")
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "hello world"
 
     def test_py_script_src_attribute(self):
@@ -188,7 +213,6 @@ class TestBasic(PyScriptTest):
             <py-script src="foo.py"></py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         assert self.console.log.lines[-1] == "hello from foo"
 
     def test_py_script_src_not_found(self):
@@ -198,8 +222,6 @@ class TestBasic(PyScriptTest):
                 <py-script src="foo.py"></py-script>
                 """
             )
-        assert self.PY_COMPLETE in self.console.log.lines
-
         assert "Failed to load resource" in self.console.error.lines[0]
 
         error_msgs = str(exc.value)
@@ -249,6 +271,7 @@ class TestBasic(PyScriptTest):
             is not None
         )
 
+    @skip_worker("FIXME: showWarning()")
     def test_assert_no_banners(self):
         """
         Test that the DOM doesn't contain error/warning banners
@@ -256,43 +279,14 @@ class TestBasic(PyScriptTest):
         self.pyscript_run(
             """
             <py-script>
-                import pyscript
-                pyscript.showWarning("hello")
-                pyscript.showWarning("world")
+                from _pyscript_js import showWarning
+                showWarning("hello")
+                showWarning("world")
             </py-script>
             """
         )
         with pytest.raises(AssertionError, match="Found 2 alert banners"):
             self.assert_no_banners()
-
-    def test_deprecated_globals(self):
-        self.pyscript_run(
-            """
-            <py-script>
-                # trigger various warnings
-                create("div", classes="a b c")
-                assert sys.__name__ == 'sys'
-                dedent("")
-                format_mime("")
-                assert MIME_RENDERERS['text/html'] is not None
-                console.log("hello")
-                PyScript.loop
-            </py-script>
-
-            <div id="mydiv"></div>
-            """
-        )
-        banner = self.page.locator(".py-warning")
-        messages = banner.all_inner_texts()
-        assert messages == [
-            "The PyScript object is deprecated. Please use pyscript instead.",
-            "Direct usage of console is deprecated. Please use js.console instead.",
-            "MIME_RENDERERS is deprecated. This is a private implementation detail of pyscript. You should not use it.",  # noqa: E501
-            "format_mime is deprecated. This is a private implementation detail of pyscript. You should not use it.",  # noqa: E501
-            "Direct usage of dedent is deprecated. Please use from textwrap import dedent instead.",
-            "Direct usage of sys is deprecated. Please use import sys instead.",
-            "Direct usage of create is deprecated. Please use pyscript.create instead.",
-        ]
 
     def test_getPySrc_returns_source_code(self):
         self.pyscript_run(
@@ -309,26 +303,6 @@ class TestBasic(PyScriptTest):
             pyscript_tag.evaluate("node => node.getPySrc()")
             == 'print("hello world!")\n'
         )
-
-    @pytest.mark.skip(reason="pys-onClick is broken, we should kill it, see #1213")
-    def test_pys_onClick_shows_deprecation_warning(self):
-        self.pyscript_run(
-            """
-            <button id="1" pys-onClick="myfunc()">Click me</button>
-            <py-script>
-                def myfunc():
-                    print("hello world")
-
-            </py-script>
-            """
-        )
-        banner = self.page.locator(".alert-banner")
-        expected_message = (
-            "The attribute 'pys-onClick' and 'pys-onKeyDown' are "
-            "deprecated. Please 'py-click=\"myFunction()\"' or "
-            "'py-keydown=\"myFunction()\"' instead."
-        )
-        assert banner.inner_text() == expected_message
 
     def test_py_attribute_without_id(self):
         self.pyscript_run(

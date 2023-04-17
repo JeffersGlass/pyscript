@@ -1,9 +1,10 @@
 import re
 
-from .support import PyScriptTest
+from .support import PyScriptTest, skip_worker
 
 
 class TestDocsSnippets(PyScriptTest):
+    @skip_worker("FIXME: js.document")
     def test_tutorials_py_click(self):
         self.pyscript_run(
             """
@@ -30,7 +31,6 @@ class TestDocsSnippets(PyScriptTest):
             """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         btn = self.page.wait_for_selector("#get-time")
         btn.click()
 
@@ -61,12 +61,12 @@ class TestDocsSnippets(PyScriptTest):
             """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         py_terminal = self.page.wait_for_selector("py-terminal")
         # Just a small check to confirm that the response was received
         assert "userId" in py_terminal.inner_text()
         self.assert_no_banners()
 
+    @skip_worker("FIXME: js.document")
     def test_tutorials_py_config_fetch(self):
         # flake8: noqa
         self.pyscript_run(
@@ -106,7 +106,6 @@ class TestDocsSnippets(PyScriptTest):
             """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         todo_input = self.page.locator("input")
         submit_task_button = self.page.locator("button")
 
@@ -146,11 +145,11 @@ class TestDocsSnippets(PyScriptTest):
             """
         )
 
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         py_terminal = self.page.wait_for_selector("py-terminal")
         assert "0.22.0a3" in py_terminal.inner_text()
         self.assert_no_banners()
 
+    @skip_worker("FIXME: display()")
     def test_tutorials_writing_to_page(self):
         self.pyscript_run(
             """
@@ -176,7 +175,6 @@ class TestDocsSnippets(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         btn_manual = self.page.wait_for_selector("#manual")
         btn_display = self.page.wait_for_selector("#display")
         btn_print = self.page.wait_for_selector("#print")
@@ -208,7 +206,6 @@ class TestDocsSnippets(PyScriptTest):
             </py-script>
             """
         )
-        assert self.console.log.lines[0] == self.PY_COMPLETE
         py_terminal = self.page.wait_for_selector("py-terminal")
 
         assert "0\n1\n2\n" in py_terminal.inner_text()

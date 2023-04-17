@@ -150,7 +150,7 @@ const browserEvents: Array<string> = new Array<string>(
 export async function initHandlers(interpreter: InterpreterClient) {
     logger.debug('Initializing py-* event handlers...');
     for (const browserEvent of browserEvents) {
-        createElementsWithEventListeners(interpreter, browserEvent);
+        await createElementsWithEventListeners(interpreter, browserEvent);
     }
 }
 
@@ -171,38 +171,40 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
         const pyEvent = 'py-' + browserEvent;
         const userProvidedFunctionName = el.getAttribute(pyEvent);
 
-        el.addEventListener(browserEvent, async evt => {
-            try {
-                localsDict.event = evt;
+        el.addEventListener(browserEvent, event => {
+            void (async evt => {
+                try {
+                    localsDict.event = evt;
 
-                const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
-                const isCallable = pyCallable(evalResult);
+                    const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
+                    const isCallable = pyCallable(evalResult);
 
-                if (await isCallable) {
-                    const pyInspectModule = await interpreter._remote.interface.pyimport('inspect')
-                    const params = await pyInspectModule.signature(evalResult).parameters;
+                    if (await isCallable) {
+                        const pyInspectModule = await interpreter._remote.interface.pyimport('inspect');
+                        const params = await pyInspectModule.signature(evalResult).parameters;
 
-                    if (params.length == 0) {
-                        evalResult();
-                    }
-                    // Functions that receive an event attribute
-                    else if (params.length == 1) {
-                        evalResult(evt);
+                        if (params.length == 0) {
+                            evalResult();
+                        }
+                        // Functions that receive an event attribute
+                        else if (params.length == 1) {
+                            evalResult(evt);
+                        } else {
+                            throw new UserError(ErrorCode.GENERIC, "'py-[event]' take 0 or 1 arguments");
+                        }
                     } else {
-                        throw new UserError(ErrorCode.GENERIC, "'py-[event]' take 0 or 1 arguments");
+                        throw new UserError(
+                            ErrorCode.GENERIC,
+                            "The code provided to 'py-[event]' should be the name of a function or Callable. To run an expression as code, use 'py-[event]-code'",
+                        );
                     }
-                } else {
-                    throw new UserError(
-                        ErrorCode.GENERIC,
-                        "The code provided to 'py-[event]' should be the name of a function or Callable. To run an expression as code, use 'py-[event]-code'",
-                    );
+                } catch (err) {
+                    // TODO: This should be an error - probably need to refactor
+                    // this function into createSingularBanner similar to createSingularWarning(err);
+                    // tracked in issue #1253
+                    displayPyException(err, el.parentElement);
                 }
-            } catch (err) {
-                // TODO: This should be an error - probably need to refactor
-                // this function into createSingularBanner similar to createSingularWarning(err);
-                // tracked in issue #1253
-                displayPyException(err, el.parentElement);
-            }
+            })();
         });
     }
 
@@ -211,25 +213,27 @@ async function createElementsWithEventListeners(interpreter: InterpreterClient, 
         const pyEvent = 'py-' + browserEvent + '-code';
         const userProvidedFunctionName = el.getAttribute(pyEvent);
 
-        el.addEventListener(browserEvent, async evt => {
-            try {
-                localsDict.event = evt;
+        el.addEventListener(browserEvent, event => {
+            void (async evt => {
+                try {
+                    localsDict.event = evt;
 
-                const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
-                const isCallable = await pyCallable(evalResult);
+                    const evalResult = await pyEval(userProvidedFunctionName, interpreter.globals, localsDict);
+                    const isCallable = await pyCallable(evalResult);
 
-                if (await isCallable) {
-                    throw new UserError(
-                        ErrorCode.GENERIC,
-                        "The code provided to 'py-[event]-code' was the name of a Callable. Did you mean to use 'py-[event]?",
-                    );
+                    if (await isCallable) {
+                        throw new UserError(
+                            ErrorCode.GENERIC,
+                            "The code provided to 'py-[event]-code' was the name of a Callable. Did you mean to use 'py-[event]?",
+                        );
+                    }
+                } catch (err) {
+                    // TODO: This should be an error - probably need to refactor
+                    // this function into createSingularBanner similar to createSingularWarning(err);
+                    // tracked in issue #1253
+                    displayPyException(err, el.parentElement);
                 }
-            } catch (err) {
-                // TODO: This should be an error - probably need to refactor
-                // this function into createSingularBanner similar to createSingularWarning(err);
-                // tracked in issue #1253
-                displayPyException(err, el.parentElement);
-            }
+            })();
         });
     }
     // }
