@@ -65,7 +65,7 @@ jobs:
               run: make test-py
 
             - name: Integration Tests
-              run: make test-integration-parallel
+              run: make test-integration
 
             - uses: actions/upload-artifact@v3
               with:
