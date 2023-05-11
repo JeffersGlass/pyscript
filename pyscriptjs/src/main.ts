@@ -22,6 +22,7 @@ import { robustFetch } from './fetch';
 import * as Synclink from 'synclink';
 
 //A dummy comment to force CI to rerun
+// Another dummy comment to force CI to rerun
 
 const logger = getLogger('pyscript/main');
 
