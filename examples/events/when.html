@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@when</title>
+    <link rel="stylesheet" href="vs.css">
+    <link rel="stylesheet" href="jstyle.css">
+    <link rel="stylesheet" href="codestyles.css">
+    <script src="event-utils.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
+    <script defer src="https://pyscript.net/unstable/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/unstable/pyscript.css">
+</head>
+<body>
+    <py-config>
+        terminal=true
+    </py-config>
+    <div class="grid grid-cols-2">
+        <div class="border-r-2 border-gray-600 m-2 col-span-2">
+            <div class="text-center"><code id="when" class="text-4xl language-python code" data-auto-animate-target="unmatched"><span class="hljs-keyword">def</span> <span class="hljs-title function_">when</span>(<span class="hljs-params">event_type:<span class="hljs-built_in">str</span>, <span class="hljs-built_in">selector</span>: <span class="hljs-built_in">str</span></span>)</code></div>
+            <div class="text-3xl mt-4 ml-4 space-y-4">
+                <p><span class="hljs-title function_">event_type </span> : <span class="hljs-built_in">str</span> The name of the Event type to respond to</p>
+                <p><span class="hljs-title function_">selector </span> : <span class="hljs-built_in">str</span> A CSS selector specifying which DOM elements to attach to</p>
+            </div>
+        </div>
+        <div class="mt-4 text-2xl">
+            <pre><code class="langauge-html">
+                &lt;button id=&quot;mybutton&quot;&gt;Click Me&lt;/button&gt;
+            </code></pre>
+            <pre><code class="language-python" >
+                from pyscript import when
+                @when('click', '#mybuton')
+                def foo():
+                    print("foo")
+            </code></pre>   
+        </div>
+
+        <div class=''>
+            <button id="mybutton" class="text-2xl m-4 p-4 border-2 rounded-lg">Click Me</button>
+            <py-script>
+                from pyscript import when
+                @when('click', '#mybutton')
+                def foo():
+                    print("foo")
+            </py-script>
+        </div>
+
+        <div class="mt-4 text-2xl">
+            <pre><code class="langauge-html">
+                &lt;div class=&quot;section&quot;&gt;
+                    &lt;div&gt;One&lt;/div&gt;
+                    &lt;div&gt;Two&lt;/div&gt;
+                &lt;/div&gt;
+            </code></pre>
+            <pre><code class="language-python" >
+                from pyscript import when
+                @when('mouseover', '.section div')
+                def sayhi(evt):
+                    print(evt.target.innerText)
+            </code></pre>
+        </div>
+        <div>
+            <div class="section">
+                <div class="text-2xl m-4 bg-green-200">One</div>
+                <div class="text-2xl m-4 bg-blue-200">Two</div>
+            </div>
+            <py-script>
+                from pyscript import when
+                @when('mouseover', '.section div')
+                def sayhi(evt):
+                    print(evt.target.innerText) 
+            </py-script>
+        </div>
+        <py-terminal class="col-span-2"></py-terminal>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((el) => {
+                console.log("HIGHLIGHT")
+                el.innerHTML = betterTrim(el)
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+</body>
+</html>
