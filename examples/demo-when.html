@@ -1,0 +1,47 @@
+<head>
+    <script defer src="../pyscriptjs/build/pyscript.js"></script>
+    <link rel="stylesheet" href="../pyscriptjs/build/pyscript.css">
+    <title>@when</title>
+</head>
+<body>
+    <div id="example-one">
+        <button id="my-btn">Click to Say Hi</button>
+        <py-script>
+            from pyscript import when
+            @when('click', '#my-btn')
+            def say_hello():
+                print("Hello there!")
+        </py-script>
+    </div>
+
+    <hr>
+
+    <div id="example=two">
+        <div id="controls">
+            <button>One (inside)</button>
+            <button>Two (inside)</button>
+        </div>
+        
+        <button>Three (outside)</button>
+        <py-script>
+            from pyscript import when
+            @when('mouseover', '#controls button')
+            def say_hover(evt):
+                print(f"Mouseover: {evt.target.innerText}")
+
+            @when('hover', 'button')
+            def foo():
+
+            # Features:
+            #   How to remove it once added
+            #   Option to only happen once
+            #   Scroll events need special handling
+            #   (Other options in the third param of addEventListner)
+            #   Allow using the capture phase / bubbling One
+                
+
+        </py-script>
+    </div>
+
+    <py-terminal></py-terminal>
+</body>

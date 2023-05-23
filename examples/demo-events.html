@@ -1,0 +1,39 @@
+<head>
+    <script defer src="../pyscriptjs/build/pyscript.js"></script>
+    <link rel="stylesheet" href="../pyscriptjs/build/pyscript.css">
+    <title>py-*</title>
+</head>
+<body>
+    <!-- In /latest now:-->
+    <button py-click="print(123); x = 1"></button>
+    <button py-click="print(event.target); x =1"></button>
+    <button onclick="console.log(event)"></button>
+    <button py-click="say_hello('hi')"></button>
+
+    <button py-click="print(123)"></button>
+    <button py-click="foo"></button>
+
+    <!-- New / PR#1432:: -->
+    <div id="code-runner">
+        <button py-click-code="print('Hello, world')">
+            Click to Say Hi
+        </button>
+    </div>
+
+    <hr>
+
+    <div id="event-handler">
+        <py-script>
+            def say_goodbye():
+                print("BYE!")
+
+            def make_it_blue(evt):
+                evt.target.style.backgroundColor = "blue"
+
+        </py-script>
+        <button py-click="say_goodbye">A little Goodbye</button>
+        <button py-click="make_it_blue">I Am Blue</button>
+    </div>
+    
+    <py-terminal></py-terminal>
+</body>

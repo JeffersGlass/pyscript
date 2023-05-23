@@ -268,7 +268,7 @@ const pyScriptEventHandler = async event => {
             // The object is passed but not unwrapped, resulting in TypeErrors:
             // TypeError: __str__ returned non-string (type pyodide.JsProxy);
             // is this something to be fixed by 'auto-syncify'?
-            userCallable(event);
+            userCallable(event).syncify();
         } else {
             throw new UserError(
                 ErrorCode.EVENT_HANDLER_WRONG_ARG_COUNT,
