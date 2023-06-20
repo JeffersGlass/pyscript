@@ -202,10 +202,10 @@ class TestEventHandler(PyScriptTest):
             <button id="two" class="foo bar">Two</button>
             <button id="three" class="foo bar">Three</button>
 
-            <button id="remove-one" py-click="foo.remove_when('#one'); print('removed_one')">remove_one</button>
-            <button id="remove-bar" py-click="foo.remove_when('.bar'); print('removed_two')">remove_bar</button>
+            <button id="remove-one" py-click="foo.remove_when('click', '#one'); print('removed_one')">remove_one</button>
+            <button id="remove-bar" py-click="foo.remove_when('click', '.bar'); print('removed_bar')">remove_bar</button>
 
-            <button id="done" py-click="print("DONE")>Done</button>
+            <button id="done" py-click="print('DONE')">Done</button>
             
             <py-script>
                 from pyscript import when
@@ -228,7 +228,7 @@ class TestEventHandler(PyScriptTest):
 
         #Remove listeners from #one
         self.page.locator("#remove-one").click()
-        self.page.locator("text='remove_one'").wait_for()
+        self.page.locator("text='removed_one'").wait_for()
         
         self.page.locator("#one").click()
         self.page.locator("#two").click()
@@ -240,12 +240,13 @@ class TestEventHandler(PyScriptTest):
 
         #Remove listeners from .bar
         self.page.locator("#remove-bar").click()
-        self.page.locator("text='remove_bar'").wait_for()
+        self.page.locator("text='removed_bar'").wait_for()
 
         self.page.locator("#one").click()
         self.page.locator("#two").click()
         self.page.locator("#three").click()
-        self.page.locator("text='DNE'").wait_for()
+        self.page.locator("#done").click()
+        self.page.locator("text='DONE'").wait_for()
         assert self.console.log.lines.count("OneOne") == 1 # Not incremented
         assert self.console.log.lines.count("TwoTwo") == 2 # Not incremented
         assert self.console.log.lines.count("ThreeThree") == 2 # Not incremented
@@ -258,7 +259,7 @@ class TestEventHandler(PyScriptTest):
             <div>div</div>
             <p>paragraph</p>
 
-            <span py-click="foo.remove_when(); print('removed')">Remove</span>
+            <span py-click="foo.remove_when('click'); print('removed')">Remove</span>
             <h1 id="done">DONE</h1>
 
             <py-script>

@@ -1,7 +1,7 @@
 import inspect
 
 import js
-from pyodide.ffi.wrappers import add_event_listener
+from pyodide.ffi.wrappers import add_event_listener, remove_event_listener
 from functools import partial
 
 
@@ -41,10 +41,13 @@ def when(event_type=None, selector=None):
 
     return decorator
 
-def _remove_when(func, selector=None):
+def _remove_when(func, event, selector=None):
     if selector:
-        # TODO actually remove event listeners
+        all_matches = js.document.querySelectorAll(selector)
+        for el in (el for el in func._when_elements if el in all_matches):
+            remove_event_listener(el, event, func)
         func._when_elements = [el for el in func._when_elements if not el in js.document.querySelectorAll(selector)]
     else:
-        # TODO actually remove event listeners
+        for el in func._when_elements:
+            remove_event_listener(el, event, func)
         func._when_elements = list()
