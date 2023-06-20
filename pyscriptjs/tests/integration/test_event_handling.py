@@ -213,8 +213,6 @@ class TestEventHandler(PyScriptTest):
                 def foo(evt):
                     print(evt.target.innerText * 2)
 
-                def remove_when():
-                    print('remove')
             </py-script>
         """
         )
@@ -251,3 +249,43 @@ class TestEventHandler(PyScriptTest):
         assert self.console.log.lines.count("OneOne") == 1 # Not incremented
         assert self.console.log.lines.count("TwoTwo") == 2 # Not incremented
         assert self.console.log.lines.count("ThreeThree") == 2 # Not incremented
+
+    @skip_worker(reason="FIXME: js.document (@when decorator)")
+    def test_remove_all_when(self):
+        self.pyscript_run(
+            """
+            <button>button</button>
+            <div>div</div>
+            <p>paragraph</p>
+
+            <span py-click="foo.remove_when(); print('removed')">Remove</span>
+            <h1 id="done">DONE</h1>
+
+            <py-script>
+                from pyscript import when
+
+                @when("click", selector="button")
+                @when("click", selector="div")
+                @when("click", selector="p")
+                def foo(evt):
+                    print(evt.target.innerText * 2)
+            </py-script>
+            """
+        )
+
+        self.page.locator("button").click()
+        self.page.locator("div").click()
+        self.page.locator("p").click()
+        self.page.locator("text='paragraphparagraph'").wait_for()
+        assert self.console.log.lines.count("buttonbutton") == 1
+        assert self.console.log.lines.count("divdiv") == 1
+        assert self.console.log.lines.count("paragraphparagraph") == 1
+
+        self.page.locator('span').click()
+        self.page.locator("button").click()
+        self.page.locator("div").click()
+        self.page.locator("p").click()
+        self.page.locator("text='DONE'").wait_for()
+        assert self.console.log.lines.count("buttonbutton") == 1
+        assert self.console.log.lines.count("divdiv") == 1
+        assert self.console.log.lines.count("paragraphparagraph") == 1
