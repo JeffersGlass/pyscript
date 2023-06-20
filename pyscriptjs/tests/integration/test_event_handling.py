@@ -193,3 +193,61 @@ class TestEventHandler(PyScriptTest):
 
         assert msg in self.console.error.lines[-1]
         self.check_py_errors(msg)
+
+    @skip_worker(reason="FIXME: js.document (@when decorator)")
+    def test_remove_when(self):
+        self.pyscript_run(
+            """
+            <button id="one" class="foo">One</button>
+            <button id="two" class="foo bar">Two</button>
+            <button id="three" class="foo bar">Three</button>
+
+            <button id="remove-one" py-click="foo.remove_when('#one'); print('removed_one')">remove_one</button>
+            <button id="remove-bar" py-click="foo.remove_when('.bar'); print('removed_two')">remove_bar</button>
+
+            <button id="done" py-click="print("DONE")>Done</button>
+            
+            <py-script>
+                from pyscript import when
+                @when("click", selector=".foo")
+                def foo(evt):
+                    print(evt.target.innerText * 2)
+
+                def remove_when():
+                    print('remove')
+            </py-script>
+        """
+        )
+
+        #Make sure all buttons actually work
+        self.page.locator("#one").click()
+        self.page.locator("#two").click()
+        self.page.locator("#three").click()
+        self.page.locator("text='ThreeThree'").wait_for()
+        assert self.console.log.lines.count("OneOne") == 1
+        assert self.console.log.lines.count("TwoTwo") == 1
+        assert self.console.log.lines.count("ThreeThree") == 1
+
+        #Remove listeners from #one
+        self.page.locator("#remove-one").click()
+        self.page.locator("text='remove_one'").wait_for()
+        
+        self.page.locator("#one").click()
+        self.page.locator("#two").click()
+        self.page.locator("#three").click()
+        self.page.locator("text='ThreeThree'").wait_for()
+        assert self.console.log.lines.count("OneOne") == 1 # Not incremented
+        assert self.console.log.lines.count("TwoTwo") == 2 # Incremented
+        assert self.console.log.lines.count("ThreeThree") == 2 # Incremented
+
+        #Remove listeners from .bar
+        self.page.locator("#remove-bar").click()
+        self.page.locator("text='remove_bar'").wait_for()
+
+        self.page.locator("#one").click()
+        self.page.locator("#two").click()
+        self.page.locator("#three").click()
+        self.page.locator("text='DNE'").wait_for()
+        assert self.console.log.lines.count("OneOne") == 1 # Not incremented
+        assert self.console.log.lines.count("TwoTwo") == 2 # Not incremented
+        assert self.console.log.lines.count("ThreeThree") == 2 # Not incremented
