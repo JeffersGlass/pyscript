@@ -47,6 +47,12 @@ const after = () => {
  */
 const fetchSource = async (tag, io, asText) => {
     if (tag.hasAttribute("src")) {
+        if (tag.textContent.trim()) { //If contents contain any non-whitespace text
+            console.warn(
+                `PyScript tag with src="${tag.getAttribute("src")}" also has internal `+
+                `text contents; the contents will not be executed as code.`
+            )
+        }
         try {
             return await fetch(tag.getAttribute("src")).then(getText);
         } catch (error) {
