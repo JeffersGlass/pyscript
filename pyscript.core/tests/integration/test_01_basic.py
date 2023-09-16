@@ -268,6 +268,22 @@ class TestBasic(PyScriptTest):
 
         # self.check_js_errors(expected_msg)
 
+    def test_src_and_inline(self):
+        self.writefile("a.py", "print('a')")
+        self.pyscript_run(
+            """
+            <py-script src="a.py">
+                print('b')
+            </py-script>
+            """,
+            check_js_errors=False,
+        )
+        assert (
+            """PyScript tag with src="a.py" also has internal text contents; the contents will not be executed as code."""
+            in self.console.warning.lines
+        )
+        assert "b" not in self.console.log.lines
+
     # TODO: ... and we shouldn't: it's a module and we better don't leak in global
     @pytest.mark.skip("DIFFERENT BEHAVIOUR: we don't expose pyscript on window")
     def test_js_version(self):
