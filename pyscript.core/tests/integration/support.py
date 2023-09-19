@@ -375,7 +375,7 @@ class PyScriptTest:
         self.page.goto(url, timeout=0)
 
     def wait_for_console(
-        self, text, *, match_substring=False, timeout=None, check_js_errors=True
+        self, text, *, match_substring=False, timeout=None, check_js_errors=True, occurances=1
     ):
         """
         Wait until the given message appear in the console. If the message was
@@ -393,15 +393,20 @@ class PyScriptTest:
 
         Return the elapsed time in ms.
         """
-        if match_substring:
-
+        if occurances != 1:
             def find_text():
-                return text in self.console.all.text
-
+                return self.console.all.lines.count(text) == occurances
         else:
 
-            def find_text():
-                return text in self.console.all.lines
+            if match_substring:
+
+                def find_text():
+                    return text in self.console.all.text
+
+            else:
+
+                def find_text():
+                    return text in self.console.all.lines
 
         if timeout is None:
             timeout = 10 * 1000
@@ -429,7 +434,7 @@ class PyScriptTest:
             if check_js_errors:
                 self.check_js_errors()
 
-    def wait_for_pyscript(self, *, timeout=None, check_js_errors=True):
+    def wait_for_pyscript(self, *, timeout=None, check_js_errors=True, tag_count=1):
         """
         Wait until pyscript has been fully loaded.
 
@@ -444,6 +449,7 @@ class PyScriptTest:
             "[pyscript/main] PyScript Ready",
             timeout=timeout,
             check_js_errors=check_js_errors,
+            occurances=tag_count
         )
         self.logger.log(
             "wait_for_pyscript", f"Waited for {elapsed_ms/1000:.2f} s", color="yellow"
@@ -527,6 +533,7 @@ class PyScriptTest:
         wait_for_pyscript=True,
         timeout=None,
         check_js_errors=True,
+        tag_count=1,
     ):
         """
         Main entry point for pyscript tests.
@@ -550,7 +557,7 @@ class PyScriptTest:
         self.writefile(filename, doc)
         self.goto(filename)
         if wait_for_pyscript:
-            self.wait_for_pyscript(timeout=timeout, check_js_errors=check_js_errors)
+            self.wait_for_pyscript(timeout=timeout, check_js_errors=check_js_errors, tag_count=tag_count)
 
     def iter_locator(self, loc):
         """
