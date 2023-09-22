@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PyScript Next</title>
+        <title>Index One</title>
         <script>
             addEventListener("py:ready", console.log);
         </script>
@@ -11,9 +11,12 @@
         <script type="module" src="../dist/core.js"></script>
     </head>
     <body>
-        <script type="py">
-            from pyscript import display
-            display("Hello", "PyScript Next", append=False)
-        </script>
+      <script>
+        foo = {x:1}        
+        bar = {y:2}
+        function warn({x}){
+          console.warn();
+        }
+      </script>
     </body>
 </html>

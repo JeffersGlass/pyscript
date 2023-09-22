@@ -6,7 +6,7 @@ import { INVALID_CONTENT, define, XWorker } from "polyscript";
 // TODO: this is not strictly polyscript related but handy ... not sure
 //       we should factor this utility out a part but this works anyway.
 import { queryTarget } from "../node_modules/polyscript/esm/script-handler.js";
-import { dedent, dispatch } from "../node_modules/polyscript/esm/utils.js";
+import { dedent, dispatch }  from "../node_modules/polyscript/esm/utils.js";
 import { Hook } from "../node_modules/polyscript/esm/worker/hooks.js";
 
 import { ErrorCode } from "./exceptions.js";

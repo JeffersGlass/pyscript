@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Index2</title>
+        <script>
+            addEventListener("py:ready", console.log);
+        </script>
+        <link rel="stylesheet" href="../dist/core.css">
+        <!-- <script type="module" src="../dist/core.js"></script> -->
+        <script type="importmap">
+            {
+              "imports": {
+                "@pyscript/core": "../dist/core.js",
+                "myplugin": "./myplugin.js"
+              }
+            }
+          </script>
+          <script type="module">
+            import '@pyscript/core';
+            import 'myplugin';
+          </script>
+    </head>
+    <body>
+        <script type="py">
+            import asyncio
+            await asyncio.sleep(1)
+            print("foo")
+        </script>
+        <script type="py">
+            print(dir())
+        </script>
+        <!-- <span style="background-image: url(./bunny2.jpg);width:700px;height:1000px;display:block;scale:.1"></span> -->
+    </body>
+</html>
