@@ -8,7 +8,8 @@ import {string} from "rollup-plugin-string"
 
 const plugins = [
     string({
-        include: "**/*.css"
+        include: "**/*.css",
+        exclude: "**/core.css"
     }),
 ];
 
