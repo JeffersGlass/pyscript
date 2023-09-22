@@ -20,7 +20,7 @@ export default [
         },
     },
     {
-        input: "./src/core.css",
+        input: "./src/css/core.css",
         plugins: [
             postcss({
                 extract: true,
