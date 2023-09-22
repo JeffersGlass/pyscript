@@ -33,19 +33,53 @@ const codedent = (tpl, ...values) => dedent[typeof tpl](tpl, ...values);
 let bgred = 0 
 
 function pulsebackground(up=true){
-  console.log("pulsebackground ", bgred)
   document.getElementById("divOutput").style.backgroundColor = `rgb(255, ${bgred}, ${bgred})`;
   bgred += up ? 5 : -5
   if (bgred >= 255 || bgred <= 0) up = !up
-  setTimeout(pulsebackground, 10, up)
+  setTimeout(pulsebackground, 30, up)
+}
+
+const maxbuns = 10;
+const bun_dims = {x: 200, y:350}
+
+
+function runbuns(bunnies, lead_bun, index = 0, zindex = 0){
+  lead_bun.x += lead_bun.x_speed
+  if (lead_bun.x < 0 | (lead_bun.x + bun_dims.x > window.innerWidth)) {console.log("x bounce"); lead_bun.x_speed *= -1;}
+
+  lead_bun.y += lead_bun.y_speed
+  lead_bun.y_speed += 1;
+  if (lead_bun.y < 0 | lead_bun.y + bun_dims.y > window.innerHeight) {
+    console.log("y bounce");
+    lead_bun.y_speed *= -1;
+    if (lead_bun.y_speed < 0) lead_bun.y_speed *= .95
+  }
+
+  zindex += 1;
+
+  if (bunnies.length < maxbuns){
+    const img = document.createElement('img')
+    img.src='bunny3.png'
+    img.style=`position:fixed; top:${lead_bun.y}px;left:${lead_bun.x}px;width:auto;height:auto;max-width:400px;display:block;scale:.15'>"`
+    img.style.zIndex = zindex;
+    bunnies.push(img)
+    document.getElementById("divOutput").appendChild(img)
+  }
+  else{
+    bunnies[index].style.top = lead_bun.y + "px"
+    bunnies[index].style.left = lead_bun.x + "px"
+    bunnies[index].style.zIndex = zindex
+  }
+
+  index = (index + 1) % maxbuns;
+  
+  setTimeout(runbuns, 50, bunnies, lead_bun, index, zindex);
 }
 
 function panic(){
     panic = () => {}
     console.log("PANIC")
     const style = document.createElement('style')
-    style.innerHTML = `.imgbg { display: block; width: 150px; height: 112px; background-image: url(bunny2.jpg); background-repeat: no-repeat; }
-    .imgpos { position:absolute; background-position: 0px 0px; }` 
     document.head.append(style)
     const div = document.createElement('div');
     div.style.height = "100vh";
@@ -58,16 +92,10 @@ function panic(){
 
     pulsebackground()
 
-    var strHTML = '';
-    var vtop=0;
-    var vleft=0;
-    for (var i = 0; i < 10; i++) 
-    {
-      vtop += 5;
-      vleft += 5;
-      strHTML += "<img src='bunny3.png' style='position:fixed; top:" + vtop + "px;left:" + vleft + "px;width:auto;height:auto;max-width:400px;display:block;scale:.25'>";
+    for (let i = 0; i < 5; i++){
+      runbuns([], {x: Math.round(Math.random()*700+20), y: Math.round(Math.random()*100+20), x_speed: (Math.random() > .5 ? 1 : -1) * (Math.random()*15+5), y_speed:0})
     }
-    document.getElementById("divOutput").innerHTML = strHTML;
+   
 }
 
 hooks.onInterpreterReady.add(
@@ -113,9 +141,11 @@ hooks.onInterpreterReady.add(
 
         if(usesAwait(src)){
             console.warn("YOU'RE ABOUT TO USE TOP LEVEL AWAIT??? NOOOOOO!!!\nvvvvv Don't do this vvvvvv\n", src)
+            panic()
+            element.textContent = ""
         }
-        element.textContent = ""
-        panic()
+        
+        
     }
 )
 
