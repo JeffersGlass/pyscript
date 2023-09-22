@@ -4,8 +4,13 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import postcss from "rollup-plugin-postcss";
+import {string} from "rollup-plugin-string"
 
-const plugins = [];
+const plugins = [
+    string({
+        include: "**/*.css"
+    }),
+];
 
 export default [
     {

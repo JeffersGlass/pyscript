@@ -1,3 +1,5 @@
+import bannerCSS from "./css/banner.css"
+
 const CLOSEBUTTON =
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='currentColor' width='12px'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>";
 
@@ -10,6 +12,9 @@ export const ErrorCode = {
     CONFLICTING_CODE: "PY0409",
     BAD_CONFIG: "PY1000",
     MICROPIP_INSTALL_ERROR: "PY1001",
+    MULTIPLE_PY_CONFIGS: "PY1002",
+    MIXED_CONFIGS: "PY1003",
+    MULTIPLE_CONFIG_ATTRIBUTES: "PY1004",
     BAD_PLUGIN_FILE_EXTENSION: "PY2000",
     NO_DEFAULT_EXPORT: "PY2001",
     TOP_LEVEL_AWAIT: "PY9000",
@@ -46,12 +51,20 @@ export class InstallError extends UserError {
     }
 }
 
+function loadBannerCSS(){
+    loadBannerCSS = null;
+    const style = document.createElement('style');
+    style.textContent = bannerCSS
+    document.head.appendChild(style)
+}
+
 export function _createAlertBanner(
     message,
     level,
     messageType = "text",
     logMessage = true,
 ) {
+    loadBannerCSS();
     switch (`log-${level}-${logMessage}`) {
         case "log-error-true":
             console.error(message);

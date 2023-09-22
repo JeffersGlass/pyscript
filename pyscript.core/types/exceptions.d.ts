@@ -4,6 +4,9 @@ export namespace ErrorCode {
     let CONFLICTING_CODE: string;
     let BAD_CONFIG: string;
     let MICROPIP_INSTALL_ERROR: string;
+    let MULTIPLE_PY_CONFIGS: string;
+    let MIXED_CONFIGS: string;
+    let MULTIPLE_CONFIG_ATTRIBUTES: string;
     let BAD_PLUGIN_FILE_EXTENSION: string;
     let NO_DEFAULT_EXPORT: string;
     let TOP_LEVEL_AWAIT: string;

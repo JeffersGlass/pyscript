@@ -193,7 +193,7 @@ class TestConfig(PyScriptTest):
         )
         banner = self.page.wait_for_selector(".py-warning")
         expected = (
-            "Multiple <py-config> tags detected. Only the first will be parsed, all the others will be ignored."
+            "PY1002: Multiple <py-config> tags detected. Only the first will be parsed, all the others will be ignored."
         )
         assert banner.text_content() == expected
 
@@ -211,7 +211,7 @@ class TestConfig(PyScriptTest):
         )
         banner = self.page.wait_for_selector(".py-warning")
         expected = (
-            "<py-config> tag and 'config' attribute cannot be mixed on the same thread. "
+            "PY1003: <py-config> tag and 'config' attribute cannot be mixed on the same thread. "
             "Only the <py-config> tag will be used, any config attributes on non-worker tags will be ignored."
         )
         assert banner.text_content() == expected
@@ -230,7 +230,7 @@ class TestConfig(PyScriptTest):
         )
         banner = self.page.wait_for_selector(".py-warning")
         expected = (
-             "Multiple non-worker tags with 'config' attributes detected; "
+             "PY1004: Multiple non-worker tags with 'config' attributes detected; "
              "only the first will be parsed, all others will be ignored."
         )
         assert banner.text_content() == expected
