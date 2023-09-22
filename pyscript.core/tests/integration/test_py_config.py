@@ -175,7 +175,6 @@ class TestConfig(PyScriptTest):
         )
         assert banner.inner_text() == expected
 
-    @pytest.mark.skip("FIXME: We need to restore the banner.")
     def test_multiple_py_config(self):
         self.pyscript_run(
             """
@@ -188,16 +187,51 @@ class TestConfig(PyScriptTest):
             </py-config>
 
             <script type="py">
-                import js
-                config = js.pyscript_get_config()
-                js.console.log("config name:", config.name)
+                print("Hi")
             </script>
             """
         )
         banner = self.page.wait_for_selector(".py-warning")
         expected = (
-            "Multiple <py-config> tags detected. Only the first "
-            "is going to be parsed, all the others will be ignored"
+            "Multiple <py-config> tags detected. Only the first will be parsed, all the others will be ignored."
+        )
+        assert banner.text_content() == expected
+
+    def test_py_config_and_config_attribute(self):
+        self.pyscript_run(
+            """
+            <py-config>
+            name = "foobar"
+            </py-config>
+
+            <script type="py" config="this config won't be parsed">
+                print("Hi")
+            </script>
+            """
+        )
+        banner = self.page.wait_for_selector(".py-warning")
+        expected = (
+            "<py-config> tag and 'config' attribute cannot be mixed on the same thread. "
+            "Only the <py-config> tag will be used, any config attributes on non-worker tags will be ignored."
+        )
+        assert banner.text_content() == expected
+
+    def test_multiple_config_attributes(self):
+        self.pyscript_run(
+            """
+            <script type="py" config="{}">
+                print("One")
+            </script>
+
+            <script type="py" config="{}">
+                print("One")
+            </script>
+            """
+        )
+        banner = self.page.wait_for_selector(".py-warning")
+        expected = (
+             "Multiple non-worker tags with 'config' attributes detected; "
+             "only the first will be parsed, all others will be ignored."
         )
         assert banner.text_content() == expected
 
