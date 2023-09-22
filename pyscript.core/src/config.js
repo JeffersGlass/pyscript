@@ -3,11 +3,11 @@
  * to use as base config for all py-script elements, importing
  * also a queue of plugins *before* the interpreter (if any) resolves.
  */
-import { $ } from "basic-devtools";
+import { $$ } from "basic-devtools";
 
 import allPlugins from "./plugins.js";
 import { robustFetch as fetch, getText } from "./fetch.js";
-import { ErrorCode } from "./exceptions.js";
+import { ErrorCode, _createAlertBanner } from "./exceptions.js";
 
 const badURL = (url, expected = "") => {
     let message = `(${ErrorCode.BAD_CONFIG}): Invalid URL: ${url}`;
@@ -47,18 +47,34 @@ const syntaxError = (type, url, { message }) => {
 
 // find the shared config for all py-script elements
 let config, plugins, parsed, error, type;
-let pyConfig = $("py-config");
-if (pyConfig) {
+let pyConfigTags = $$("py-config");
+let pyConfigAttributes = $$(
+    [
+        'script[type="py"][config]:not([worker])',
+        "py-script[config]:not([worker])",
+    ].join(","),
+);
+
+if (pyConfigTags.length) {
+    //only one py-config per page
+    if (pyConfigTags.length > 1){ 
+        _createAlertBanner(`Multiple <py-config> tags detected. Only the first will be parsed, all the others will be ignored.`, 'warning')
+    }
+
+    // Can't mix <py-config> tags with 'config' attributes on non-worker tags
+    if (pyConfigAttributes.length) {
+        _createAlertBanner(`<py-config> tag and 'config' attribute cannot be mixed on the same thread. Only the <py-config> tag will be used, any config attributes on non-worker tags will be ignored.`, 'warning')
+    }
+
+    let pyConfig = pyConfigTags[0]
     config = pyConfig.getAttribute("src") || pyConfig.textContent;
     type = pyConfig.getAttribute("type");
-} else {
-    pyConfig = $(
-        [
-            'script[type="py"][config]:not([worker])',
-            "py-script[config]:not([worker])",
-        ].join(","),
-    );
-    if (pyConfig) config = pyConfig.getAttribute("config");
+} else if (pyConfigAttributes.length) {
+    console.log(pyConfigAttributes)
+    if (pyConfigAttributes.length > 1){
+        _createAlertBanner(`Multiple non-worker tags with 'config' attributes detected; only the first will be parsed, all others will be ignored.`, 'warning')
+    }
+    config = pyConfigAttributes[0].getAttribute("config");
 }
 
 // catch possible fetch errors
