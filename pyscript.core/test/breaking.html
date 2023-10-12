@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>PyIndex</title>
+      <script type="module" src="https://pyscript.net/unstable/core.js"></script>
+  </head>
+  <body>
+    
+    <script type="py" worker>
+        print("Starting codeBeforeRunWorker")
+        import pyscript
+        import js
+        import sys
+
+        class Wrapper(object):
+            def __init__(self, obj):
+                setattr(self, "_wrapped_obj", obj)
+            def __getattribute__(self, attr):
+                print(attr)
+                if attr == "document": return pyscript.document
+                if attr == "devicePixelRatio": return 1
+                print(f"About to try to lookup {attr}")
+
+                # Equivalent to return 
+                #return object.__getattribute__(self._wrapped_obj, attr)
+
+        sys.modules['js'] = Wrapper(js)
+        print("js is wrapped?")
+        
+        import js
+        canvas = js.document.createElement("canvas")
+        context = canvas.getContext("2d")
+        context.setLineDash([2, 2])
+        print("done")
+    </script>
+  </body>
+</html>

@@ -12,6 +12,7 @@ hooks.codeBeforeRunWorker.add(`
         def __getattribute__(self, attr):
             print(attr)
             if attr == "document": return pyscript.document
+            if attr == "devicePixelRatio": return 1
             print(f"About to try to lookup {attr}")
 
             # Equivalent to return 
