@@ -1,19 +1,29 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PyScript Next</title>
-        <script>
-            addEventListener("py:ready", console.log);
-        </script>
-        <link rel="stylesheet" href="../dist/core.css">
-        <script type="module" src="../dist/core.js"></script>
-    </head>
-    <body>
-        <script type="py">
-            from pyscript import display
-            display("Hello", "PyScript Next", append=False)
-        </script>
-    </body>
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>PyIndex</title>
+      <!-- <script type="module" src="../dist/core.js"></script> -->
+  </head>
+  <body>
+    <py-config>
+      packages=['matplotlib']
+    </py-config>
+    <script type="importmap">
+      {
+        "imports": {
+          "@pyscript/core" : "../dist/core.js"
+        }
+      }
+    </script>
+    <script type="module" src="js-patch.js"></script>
+    <script type="py" worker>
+      import js
+      js.foo = "hello"
+      print("The answer is: " + str(js.foo))
+    </script>
+    <script type="py" src="mpl-example.py" worker>
+    </script>
+  </body>
 </html>

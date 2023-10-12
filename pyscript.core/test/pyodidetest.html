@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+      <title>Pyodide Test</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      async function main(){
+        console.log("Loading pyodide")
+        let pyodide = await loadPyodide();
+        const mymod = {a: "hello", b: "world"}
+        mymod['__getattribute__'] = null
+        console.log("About to register mymod")
+        pyodide.registerJsModule("mymod", mymod);
+        console.log("About to run python")
+        pyodide.runPython(`
+            print("Starting")
+            import mymod
+            print(mymod.a)
+            print(mymod.b)
+        `);
+      }
+      main();
+    </script>
+  </body>
+</html>
