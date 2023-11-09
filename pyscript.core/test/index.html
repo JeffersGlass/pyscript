@@ -11,9 +11,10 @@
         <script type="module" src="../dist/core.js"></script>
     </head>
     <body>
-        <script type="py">
-            from pyscript import display
-            display("Hello", "PyScript Next", append=False)
+        <script type="py" async>
+            from pyscript.npm import npm_package
+            codemirror = await npm_package('https://cdn.jsdelivr.net/npm/codemirror@6.0.1/+esm', 'codemirror')
+            print(codemirror)
         </script>
     </body>
 </html>
