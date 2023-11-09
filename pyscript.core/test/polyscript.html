@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Polyscript</title>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/polyscript"></script>
+    </head>
+    <body>
+        <script>
+            function aFunc(myArray) {
+                console.log(myArray[0], myArray[1])
+            }
+        </script>
+        <script type="module">
+            import { XWorker } from "https://cdn.jsdelivr.net/npm/polyscript";
+
+            const w = new XWorker("./workertest.py", { type: "pyodide"});
+        </script>
+        <!-- <script type="pyodide">
+            import js
+
+            f = js.aFunc
+            print(f([1,2]))
+        </script> -->
+    </body>
+</html>

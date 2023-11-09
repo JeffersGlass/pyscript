@@ -13,8 +13,8 @@
     <body>
         <script type="py" async>
             from pyscript.npm import npm_package
-            codemirror = await npm_package('https://cdn.jsdelivr.net/npm/codemirror@6.0.1/+esm', 'codemirror')
-            print(codemirror)
+            editor_view = await npm_package('https://cdn.jsdelivr.net/npm/codemirror@6.0.1/+esm', objects=['EditorView'] )
+            print(editor_view)
         </script>
     </body>
 </html>

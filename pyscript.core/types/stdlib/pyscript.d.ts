@@ -4,6 +4,7 @@ declare namespace _default {
         "display.py": string;
         "event_handling.py": string;
         "magic_js.py": string;
+        "npm.py": string;
         "util.py": string;
     };
     let pyweb: {
