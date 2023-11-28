@@ -11,13 +11,14 @@
         
     </head>
     <body>
+        <input type="color" id="main-color" mpy-input="guess_color">
         <div>
             <canvas id="myChart"></canvas>
         </div>
         <script>
             const ctx = document.getElementById('myChart');
           
-            new Chart(ctx, {
+            var c = new Chart(ctx, {
               type: 'bar',
               data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -40,7 +41,7 @@
         <mpy-config>
             packages=['github:jczic/MicroMLP/microMLP.py']
         </mpy-config>
-        <input type="color" id="main-color" mpy-input="guess_color">
+        
         <mpy-config>
             files = ['./color.csv', './color.csv']
         </mpy-config>

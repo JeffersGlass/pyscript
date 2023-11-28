@@ -41,31 +41,9 @@ last_guess = ""
 
 # Construct Chart
 
-Chart = window.Chart
-ctx = window.document.getElementById("myChart")
-
-"""
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-    }]
-    },
-    options: {
-    scales: {
-        y: {
-        beginAtZero: true
-        }
-    }
-    }
-});
-"""
-
-Chart.new(ctx)
+window.console.log(window.c)
+window.c.config._config.data.labels[0] = "FOOO"
+window.c.update() ### TODO Use this strategy to set data on the JS side, using a JS function that gets passed ints or similar
 
 def guess_color(event):
   value = elem.value
