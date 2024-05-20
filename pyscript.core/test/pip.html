@@ -9,11 +9,11 @@
 </head>
 <body>
     <py-config>
-        packages = ['turtleThread']
-        [js_modules.main]
-        "svg-turtle.esm.js" = "JSTurtle"
+        packages = ['pip']
     </py-config>
-    <script type="py" src="test.py">
+    <script type="py">
+        from pyscript import display
+        import pip
     </script>
 </body>
 </html>

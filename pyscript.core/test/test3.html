@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script>
+        async function main() {
+            let pyodide = await loadPyodide();
+            // Pyodide is now ready to use...
+            console.log(pyodide.runPython(`
+                from pyodide.ffi import create_proxy
+                import weakref
+
+                class A:
+                    pass
+
+                a = A()
+                a.b = 42
+
+                weak_a = weakref.ref(a)
+
+                import js
+                js.a = a
+                js.weak_a = weak_a
+                a = create_proxy(a)
+                print("DONE")
+            `));
+            };
+        main();
+    </script>
+</body>
+</html>
